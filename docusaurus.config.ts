@@ -1,12 +1,12 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-    title: 'My Site',
-    tagline: 'Dinosaurs are cool',
+    title: '文件夹',
+    tagline: 'This\'s a Knowledge Base',
     favicon: 'img/favicon.ico',
 
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -23,7 +23,7 @@ const config: Config = {
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: 'ituknown', // Usually your GitHub org/user name.
-    projectName: 'ituknown.github.io', // Usually your repo name.
+    projectName: 'website-docusaurus', // Usually your repo name.
 
     onBrokenLinks: 'throw',
 
@@ -41,10 +41,6 @@ const config: Config = {
             {
                 docs: {
                     sidebarPath: './sidebars.ts',
-                    // Please change this to your repo.
-                    // Remove this to remove the "edit this page" links.
-                    editUrl:
-                        'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
                 },
                 blog: {
                     showReadingTime: true,
@@ -52,10 +48,6 @@ const config: Config = {
                         type: ['rss', 'atom'],
                         xslt: true,
                     },
-                    // Please change this to your repo.
-                    // Remove this to remove the "edit this page" links.
-                    editUrl:
-                        'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
                     // Useful options to enforce blogging best practices
                     onInlineTags: 'warn',
                     onInlineAuthors: 'warn',
@@ -75,9 +67,9 @@ const config: Config = {
             respectPrefersColorScheme: true,
         },
         navbar: {
-            title: 'My Site',
+            title: '文件夹',
             logo: {
-                alt: 'My Site Logo',
+                alt: 'Logo',
                 src: 'img/logo.svg',
             },
             items: [
@@ -87,9 +79,9 @@ const config: Config = {
                     position: 'left',
                     label: 'Tutorial',
                 },
-                {to: '/blog', label: 'Blog', position: 'left'},
+                { to: '/blog', label: 'Blog', position: 'left' },
                 {
-                    href: 'https://github.com/facebook/docusaurus',
+                    href: 'https://github.com/ituknown/website-docusaurus',
                     label: 'GitHub',
                     position: 'right',
                 },
@@ -97,57 +89,10 @@ const config: Config = {
         },
         docs: {
             sidebar: {
-                // 左侧栏可收起
-                hideable: true,
-                // 自动折叠非当前分类
-                autoCollapseCategories: true,
+                hideable: true, // 左侧栏可收起
+                autoCollapseCategories: false, // 自动折叠非当前分类
             },
         },
-        /*footer: {
-            style: 'dark',
-            links: [
-                {
-                    title: 'Docs',
-                    items: [
-                        {
-                            label: 'Tutorial',
-                            to: '/docs/intro',
-                        },
-                    ],
-                },
-                {
-                    title: 'Community',
-                    items: [
-                        {
-                            label: 'Stack Overflow',
-                            href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-                        },
-                        {
-                            label: 'Discord',
-                            href: 'https://discordapp.com/invite/docusaurus',
-                        },
-                        {
-                            label: 'X',
-                            href: 'https://x.com/docusaurus',
-                        },
-                    ],
-                },
-                {
-                    title: 'More',
-                    items: [
-                        {
-                            label: 'Blog',
-                            to: '/blog',
-                        },
-                        {
-                            label: 'GitHub',
-                            href: 'https://github.com/facebook/docusaurus',
-                        },
-                    ],
-                },
-            ],
-            copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-        },*/
         prism: {
             theme: prismThemes.github,
             darkTheme: prismThemes.dracula,
