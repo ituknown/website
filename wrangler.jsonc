@@ -1,8 +1,0 @@
-{
-  "name": "ituknown-website",
-  "compatibility_date": "2025-11-26",
-  "main": "src/pages/index.tsx",
-  "assets": {
-    "directory": "./build"
-  }
-}
