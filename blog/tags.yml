@@ -1,3 +1,7 @@
 CloudFlare:
   label: CloudFlare
   permalink: /cloudflare
+
+Node.js:
+  label: Node.js
+  permalink: /nodejs
