@@ -16,7 +16,7 @@ tags: [CloudFlare, Node.js]
 
 <!-- truncate -->
 
-对于 IT 开发者来说，使用 [CloudFlare Pages](https://pages.cloudflare.com/) 最常用的方式是搭建博客、知识文档一类的。接下来就以 [Docusaurus](https://docusaurus.io/) 为例，从头到尾的快速演示如何使用 [CloudFlare Pages](https://pages.cloudflare.com/) 快速搭建自己的博客网站。
+对于 IT 开发者来说，CloudFlare Pages 最常用的方式是搭建博客、知识文档一类的。接下来就以 [Docusaurus](https://docusaurus.io/) 为例，从头到尾的快速演示如何使用 CloudFlare Pages 快速搭建自己的博客网站。
 
 :::info[**NOTE**]
 
@@ -26,7 +26,7 @@ tags: [CloudFlare, Node.js]
 
 # 创建 docusaurus 文档
 
-首先我假设你已经安装过 [Node.js](https://nodejs.org/)，并知道如何使用 npm 和 yarn，下面是我的 [Node.js](https://nodejs.org/) 系统环境啊：
+首先我假设你已经安装过 [Node.js](https://nodejs.org/)，并知道如何使用 npm 和 yarn，下面是我的 Node.js 系统环境啊：
 
 ```bash
 $ node -v
@@ -41,9 +41,9 @@ $ yarn -v
 
 :::info[**NOTE**]
 
-yarn 和 npm 都是包管理工具，在使用体验没有任何区别。npm 是 [Node.js](https://nodejs.org/) 内置的包管理工具，无需额外安装。
+yarn 和 npm 都是包管理工具，在使用体验没有任何区别。npm 是 Node.js 内置的包管理工具，无需额外安装。
 
-虽然 [Node.js](https://nodejs.org/) 没有内置 yarn，如果你想使用 yarn 也很简单，只需要使用 [Node.js](https://nodejs.org/) 内置的 corepack 简单的执行两个命令即可自动完成安装：
+虽然 Node.js 没有内置 yarn，如果你想使用 yarn 也很简单，只需要使用 Node.js 内置的 corepack 简单的执行两个命令即可自动完成安装：
 
 ```bash
 # 下载 yarn
@@ -92,7 +92,7 @@ npx create-docusaurus@latest website classic --typescript
 
 # CloudFlare Pages 部署静态站点
 
-进入 [CloudFlare Pages](https://pages.cloudflare.com/)，你会看到如下界面：
+进入 CloudFlare Pages，你会看到如下界面：
 
 ![step_1_choose_pages](media/step_1_choose_pages.png)
 
@@ -112,19 +112,19 @@ npx create-docusaurus@latest website classic --typescript
 
 ![step_4_1_project_name](media/step_4_1_project_name.png)
 
-继续向下，开始设置项目框架和构建命令（如下图）。[CloudFlare](https://cloudflare.com/) 已经内置了所有主流的静态网站框架，你能想到的这里都有。我使用的是 [Docusaurus](https://docusaurus.io/) 所以我就选择该框架：
+继续向下，开始设置项目框架和构建命令（如下图）。CloudFlare 已经内置了所有主流的静态网站框架，你能想到的这里都有。我使用的是 [Docusaurus](https://docusaurus.io/) 所以我就选择该框架：
 
 ![step_4_2_build_command](media/step_4_2_build_command.png)
 
-构建命令使用 `npm run build` 或 `yarn run build` ，实际上 [CloudFlare](https://cloudflare.com/) 已经根据项目框架自动帮你填充了。输出目录就指定 build 即可，这是 [Node.js](https://nodejs.org/) 默认的输出目录。
+构建命令使用 `npm run build` 或 `yarn run build` ，实际上 CloudFlare Pages 已经根据项目框架自动帮你填充了。输出目录就指定 build 即可，这是 Node.js 默认的输出目录。
 
-另外，最后别忘记设置一下 [Node.js](https://nodejs.org/) 的 Version 环境变量。[CloudFlare](https://cloudflare.com/) 默认使用的版本可能与你项目不一致，为了防止潜在的问题，建议设置下你构建项目时使用的版本。
+另外，最后别忘记设置一下 Node.js 的 Version 环境变量。CloudFlare Pages 默认使用的版本可能与你项目不一致，为了防止潜在的问题，建议设置下你构建项目时使用的版本。
 
 所有设置都填写完成后，就可以点击保存部署了：
 
 ![step_5_deploy_log](media/step_5_deploy_log.png)
 
-从构建日志中就可以看到使用了我们环境变量中配置的 [Node.js](https://nodejs.org/) 版本，构建完成后也就表示部署完成了。现在你就可以使用 CloudFlare 为你提供的域名访问你的静态站点了。
+从构建日志中就可以看到使用了我们环境变量中配置的 Node.js 版本，构建完成后也就表示部署完成了。现在你就可以使用 CloudFlare 为你提供的域名访问你的静态站点了。
 
 如果你有自己的域名，并想为该 Pages 设置自己的域名，可以继续点击下方的 **Add custom domain**：
 
