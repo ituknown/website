@@ -1,0 +1,45 @@
+---
+slug: 使用-CloudFlare-Pages-部署静态网站
+title: 使用 CloudFlare Pages 部署静态网站
+date: 2025-11-27T13:28
+tags: [CloudFlare]
+-- authors: [magicianlib]
+---
+
+<!-- truncate -->
+
+![step_1_choose_pages](media/step_1_choose_pages.png)
+
+![step_2_import_git](media/step_2_import_git.png)
+
+![step_3_select_repository](media/step_3_select_repository.png)
+
+![step_4_1_project_name](media/step_4_1_project_name.png)
+
+![step_4_2_build_command](media/step_4_2_build_command.png)
+
+![step_5_deploy_log](media/step_5_deploy_log.png)
+
+![step_6_add_custom_domain](media/step_6_add_custom_domain.png)
+
+![step_7_set_up_a_custom_domain](media/step_7_set_up_a_custom_domain.png)
+
+![step_8_input_custom_domain](media/step_8_input_custom_domain.png)
+
+![step_9_activate_domain](media/step_9_activate_domain.png)
+
+![step_10_domain_init](media/step_10_domain_init.png)
+
+:::info[域名验证]
+
+当自定义域名初始化完成之后，会进入 Verifying 阶段。如果你的域名是是在 CloudFlare 上注册的（或在其他服务商注册但是已经迁移到 CloudFlare），到这一步什么都不需要操作，CloudFlare 会自定执行验证。
+
+但是如果你的自定义域名是在其他服务商上注册的（或还未迁移到 CloudFlare），此时需要按照下面的提示，拷贝输入框中的域名信息，之后到你的域名服务商平台的管理页面。在域名 DNS 解析中添加一条 CNAME 记录，目标值就是下面的 Target 中的内容。填写完成之后点击 **Check DNS Records**，如果信息无误，就完成激活验证了。
+
+![step_11_domain_verifying](media/step_11_domain_verifying.png)
+
+:::
+
+当激活成功之后就可以使用你的自定义域名访问网站了：
+
+![step_12_domain_activated](media/step_12_domain_activated.png)
