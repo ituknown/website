@@ -23,7 +23,7 @@ const config: Config = {
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: 'ituknown', // Usually your GitHub org/user name.
-    projectName: 'website-docusaurus', // Usually your repo name.
+    projectName: 'website', // Usually your repo name.
 
     onBrokenLinks: 'throw',
 
@@ -64,7 +64,9 @@ const config: Config = {
         // Replace with your project's social card
         image: 'img/docusaurus-social-card.jpg',
         colorMode: {
-            respectPrefersColorScheme: true,
+            defaultMode: 'light',             // 默认主题 light/dark
+            respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
+            disableSwitch: false,             // 是否禁用切换按钮
         },
         navbar: {
             title: '文件夹',
