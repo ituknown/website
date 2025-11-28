@@ -39,9 +39,7 @@ const config: Config = {
         [
             'classic',
             {
-                docs: {
-                    sidebarPath: './sidebars.ts',
-                },
+                docs: false, // 禁用默认文档插件(默认文档插件id=default)
                 blog: {
                     showReadingTime: true,
                     feedOptions: {
@@ -57,6 +55,32 @@ const config: Config = {
                     customCss: './src/css/custom.css',
                 },
             } satisfies Preset.Options,
+        ],
+    ],
+
+    // 使用 plugins 数组来添加新的 docs 插件实例
+    plugins: [
+        // FFmpeg 文档实例
+        [
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'ffmpeg', // 插件ID
+                path: 'ffmpeg', // 项目 ffmpeg 目录
+                routeBasePath: 'ffmpeg', // 访问路径，例如: 域名/ffmpeg
+                sidebarPath: './sidebars_ffmpeg.ts', // 目录解析
+                showLastUpdateTime: true, // 最近更新时间
+            }
+        ],
+        // Linux 文档实例
+        [
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'linux',
+                path: 'linux', // 项目 linux 目录
+                routeBasePath: 'linux', // 访问路径，例如: 域名/linux
+                sidebarPath: './sidebars_linux.ts', // 目录解析
+                showLastUpdateTime: true, // 最近更新时间
+            }
         ],
     ],
 
@@ -77,9 +101,17 @@ const config: Config = {
             items: [
                 {
                     type: 'docSidebar',
-                    sidebarId: 'tutorialSidebar',
+                    sidebarId: 'ffmpeg',
+                    docsPluginId: 'ffmpeg',
                     position: 'left',
-                    label: 'Tutorial',
+                    label: 'FFmpeg',
+                },
+                {
+                    type: 'docSidebar',
+                    sidebarId: 'linux', // 侧边栏ID
+                    docsPluginId: 'linux', // 插件ID
+                    position: 'left',
+                    label: 'Linux 基础',
                 },
                 { to: '/blog', label: 'Blog', position: 'left' },
                 {
