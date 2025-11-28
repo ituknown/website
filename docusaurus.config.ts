@@ -35,6 +35,12 @@ const config: Config = {
         locales: ['zh'],
     },
 
+    markdown: {
+        format: 'mdx',
+        mermaid: true,
+        emoji: true
+    },
+
     presets: [
         [
             'classic',
@@ -92,10 +98,7 @@ const config: Config = {
             respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
             disableSwitch: false,             // 是否禁用切换按钮
         },
-        tableOfContents: {
-            minHeadingLevel: 2,
-            maxHeadingLevel: 6,
-        },
+
         docs: {
             sidebar: {
                 hideable: true, // 左侧栏可收起
@@ -113,7 +116,7 @@ const config: Config = {
         },
         navbar: {
             title: '文件夹',
-            hideOnScroll: true, // 滚动时隐藏 Top 导航
+            hideOnScroll: false, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
                 src: 'img/logo.svg',
@@ -124,7 +127,7 @@ const config: Config = {
                     sidebarId: 'ffmpeg',
                     docsPluginId: 'ffmpeg',
                     position: 'left',
-                    label: 'FFmpeg',
+                    label: 'FFmpeg 命令行',
                 },
                 {
                     type: 'docSidebar',
