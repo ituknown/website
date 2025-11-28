@@ -10,23 +10,23 @@ tags: [CloudFlare, Node.js]
 
 # 前言
 
-对于个人用户来说，建站最快方式就是使用赛博菩萨（[CloudFlare](https://cloudflare.com/)）提供的 [Pages](https://pages.cloudflare.com/)，只需要在界面简单的点击几下，就能快速的部署一个静态网站，而且每天提供 10W 次免费请求额度，对个人用户真就是“白嫖”。
+对于个人用户来说，建站最快方式就是使用赛博菩萨（[CloudFlare](https://cloudflare.com/)）提供的 [Pages](https://pages.cloudflare.com/)，只需要在界面简单点几下，就能快速的部署一个静态网站，而且每天提供 10W 次免费请求额度，对个人用户真就是“白嫖”。
 
-再加上其强大的 DNS，在全球任意一个地方基本上都能实现毫秒级访问。如果你有自己的专属域名，配合 [CloudFlare Pages](https://pages.cloudflare.com/) 简直不要太爽。
+加上其强大的 DNS，在全球任意一个地方基本上都能实现毫秒级访问。另外如果你有自己的专属域名，配合 [CloudFlare Pages](https://pages.cloudflare.com/) 简直不要太爽。
 
 <!-- truncate -->
 
-对于 IT 开发者来说，CloudFlare Pages 最常用的方式是搭建博客、知识文档一类的。接下来就以 [Docusaurus](https://docusaurus.io/) 为例，从头到尾的快速演示如何使用 CloudFlare Pages 快速搭建自己的博客网站。
+对于 IT 开发者来说，CloudFlare Pages 最常用的方式是搭建博客、知识文档一类的站点。接下来就以 [Docusaurus](https://docusaurus.io/) 为例，从头到尾的快速演示如何使用 CloudFlare Pages 搭建自己的知识网站。
 
 :::info[**NOTE**]
 
-[VitePress](https://vitepress.dev/)、[Docusaurus](https://docusaurus.io/) 和 [HUGO](https://gohugo.com.cn/) 都是主流的静态站点生成器，也都特别适合文档、博客类网站使用。具体可根据自己的喜好自行选择，这里我以 [Docusaurus](https://docusaurus.io/) 为例做说明。
+[VitePress](https://vitepress.dev/)、[Docusaurus](https://docusaurus.io/) 和 [HUGO](https://gohugo.com.cn/) 都是主流的静态站点生成器，也都特别适合文档、博客类网站使用。可根据自己的喜好自行选择，这里我以 [Docusaurus](https://docusaurus.io/) 为例做说明，其他静态站点生成器也是同样操作步骤。
 
 :::
 
 # 创建 docusaurus 文档
 
-首先我假设你已经安装过 [Node.js](https://nodejs.org/)，并知道如何使用 npm 和 yarn，下面是我的 Node.js 系统环境啊：
+首先我假设你已经安装过 [Node.js](https://nodejs.org/)，知道如何使用 npm 和 yarn。下面是我的 Node.js 信息：
 
 ```bash
 $ node -v
@@ -43,13 +43,13 @@ $ yarn -v
 
 yarn 和 npm 都是包管理工具，在使用体验没有任何区别。npm 是 Node.js 内置的包管理工具，无需额外安装。
 
-虽然 Node.js 没有内置 yarn，如果你想使用 yarn 也很简单，只需要使用 Node.js 内置的 corepack 简单的执行两个命令即可自动完成安装：
+虽然 Node.js 没有内置 yarn，但如果你想使用 yarn 也很简单，也不需要额外安装。只需要使用 Node.js 内置的 corepack 简单的执行两个命令就完事了：
 
 ```bash
-# 下载 yarn
+# 启用 yarn
 $ corepack enable yarn
 
-# 验证
+# 验证(实际是自动帮你下载安装)
 $ yarn -v
 ```
 
@@ -80,15 +80,15 @@ npx create-docusaurus@latest website classic --typescript
 └── tsconfig.json
 ```
 
-现在运行 `npm run start` ，打开 [http://localhost:3000/](http://localhost:3000/) 你会看到如下界面：
+运行 `npm run start` 等待编译完成，在浏览器中打开 [http://localhost:3000/](http://localhost:3000/) 你会看到如下界面：
 
 ![step_0_create_docusaurus](media/step_0_create_docusaurus.png)
 
-现在一个简单的静态文档就生成好了。
+现在一个简单的静态文档就生成好了~
 
-关闭终端重新输入 `npm run build` ，就会在项目根目录生成一个 build 文件夹，这个就是静态文档的全部信息。
+接下来，关闭终端重新输入 `npm run build` 。等编译完成，就会发现项目根目录多了一个 build 文件夹，这个文件夹中的内容就是静态站点的全部信息，也是部署静态站点的内容。
 
-之后将该项目上传到 [Github](https://github.com/) 就可以打开 [CloudFlare Pages](https://pages.cloudflare.com/) 开始部署网站了。
+之后将该项目上传到 [Github](https://github.com/) 或 [GitLab](https://gitlab.com)，就可以到 [CloudFlare Pages](https://pages.cloudflare.com/) 部署静态站点了。
 
 # CloudFlare Pages 部署静态站点
 
@@ -102,7 +102,7 @@ npx create-docusaurus@latest website classic --typescript
 
 此时有两个选择，直接上传静态文档或者从 Git 导入构建。如果你想直接上传，只需要将前面生成的 build 文件夹上传即可。不过这种每次做修改时都需要手动执行一次上传，简直不要太麻烦。
 
-我们需要的效果是，每次 Git 分支有新的提交就自动触发构建。所以，这里应该选择第一种 “Import an existing Git repository”。
+我们需要的效果是，每次 Git 分支有新的提交就自动触发构建。所以，这里应该选择第一种 **Import an existing Git repository**。
 
 接下来就需要关联自己的 Github 或 GitLab，根据自己上传的平台关联即可，关联成功后选择刚上传的项目：
 
