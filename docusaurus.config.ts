@@ -65,9 +65,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'ffmpeg', // 插件ID
-                path: 'ffmpeg', // 项目 ffmpeg 目录
+                path: 'docs/ffmpeg', // 项目 ffmpeg 目录
                 routeBasePath: 'ffmpeg', // 访问路径，例如: 域名/ffmpeg
-                sidebarPath: './sidebars_ffmpeg.ts', // 目录解析
+                sidebarPath: './sidebars/ffmpeg.ts', // 目录解析
                 showLastUpdateTime: true, // 最近更新时间
             }
         ],
@@ -76,9 +76,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'linux',
-                path: 'linux', // 项目 linux 目录
+                path: 'docs/linux', // 项目 linux 目录
                 routeBasePath: 'linux', // 访问路径，例如: 域名/linux
-                sidebarPath: './sidebars_linux.ts', // 目录解析
+                sidebarPath: './sidebars/linux.ts', // 目录解析
                 showLastUpdateTime: true, // 最近更新时间
             }
         ],
@@ -92,8 +92,28 @@ const config: Config = {
             respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
             disableSwitch: false,             // 是否禁用切换按钮
         },
+        tableOfContents: {
+            minHeadingLevel: 2,
+            maxHeadingLevel: 6,
+        },
+        docs: {
+            sidebar: {
+                hideable: true, // 左侧栏可收起
+                autoCollapseCategories: false, // 自动折叠非当前分类
+            },
+        },
+        blog: {
+            sidebar: {
+                groupByYear: true, // 根据年分组
+            },
+        },
+        prism: {
+            theme: prismThemes.github,
+            darkTheme: prismThemes.dracula,
+        },
         navbar: {
             title: '文件夹',
+            hideOnScroll: true, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
                 src: 'img/logo.svg',
@@ -108,28 +128,29 @@ const config: Config = {
                 },
                 {
                     type: 'docSidebar',
-                    sidebarId: 'linux', // 侧边栏ID
-                    docsPluginId: 'linux', // 插件ID
+                    sidebarId: 'linux',
+                    docsPluginId: 'linux',
                     position: 'left',
                     label: 'Linux 基础',
                 },
-                { to: '/blog', label: 'Blog', position: 'left' },
                 {
-                    href: 'https://github.com/ituknown/website-docusaurus',
+                    to: '/blog',
+                    label: 'Blog',
+                    position: 'left'
+                },
+
+                // 语言本地化
+                {
+                    type: 'localeDropdown',
+                    position: 'right',
+                },
+
+                {
+                    href: 'https://github.com/ituknown/',
                     label: 'GitHub',
                     position: 'right',
                 },
             ],
-        },
-        docs: {
-            sidebar: {
-                hideable: true, // 左侧栏可收起
-                autoCollapseCategories: false, // 自动折叠非当前分类
-            },
-        },
-        prism: {
-            theme: prismThemes.github,
-            darkTheme: prismThemes.dracula,
         },
     } satisfies Preset.ThemeConfig,
 };
