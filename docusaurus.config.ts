@@ -1,6 +1,8 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -64,6 +66,20 @@ const config: Config = {
         ],
     ],
 
+    // 启用 Katex
+    // https://docusaurus.io/docs/markdown-features/math-equations
+
+    stylesheets: [
+        {
+            // Katex 样式
+            // https://katex.org/docs/browser
+            href: 'https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css',
+            type: 'text/css',
+            integrity: 'sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi',
+            crossorigin: 'anonymous',
+        },
+    ],
+
     // 使用 plugins 数组来添加新的 docs 插件实例
     plugins: [
         // FFmpeg 文档实例
@@ -75,6 +91,8 @@ const config: Config = {
                 routeBasePath: 'ffmpeg', // 访问路径，例如: 域名/ffmpeg
                 sidebarPath: './sidebars/ffmpeg.ts', // 目录解析
                 showLastUpdateTime: true, // 最近更新时间
+                remarkPlugins: [remarkMath], // 启用 katex
+                rehypePlugins: [rehypeKatex], // 启用 katex
             }
         ],
         // Linux 文档实例
