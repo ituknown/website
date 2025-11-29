@@ -38,7 +38,7 @@ $ ffmpeg -f concat -safe 0 -i file.txt -acodec copy -vcodec copy -f mp4 file.mp4
 
 注意，上面示例命令中的媒体文件默认具有相同的编解码格式和分辨率，因此直接使用 `-c copy` 进行流复制。如果你的文件之间有差异（如具有不同的编码），可能就需要进行重新编码以确保具有相同的规格。
 
-**特别说明：**
+:::info[特别说明]
 
 上面示例只是以 `.ts` 文件为例做说明，并不代表不能合并其他格式的视频文件。`ffmpeg` 的牛逼之处不在于能够合并视频，还可以将音视频分离的两个文件进行合并。
 
@@ -47,6 +47,8 @@ $ ffmpeg -f concat -safe 0 -i file.txt -acodec copy -vcodec copy -f mp4 file.mp4
 ```bash
 ffmpeg -i example.mp4 -i example.m4a -c:a copy -c:v copy output.mp4
 ```
+
+:::
 
 ## 少量视频合成
 

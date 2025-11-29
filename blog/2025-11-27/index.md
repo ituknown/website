@@ -18,7 +18,7 @@ tags: [CloudFlare, Node.js]
 
 对于 IT 开发者来说，CloudFlare Pages 最常用的方式是搭建博客、知识文档一类的站点。接下来就以 [Docusaurus](https://docusaurus.io/) 为例，从头到尾的快速演示如何使用 CloudFlare Pages 搭建自己的知识网站。
 
-:::info[**NOTE**]
+:::info[小提示]
 
 [VitePress](https://vitepress.dev/)、[Docusaurus](https://docusaurus.io/) 和 [HUGO](https://gohugo.com.cn/) 都是主流的静态站点生成器，也都特别适合文档、博客类网站使用。可根据自己的喜好自行选择，这里我以 [Docusaurus](https://docusaurus.io/) 为例做说明，其他静态站点生成器也是同样操作步骤。
 
@@ -39,7 +39,7 @@ $ yarn -v
 1.22.22
 ```
 
-:::info[**NOTE**]
+:::info[小提示]
 
 yarn 和 npm 都是包管理工具，在使用体验没有任何区别。npm 是 Node.js 内置的包管理工具，无需额外安装。
 
