@@ -7,11 +7,13 @@ tags: [性能压测]
 
 ## 前言
 
-wrk 是 HTTP 基准测试工具，在单个多核 CPU 上运行时能够产生大量负载，能充分利用CPU资源，是常用的压测工具。不过缺点是不支持 Windows。
+wrk 是 HTTP 基准测试工具，在单个多核 CPU 上运行时能够产生大量负载，能充分利用CPU资源，是常用的压测工具，不过缺点是不支持 Windows。
 
 对应的Github地址是：[https://github.com/wg/wrk](https://github.com/wg/wrk)。
 
-类UNIX系统安装wrk非常简单，基本上都可以直接使用对应的包管理工具直接安装，具体可见：[https://command-not-found.com/wrk](https://command-not-found.com/wrk)。
+类 UNIX 系统安装 wrk 非常简单，基本上都可以直接使用对应的包管理工具直接安装，具体可见：[https://command-not-found.com/wrk](https://command-not-found.com/wrk)。
+
+<!-- truncate -->
 
 如果你的发行版没有提供对应的安装方式，就只能选择编译安装了：
 
