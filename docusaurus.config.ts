@@ -147,6 +147,20 @@ const config: Config = {
         prism: {
             theme: prismThemes.github,
             darkTheme: prismThemes.oneDark,
+            additionalLanguages: [ // 代码语法高亮
+                'bash',
+                'c',
+                'cpp',
+                'dart',
+                'go',
+                'git',
+                'java',
+                'powershell',
+                'rust',
+                'sql',
+                'zig',
+                'yaml',
+            ],
         },
         navbar: {
             title: '文件夹',
