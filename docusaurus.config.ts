@@ -24,15 +24,12 @@ const config: Config = {
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
-    organizationName: 'ituknown', // Usually your GitHub org/user name.
-    projectName: 'website', // Usually your repo name.
+    // organizationName: 'ituknown', // Usually your GitHub org/user name.
+    // projectName: 'website', // Usually your repo name.
 
     // 引用链接不存在, 直接报错
     onBrokenLinks: 'throw',
 
-    // Even if you don't use internationalization, you can use this field to set
-    // useful metadata like html lang. For example, if your site is Chinese, you
-    // may want to replace "en" with "zh-Hans".
     i18n: {
         defaultLocale: 'zh',
         locales: ['zh'],
@@ -61,14 +58,9 @@ const config: Config = {
                 docs: false, // 禁用默认文档插件(默认文档插件id=default)
                 blog: {
                     showReadingTime: true,
-                    feedOptions: {
-                        type: ['rss', 'atom'],
-                        xslt: true,
-                    },
-                    // Useful options to enforce blogging best practices
-                    onInlineTags: 'warn',
-                    onInlineAuthors: 'warn',
-                    onUntruncatedBlogPosts: 'warn',
+                    onInlineTags: 'throw', // 内联不存在的TAG 直接抛出异常
+                    onInlineAuthors: 'throw', // 内联不存在的作者 直接抛出异常
+                    onUntruncatedBlogPosts: 'throw', // 如果文档没设置 <!-- truncate --> 直接抛出异常
                 },
                 sitemap: {
                     changefreq: 'weekly', // 页面更改频率
@@ -84,7 +76,6 @@ const config: Config = {
 
     // 启用 Katex
     // https://docusaurus.io/docs/markdown-features/math-equations
-
     stylesheets: [
         {
             // Katex 样式
@@ -96,31 +87,31 @@ const config: Config = {
         },
     ],
 
-    // 使用 plugins 数组来添加新的 docs 插件实例
+    // 自定义文档插件实例
     plugins: [
-        // FFmpeg 文档实例
         [
+            // FFmpeg 文档实例
             '@docusaurus/plugin-content-docs',
             {
                 id: 'ffmpeg', // 插件ID
-                path: 'docs/ffmpeg', // 项目 ffmpeg 目录
-                routeBasePath: 'ffmpeg', // 访问路径，例如: 域名/ffmpeg
-                sidebarPath: './sidebars/ffmpeg.ts', // 目录解析
+                path: 'docs/ffmpeg', // 文档所在目录
+                routeBasePath: 'ffmpeg', // URL路由，例如: 域名/ffmpeg
+                sidebarPath: './sidebars/ffmpeg.ts', // 侧边栏目录解析
                 showLastUpdateTime: true, // 最近更新时间
                 remarkPlugins: [remarkMath], // 启用 katex
                 rehypePlugins: [rehypeKatex], // 启用 katex
-            }
+            },
         ],
-        // Linux 文档实例
         [
+            // Linux 文档实例
             '@docusaurus/plugin-content-docs',
             {
                 id: 'linux',
-                path: 'docs/linux', // 项目 linux 目录
-                routeBasePath: 'linux', // 访问路径，例如: 域名/linux
-                sidebarPath: './sidebars/linux.ts', // 目录解析
-                showLastUpdateTime: true, // 最近更新时间
-            }
+                path: 'docs/linux',
+                routeBasePath: 'linux',
+                sidebarPath: './sidebars/linux.ts',
+                showLastUpdateTime: true,
+            },
         ],
     ],
 
@@ -128,11 +119,10 @@ const config: Config = {
         // Replace with your project's social card
         image: 'img/docusaurus-social-card.jpg',
         colorMode: {
-            defaultMode: 'light',             // 默认主题 light/dark
+            defaultMode: 'light', // 默认主题 light/dark
             respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
-            disableSwitch: false,             // 是否禁用切换按钮
+            disableSwitch: false, // 是否禁用切换按钮
         },
-
         docs: {
             sidebar: {
                 hideable: true, // 左侧栏可收起
@@ -164,7 +154,7 @@ const config: Config = {
         },
         navbar: {
             title: '文件夹',
-            hideOnScroll: false, // 滚动时隐藏 Top 导航
+            hideOnScroll: true, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
                 src: 'img/logo.svg',
@@ -195,7 +185,6 @@ const config: Config = {
                     type: 'localeDropdown',
                     position: 'right',
                 },
-
                 {
                     href: 'https://github.com/ituknown/',
                     label: 'GitHub',
