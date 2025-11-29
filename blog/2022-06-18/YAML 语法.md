@@ -166,10 +166,10 @@ jedi:
 
 ```yaml
 requests:
-  ## first item of `requests` list is just a string
+  # first item of `requests` list is just a string
   - http://example.com/
 
-  ## second item of `requests` list is a dictionary
+  # second item of `requests` list is a dictionary
   - url: http://example.com/
     method: GET
 ```
