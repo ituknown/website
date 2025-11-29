@@ -6,9 +6,7 @@ tags: [CloudFlare, Node.js]
 -- authors: [magicianlib]
 ---
 
----
-
-# 前言
+## 前言
 
 对于个人用户来说，建站最快方式就是使用赛博菩萨（[CloudFlare](https://cloudflare.com/)）提供的 [Pages](https://pages.cloudflare.com/)，只需要在界面简单点几下，就能快速的部署一个静态网站，而且每天提供 10W 次免费请求额度，对个人用户真就是“白嫖”。
 
@@ -24,7 +22,7 @@ tags: [CloudFlare, Node.js]
 
 :::
 
-# 创建 docusaurus 文档
+## 创建 docusaurus 文档
 
 首先我假设你已经安装过 [Node.js](https://nodejs.org/)，知道如何使用 npm 和 yarn。下面是我的 Node.js 信息：
 
@@ -90,7 +88,7 @@ npx create-docusaurus@latest website classic --typescript
 
 之后将该项目上传到 [Github](https://github.com/) 或 [GitLab](https://gitlab.com)，就可以到 [CloudFlare Pages](https://pages.cloudflare.com/) 部署静态站点了。
 
-# CloudFlare Pages 部署静态站点
+## CloudFlare Pages 部署静态站点
 
 进入 CloudFlare Pages，你会看到如下界面：
 

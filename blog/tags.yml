@@ -5,3 +5,11 @@ CloudFlare:
 Node.js:
   label: Node.js
   permalink: /nodejs
+
+Ventoy:
+  label: Ventoy
+  permalink: /Ventoy
+
+U盘:
+  label: U盘
+  permalink: /U盘
