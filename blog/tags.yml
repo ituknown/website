@@ -21,3 +21,7 @@ U盘:
 性能压测:
   label: 性能压测
   permalink: /性能压测
+
+YAML:
+  label: YAML
+  permalink: /YAML
