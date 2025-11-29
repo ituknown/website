@@ -38,6 +38,8 @@ const config: Config = {
         locales: ['zh'],
     },
 
+    themes: ['@docusaurus/theme-mermaid'],
+
     markdown: {
         format: 'mdx',
         mermaid: true,
@@ -91,6 +93,16 @@ const config: Config = {
 
     // 使用 plugins 数组来添加新的 docs 插件实例
     plugins: [
+        [
+            '@docusaurus/plugin-sitemap',
+            {
+                id: 'sitmap',
+                lastmod: 'date',
+                changefreq: 'weekly',
+                priority: 0.5,
+                filename: 'sitemap.xml',
+            },
+        ],
         // FFmpeg 文档实例
         [
             '@docusaurus/plugin-content-docs',
