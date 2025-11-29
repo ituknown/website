@@ -5,17 +5,13 @@ GitHub 地址：https://github.com/FFmpeg/FFmpeg
 **ffmpeg 安装：**
 
 ```bash
-
 ## Mac 下使用 HomeBrew 安装
-
 $ brew install -v ffmpeg
 
 ## CentOS/RHEL 系统可以使用 YUM 包管理工具安装
-
 $ yum install -y ffmpeg
 
 ## Debain/Ubuntu 系列使用 APT 包管理工具安装
-
 $ apt-get install -y ffmpeg
 ```
 

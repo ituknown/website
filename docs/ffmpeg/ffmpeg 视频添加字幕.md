@@ -15,7 +15,7 @@ Mieruko-chan.mkv
 
 当使用视频播放器打开 Mieruko-chan.mkv 文件时，通常会自动加载同级目录下的两个字幕文件，也就有一种 “视频带字幕” 的错觉，这其实是视频播放器的功能（如下图）：
 
-![select-outside-subtitles-cA6tCrw9ODW03BS5K8.png](https://media.ituknown.org/blog-media/FFmpeg/subtitles/select-outside-subtitles-cA6tCrw9ODW03BS5K8.png)
+<img alt="select-outside-subtitles-cA6tCrw9ODW03BS5K8.png" src="https://media.ituknown.org/blog-media/FFmpeg/subtitles/select-outside-subtitles-cA6tCrw9ODW03BS5K8.png" height="500px" />
 
 不过有些视频播放器不会自动加载同级目录下的字幕文件，因此就需要手动选择（点击加载字幕按钮选择本地字幕文件）。
 
@@ -57,9 +57,9 @@ Stream #0:2: Subtitle: ass  ##### 这个就是字幕流
     DURATION        : 00:23:39.930000000
 ```
 
-:::tip[NOTE]
-不管是外挂字幕还是软字幕，字幕要想正常显示，播放器必须要支持字幕的渲染。
-:::
+| **Note**                                                     |
+| :----------------------------------------------------------- |
+| 不管是外挂字幕还是软字幕，字幕要想正常显示，播放器必须要支持字幕的渲染。 |
 
 ### 硬字幕
 
@@ -79,7 +79,7 @@ Stream #0:2: Subtitle: ass  ##### 这个就是字幕流
 
 下面是 srt 字幕文件内容示例：
 
-![subtitles-srt-example-xZ0R2hL64qWDkH81gu1.png](https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-srt-example-xZ0R2hL64qWDkH81gu1.png)
+<img alt="subtitles-srt-example-xZ0R2hL64qWDkH81gu1.png" src="https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-srt-example-xZ0R2hL64qWDkH81gu1.png" height="500px" />
 
 ### ASS（Advanced Sub Station，高级外挂字幕格式）
 
@@ -93,7 +93,7 @@ ass 字幕文件通常包含五部分： `[Script Info]` 、 `[v4+ Styles]` 、 
 
 下面是 srt 字幕文件内容示例：
 
-![subtitles-ass-example-wX57qkv4M136SDPOFB.png](https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-ass-example-wX57qkv4M136SDPOFB.png)
+<img alt="subtitles-ass-example-wX57qkv4M136SDPOFB.png" src="https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-ass-example-wX57qkv4M136SDPOFB.png" height="500px" />
 
 ### WebVTT （Web Video Text Tracks）字幕格式
 
@@ -101,7 +101,7 @@ WebVTT是通过HTML5中的 元素来标记额外的文本轨道资源，是一�
 
 下面是 vtt 字幕文件内容示例：
 
-![subtitles-vtt-example-gK2G401Y97Hsyw5LRW.png](https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-vtt-example-gK2G401Y97Hsyw5LRW.png)
+<img alt="subtitles-vtt-example-gK2G401Y97Hsyw5LRW.png" src="https://media.ituknown.org/blog-media/FFmpeg/subtitles/subtitles-vtt-example-gK2G401Y97Hsyw5LRW.png" height="500px" />
 
 ### Sbv 字幕格式
 
@@ -112,21 +112,16 @@ Youtube的字幕格式，它可以通过youtube自动生成字幕文件，文件
 字幕转换比较简单，可以直接使用 `ffmpeg` 命令实现 ass、srt、vtt 等字幕格式的相互转换。示例：
 
 ```bash
-
 ## ass 转 srt
-
 $ ffmpeg -i Mieruko-chan.chs.ass Mieruko-chan.chs.srt
 
 ## ass 转 vtt
-
 $ ffmpeg -i Mieruko-chan.chs.ass Mieruko-chan.chs.vtt
 
 ## srt 转 ass
-
 $ ffmpeg -i Mieruko-chan.chs.srt Mieruko-chan.chs.ass
 
 ## 其他同理...
-
 ```
 
 ## 视频添加软字幕（推荐）
@@ -157,17 +152,11 @@ ffmpeg -i video_file -i subtitles_file -c:v copy -c:a copy -c:s copy output_vide
 `copy` 表示选择对应流默认编解码器。以 `-c:s copy` 为例，如果字幕文件是 ass，那么对应的就是 ass 编解码器：
 
 ```bash
-
 ## mkv 添加软字幕
-
 $ ffmpeg -i input.mkv -i subtitles.ass -c copy output.mkv
-
 ## 等同于
-
 $ ffmpeg -i input.mkv -i subtitles.ass -c:v copy -c:a copy -c:s copy output.mkv
-
 ## 等同于
-
 $ ffmpeg -i input.mkv -i subtitles.ass -c:v copy -c:a copy -c:s ass output.mkv
 ```
 
@@ -438,9 +427,9 @@ $ ffmpeg -i input.mkv -vf ass=subtitles.ass output.mp4
 
 关于 `ass` 滤镜的说明见官网文档：[http://ffmpeg.org/ffmpeg-all.html#ass](https://p3terx.com/go/aHR0cDovL2ZmbXBlZy5vcmcvZmZtcGVnLWFsbC5odG1sI2Fzcw)
 
-:::info[NOTE]
-在实际使用中发现 `ass` 和 `subtitles` 最终效果并无区别，但 `ass` 只能使用 ASS 字幕文件，不可以直接使用容器中的字幕流，所以直接使用 `subtitles` 即可，省去了手动提取和转换的过程
-:::
+| **Note**                                                                                                        |
+| :-------------------------------------------------------------------------------------------------------------- |
+| 在实际使用中发现 `ass` 和 `subtitles` 最终效果并无区别，但 `ass` 只能使用 ASS 字幕文件，不可以直接使用容器中的字幕流，所以直接使用 `subtitles` 即可，省去了手动提取和转换的过程。 |
 
 ## 参考链接
 

@@ -54,7 +54,8 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'input.mp4':
 Stream #0:0[0x1](und): Video: hevc (Main) (hev1 / 0x31766568), yuv420p(tv, bt709), 3840x2160 [SAR 1:1 DAR 16:9], 1529 kb/s, 52.47 fps, 52 tbr, 16k tbn (default)
 ```
 
-这行信息表示，第一个流是视频流，视频采用的编解码格式是 hevc，这个就是我们俗称的 H.265 格式（编解码格式具体可以参考下[视频编解码器介绍](视频编解码器介绍.md)）。
+这行信息表示，第一个流是视频流，视频采用的编解码格式是 hevc，这个就是我们俗称的 H.265 格式（编解码格式具体可以参考下 [视频编解码器介绍.md](视频编解码器介绍.md)）。
+
 
 每一帧的数据表示为 yuv420p，分辨率为3840x2160，该轨道流的比特率为 1529 kb/s，帧率（fps）为每秒钟 52.47 帧。
 
@@ -62,33 +63,33 @@ Stream #0:0[0x1](und): Video: hevc (Main) (hev1 / 0x31766568), yuv420p(tv, bt709
 
 ### 提取视频原始比特流（不含音频）
 
-* 提取 H.264 视频原始比特流（不含音频）：
+- 提取 H.264 视频原始比特流（不含音频）：
 
 ```bash
 ffmpeg -i input.mp4 -an -c:v copy out.raw.h264
 ```
 
-* 提取 H.265 视频原始比特流（不含音频）：
+- 提取 H.265 视频原始比特流（不含音频）：
 
 ```bash
 ffmpeg -i input.mp4 -an -c:v copy out.raw.h265
 ```
 
-其中， `-i` 参数后面的 input.mp4 就是你的具体视频文件，最后产生对应的 out.raw.h264 或 out.raw.h265 文件，这个文件名是可以自定义的。
+其中，`-i` 参数后面的 input.mp4 就是你的具体视频文件，最后产生对应的 out.raw.h264 或 out.raw.h265 文件，这个文件名是可以自定义的。
 
 ### 视频流实现倍速播放
 
 #### 方法一：修改时间轴
 
-接下来，就需要修改原始比特流的时间轴以实现倍速播放。可以使用 `setpts` ` 过滤器来实现这一点。下面是一些示例命令：
+接下来，就需要修改原始比特流的时间轴以实现倍速播放。可以使用 `setpts`` 过滤器来实现这一点。下面是一些示例命令：
 
-* 加快播放速度（2倍速）：
+- 加快播放速度（2倍速）：
 
 ```bash
 ffmpeg -i out.raw.h265 -vf "setpts=0.5*PTS" -c:v copy faster_output.h265
 ```
 
-* 减慢播放速度（0.5倍速）：
+- 减慢播放速度（0.5倍速）：
 
 ```bash
 ffmpeg -i out.raw.h265 -vf "setpts=2*PTS" -c:v copy slower_output.h265
@@ -119,6 +120,7 @@ ffmpeg -framerate [原始帧率] -i out.raw.h265 -c:v copy -an -r [新帧率] fa
 ```
 
 主需要将命令中的 [原始帧率] 设为原始视频的帧率，[新帧率] 为你希望设置的新帧率即可。
+
 
 ### 确定音频流编码
 
@@ -156,9 +158,7 @@ ffmpeg -i audio.aac -filter:a "atempo=2.0" -c:a aac faster_audio.aac
 
 ```bash
 ffmpeg -i faster_output.mp4 -i faster_audio.aac -c:v copy -c:a aac -map 0:v -map 1:a output.mp4
-
 ## 或明确指定音视频流轨道
-
 ffmpeg -i faster_output.mp4 -i faster_audio.aac -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
 ```
 
