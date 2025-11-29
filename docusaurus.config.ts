@@ -17,7 +17,7 @@ const config: Config = {
     },
 
     // Set the production url of your site here
-    url: 'https://ituknown.org',
+    url: 'https://ituknown.org/',
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: '/',
@@ -70,6 +70,11 @@ const config: Config = {
                     onInlineAuthors: 'warn',
                     onUntruncatedBlogPosts: 'warn',
                 },
+                sitemap: {
+                    changefreq: 'weekly', // 页面更改频率
+                    priority: 0.5,        // 默认优先级
+                    filename: 'sitemap.xml', // 生成的文件名
+                },
                 theme: {
                     customCss: './src/css/custom.css',
                 },
@@ -93,16 +98,6 @@ const config: Config = {
 
     // 使用 plugins 数组来添加新的 docs 插件实例
     plugins: [
-        [
-            '@docusaurus/plugin-sitemap',
-            {
-                id: 'sitmap',
-                lastmod: 'date',
-                changefreq: 'weekly',
-                priority: 0.5,
-                filename: 'sitemap.xml',
-            },
-        ],
         // FFmpeg 文档实例
         [
             '@docusaurus/plugin-content-docs',
