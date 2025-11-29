@@ -32,15 +32,15 @@ const config: Config = {
     // Even if you don't use internationalization, you can use this field to set
     // useful metadata like html lang. For example, if your site is Chinese, you
     // may want to replace "en" with "zh-Hans".
-    i18n: {
-        defaultLocale: 'zh',
-        locales: ['zh'],
-    },
+    // i18n: {
+    //     defaultLocale: 'zh',
+    //     locales: ['zh'],
+    // },
 
     markdown: {
         format: 'mdx',
         mermaid: true,
-        emoji: true
+        emoji: false
     },
 
     presets: [
@@ -161,10 +161,10 @@ const config: Config = {
                 },
 
                 // 语言本地化
-                {
-                    type: 'localeDropdown',
-                    position: 'right',
-                },
+                // {
+                //     type: 'localeDropdown',
+                //     position: 'right',
+                // },
 
                 {
                     href: 'https://github.com/ituknown/',
