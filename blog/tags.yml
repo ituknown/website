@@ -25,3 +25,7 @@ U盘:
 YAML:
   label: YAML
   permalink: /YAML
+
+磁盘:
+  label: 磁盘
+  permalink: /磁盘
