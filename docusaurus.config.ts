@@ -27,6 +27,7 @@ const config: Config = {
     organizationName: 'ituknown', // Usually your GitHub org/user name.
     projectName: 'website', // Usually your repo name.
 
+    // 引用链接不存在, 直接报错
     onBrokenLinks: 'throw',
 
     // Even if you don't use internationalization, you can use this field to set
@@ -40,7 +41,15 @@ const config: Config = {
     markdown: {
         format: 'mdx',
         mermaid: true,
-        emoji: false
+        emoji: false,
+        anchors: {
+            maintainCase: true,
+        },
+        hooks: {
+            // 引用链接不存在, 直接报错
+            onBrokenMarkdownLinks: 'throw',
+            onBrokenMarkdownImages: 'throw',
+        },
     },
 
     presets: [
