@@ -13,3 +13,7 @@ Ventoy:
 U盘:
   label: U盘
   permalink: /U盘
+
+下载工具:
+  label: 下载工具
+  permalink: /下载工具
