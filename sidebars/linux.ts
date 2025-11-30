@@ -149,6 +149,13 @@ const sidebars: SidebarsConfig = {
         '知识笔记/zsh 自定义 PROMPT 或 PS1 提示',
       ],
     },
+    {
+      type: 'category',
+      label: '虚拟机',
+      items: [
+        '虚拟机/Linux 安装 VMWare 及使用',
+      ],
+    },
   ],
 };
 
