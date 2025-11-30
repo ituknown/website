@@ -146,7 +146,7 @@ npx create-docusaurus@latest website classic --typescript
 
 ![step_9_activate_domain](media/step_9_activate_domain.png)
 
-<details>
+<details open>
 <summary>域名验证？</summary>
 
 当自定义域名初始化完成之后，会进入 Verifying 阶段。如果你的域名是在 CloudFlare 上注册的（或已迁移到 CloudFlare），到这一步什么都不需要操作，CloudFlare 会自定执行验证。
