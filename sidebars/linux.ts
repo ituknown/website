@@ -43,6 +43,14 @@ const sidebars: SidebarsConfig = {
         'Systemd/如何编写服务单元',
       ],
     },
+    {
+      type: 'category',
+      label: '定时作业',
+      items: [
+        '定时作业/Linux crontab 定时作业',
+        '定时作业/run-parts',
+      ],
+    },
   ],
 };
 
