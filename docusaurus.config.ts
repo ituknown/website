@@ -125,6 +125,10 @@ const config: Config = {
             respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
             disableSwitch: false, // 是否禁用切换按钮
         },
+        tableOfContents: {
+            minHeadingLevel: 2,
+            maxHeadingLevel: 6,
+        },
         docs: {
             sidebar: {
                 hideable: true, // 左侧栏可收起
