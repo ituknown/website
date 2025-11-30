@@ -107,6 +107,14 @@ const sidebars: SidebarsConfig = {
         '网络管理/修改默认 DNS',
       ],
     },
+    {
+      type: 'category',
+      label: '常用软件',
+      items: [
+        '常用软件/视频播放器',
+        '常用软件/实用且强大的录屏软件',
+      ],
+    },
 
   ],
 };
