@@ -136,6 +136,19 @@ const sidebars: SidebarsConfig = {
         '文件系统/磁盘分区管理',
       ],
     },
+    {
+      type: 'category',
+      label: '知识笔记',
+      items: [
+        '知识笔记/Debian 切换系统语言',
+        '知识笔记/Debian 系列 APT 安装 OpenJDK 及版本切换',
+        '知识笔记/Debian 系统镜像下载',
+        '知识笔记/Linux 命令不能使用如何解决',
+        '知识笔记/Linux 安装自定义字体',
+        '知识笔记/Linux 的 stdIO 以及重定向输出',
+        '知识笔记/zsh 自定义 PROMPT 或 PS1 提示',
+      ],
+    },
   ],
 };
 
