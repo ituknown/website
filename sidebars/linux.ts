@@ -115,7 +115,14 @@ const sidebars: SidebarsConfig = {
         '常用软件/实用且强大的录屏软件',
       ],
     },
-
+    {
+      type: 'category',
+      label: '文件压缩与解压',
+      items: [
+        '文件压缩与解压/7z 解压缩命令以及加密',
+        '文件压缩与解压/tar 打包与 gzip 压缩',
+      ],
+    },
   ],
 };
 
