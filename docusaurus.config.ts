@@ -111,6 +111,8 @@ const config: Config = {
                 routeBasePath: 'linux',
                 sidebarPath: './sidebars/linux.ts',
                 showLastUpdateTime: true,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
             },
         ],
     ],
@@ -172,7 +174,7 @@ const config: Config = {
                     sidebarId: 'linux',
                     docsPluginId: 'linux',
                     position: 'left',
-                    label: 'Linux 基础',
+                    label: 'Linux',
                 },
                 {
                     to: '/blog',
