@@ -123,6 +123,19 @@ const sidebars: SidebarsConfig = {
         '文件压缩与解压/tar 打包与 gzip 压缩',
       ],
     },
+    {
+      type: 'category',
+      label: '文件系统',
+      items: [
+        '文件系统/ln 创建软连接',
+        '文件系统/dd 命令及制作 Live USB',
+        '文件系统/df 磁盘分区使用分析',
+        '文件系统/du 文件大小分析',
+        '文件系统/mount 文件挂载',
+        '文件系统/U盘格式化',
+        '文件系统/磁盘分区管理',
+      ],
+    },
   ],
 };
 
