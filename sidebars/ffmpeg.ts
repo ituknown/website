@@ -34,12 +34,12 @@ const sidebars: SidebarsConfig = {
       label: 'ffmpeg 进阶使用',
       items: [
         'ffmpeg 进阶使用/ffmpeg 的 map 参数',
-        'ffmpeg 进阶使用/ffmpeg 修改流媒体 Metadata',
         'ffmpeg 进阶使用/ffmpeg 视频添加音频',
         'ffmpeg 进阶使用/ffmpeg 视频添加字幕',
         'ffmpeg 进阶使用/ffmpeg 视频添加封面',
         'ffmpeg 进阶使用/ffmpeg 提取音视频及字幕',
         'ffmpeg 进阶使用/ffmpeg 音视频倍速播放',
+        'ffmpeg 进阶使用/ffmpeg 修改流媒体 Metadata',
         'ffmpeg 进阶使用/ffmpeg 使用 N 卡加速编解码',
       ],
     },
