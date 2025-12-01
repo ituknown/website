@@ -112,16 +112,16 @@ Youtube的字幕格式，它可以通过youtube自动生成字幕文件，文件
 字幕转换比较简单，可以直接使用 `ffmpeg` 命令实现 ass、srt、vtt 等字幕格式的相互转换。示例：
 
 ```bash
-## ass 转 srt
+# ass 转 srt
 $ ffmpeg -i Mieruko-chan.chs.ass Mieruko-chan.chs.srt
 
-## ass 转 vtt
+# ass 转 vtt
 $ ffmpeg -i Mieruko-chan.chs.ass Mieruko-chan.chs.vtt
 
-## srt 转 ass
+# srt 转 ass
 $ ffmpeg -i Mieruko-chan.chs.srt Mieruko-chan.chs.ass
 
-## 其他同理...
+# 其他同理...
 ```
 
 ## 视频添加软字幕（推荐）
@@ -152,11 +152,11 @@ ffmpeg -i video_file -i subtitles_file -c:v copy -c:a copy -c:s copy output_vide
 `copy` 表示选择对应流默认编解码器。以 `-c:s copy` 为例，如果字幕文件是 ass，那么对应的就是 ass 编解码器：
 
 ```bash
-## mkv 添加软字幕
+# mkv 添加软字幕
 $ ffmpeg -i input.mkv -i subtitles.ass -c copy output.mkv
-## 等同于
+# 等同于
 $ ffmpeg -i input.mkv -i subtitles.ass -c:v copy -c:a copy -c:s copy output.mkv
-## 等同于
+# 等同于
 $ ffmpeg -i input.mkv -i subtitles.ass -c:v copy -c:a copy -c:s ass output.mkv
 ```
 
@@ -310,9 +310,9 @@ output.mkv
 
 ```bash
 $ ls
-Mieruko-chan.chs.ass  ## 中文简体
-Mieruko-chan.cht.ass  ## 中文繁体
-Mieruko-chan.mkv      ## mkv视频文件
+Mieruko-chan.chs.ass  # 中文简体
+Mieruko-chan.cht.ass  # 中文繁体
+Mieruko-chan.mkv      # mkv视频文件
 ```
 
 如果想将两个 ass 字幕同时添加到 mkv 视频中（并将中文繁体设置为默认字幕），可以使用下面的命令：
@@ -371,11 +371,11 @@ output.mkv
 $ ffprobe output.mkv
 
 ...
-Stream #0:3(chs): Subtitle: ass (default) ## 第三个轨道是 chs 字幕, 编码格式为 ass
+Stream #0:3(chs): Subtitle: ass (default) # 第三个轨道是 chs 字幕, 编码格式为 ass
   Metadata:
     DURATION        : 00:23:39.930000000
     ....
-Stream #0:4(cht): Subtitle: ass           ## 第四个轨道是 cht 字幕, 编码格式为 ass
+Stream #0:4(cht): Subtitle: ass           # 第四个轨道是 cht 字幕, 编码格式为 ass
   Metadata:
     DURATION        : 00:23:39.930000000
     ....
@@ -435,7 +435,7 @@ $ ffmpeg -i input.mkv -vf ass=subtitles.ass output.mp4
 
 [视频中的硬字幕、软字幕和外挂字幕，怎么分别？](https://zhuanlan.zhihu.com/p/138387967)
 
-[如何使用 FFmpeg 进行视频转码: 字幕](https://wiki.fiveyellowmice.com/wiki/如何使用_FFmpeg_进行视频转码: 字幕)
+[如何使用 FFmpeg 进行视频转码: 字幕](https://wiki.fiveyellowmice.com/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8_FFmpeg_%E8%BF%9B%E8%A1%8C%E8%A7%86%E9%A2%91%E8%BD%AC%E7%A0%81:%E5%AD%97%E5%B9%95)
 
 [使用FFmpeg将字幕文件集成到视频文件](http://www.yaosansi.com/post/ffmpeg-burn-subtitles-into-video/)
 
@@ -443,10 +443,10 @@ $ ffmpeg -i input.mkv -vf ass=subtitles.ass output.mp4
 
 [使用 FFmpeg 为视频添加字幕](https://p3terx.com/archives/add-captions-to-your-videos-with-ffmpeg.html)
 
-https://crifan.github.io/media_process_ffmpeg/website/subtitle/embed/
+[https://crifan.github.io/media_process_ffmpeg/website/subtitle/embed/](https://crifan.github.io/media_process_ffmpeg/website/subtitle/embed/)
 
-https://gist.github.com/juliendkim/aa6315c234395d88799b7037bde5f897
+[https://gist.github.com/juliendkim/aa6315c234395d88799b7037bde5f897](https://gist.github.com/juliendkim/aa6315c234395d88799b7037bde5f897)
 
-https://crifan.github.io/media_process_ffmpeg/website/subtitle/
+[https://crifan.github.io/media_process_ffmpeg/website/subtitle/](https://crifan.github.io/media_process_ffmpeg/website/subtitle/)
 
 [wikibooks：FFMPEG An Intermediate Guide/subtitle options](https://en.wikibooks.org/wiki/FFMPEG_An_Intermediate_Guide/subtitle_options)
