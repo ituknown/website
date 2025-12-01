@@ -154,8 +154,9 @@ const config: Config = {
                 'powershell',
                 'rust',
                 'sql',
-                'zig',
+                "vim",
                 'yaml',
+                'zig',
             ],
         },
         navbar: {
