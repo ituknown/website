@@ -12,16 +12,13 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Shell 使用',
+      label: 'Shell 知识',
       items: [
-        'Shell 使用/zsh',
-        'Shell 使用/&& 和 ; 的区别',
-        'Shell 使用/bash 和 sh 的区别',
-        'Shell 使用/Shell 脚本解释器',
-        'Shell 使用/Linux 变量前导符 $',
-        'Shell 使用/Shell 中的 getopts 命令',
-        'Shell 使用/解析行数据',
-        'Shell 使用/配置文件正确使用姿势',
+        'Shell 知识/&& 和 ; 的区别',
+        'Shell 知识/bash 和 sh 的区别',
+        'Shell 知识/Shell 脚本解释器',
+        'Shell 知识/Linux 变量前导符 $',
+        'Shell 知识/Shell 中的 getopts 命令',
       ],
     },
     {
@@ -57,7 +54,6 @@ const sidebars: SidebarsConfig = {
 
         '用户与权限系统/chmod 命令与文件权限系统',
         '用户与权限系统/chown 命令与文件归属系统',
-
       ],
     },
     {
@@ -75,12 +71,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '系统管理',
+      label: '系统设置',
       items: [
-        '系统管理/TimeZone 时区设置',
-        '系统管理/Linux 系统运行模式（Runlevels）',
-        '系统管理/Linux 开启关闭 GUI 界面',
-        '系统管理/gnome 桌面 File 隐藏 Recent',
+        '系统设置/TimeZone 时区设置',
+        '系统设置/Linux 系统运行模式（Runlevels）',
+        '系统设置/Linux 开启关闭 GUI 界面',
+        '系统设置/gnome 桌面 File 隐藏 Recent',
+        '系统设置/Debian 切换系统语言',
+        '系统设置/Debian 系列 APT 安装 OpenJDK 及版本切换',
       ],
     },
     {
@@ -137,15 +135,16 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '知识笔记',
+      label: '笔记',
       items: [
-        '知识笔记/Debian 切换系统语言',
-        '知识笔记/Debian 系列 APT 安装 OpenJDK 及版本切换',
-        '知识笔记/Debian 系统镜像下载',
-        '知识笔记/Linux 命令不能使用如何解决',
-        '知识笔记/Linux 安装自定义字体',
-        '知识笔记/Linux 的 stdIO 以及重定向输出',
-        '知识笔记/zsh 自定义 PROMPT 或 PS1 提示',
+        '笔记/Debian 系统镜像下载',
+        '笔记/Linux 命令不能使用如何解决',
+        '笔记/Linux 安装自定义字体',
+        '笔记/Linux 的 stdIO 以及重定向输出',
+        '笔记/zsh 配置',
+        '笔记/zsh 自定义 PROMPT 或 PS1 提示',
+        '笔记/解析行数据',
+        '笔记/配置文件正确使用姿势',
       ],
     },
     {
