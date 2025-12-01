@@ -94,7 +94,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'ffmpeg', // 插件ID
-                path: 'docs/FFmpeg', // 文档所在目录
+                path: 'docs/ffmpeg', // 文档所在目录
                 routeBasePath: 'ffmpeg', // URL路由，例如: 域名/ffmpeg
                 sidebarPath: './sidebars/ffmpeg.ts', // 侧边栏目录解析
                 showLastUpdateTime: true, // 最近更新时间
@@ -107,7 +107,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'linux',
-                path: 'docs/Linux',
+                path: 'docs/linux',
                 routeBasePath: 'linux',
                 sidebarPath: './sidebars/linux.ts',
                 showLastUpdateTime: true,
@@ -120,7 +120,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'java',
-                path: 'docs/Java',
+                path: 'docs/java',
                 routeBasePath: 'java',
                 sidebarPath: './sidebars/java.ts',
                 showLastUpdateTime: true,
@@ -133,7 +133,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'spring',
-                path: 'docs/Spring',
+                path: 'docs/spring',
                 routeBasePath: 'spring',
                 sidebarPath: './sidebars/spring.ts',
                 showLastUpdateTime: true,
