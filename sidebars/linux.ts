@@ -2,7 +2,6 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   linux: [
-
     {
       type: 'category',
       label: 'VIM 文本编辑器',
@@ -23,6 +22,14 @@ const sidebars: SidebarsConfig = {
         'Shell 使用/Shell 中的 getopts 命令',
         'Shell 使用/解析行数据',
         'Shell 使用/配置文件正确使用姿势',
+      ],
+    },
+    {
+      type: 'category',
+      label: '文件压缩与解压',
+      items: [
+        '文件压缩与解压/7z 解压缩命令以及加密',
+        '文件压缩与解压/tar 打包与 gzip 压缩',
       ],
     },
     {
@@ -120,7 +127,6 @@ const sidebars: SidebarsConfig = {
         '常用命令和系统工具/多行输入 EOF',
       ],
     },
-
     {
       type: 'category',
       label: '常用软件',
@@ -129,15 +135,6 @@ const sidebars: SidebarsConfig = {
         '常用软件/实用且强大的录屏软件',
       ],
     },
-    {
-      type: 'category',
-      label: '文件压缩与解压',
-      items: [
-        '文件压缩与解压/7z 解压缩命令以及加密',
-        '文件压缩与解压/tar 打包与 gzip 压缩',
-      ],
-    },
-
     {
       type: 'category',
       label: '知识笔记',
