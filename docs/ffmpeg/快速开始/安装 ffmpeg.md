@@ -4,20 +4,20 @@ title: 安装
 
 [FFmpeg](http://ffmpeg.org) 是开源的流媒体领域的瑞士军刀，主要用于处理多媒体数据，包括音频和视频。你在网上能看到的音频播放器、视频播放器以及直播推流软件里面都有它的影子。
 
-:::tip[FFmpeg 主要应用场景]
-1、录制 (Recording)：捕捉和保存音视频流。<br/>
-2、格式转换 (Conversion/Transcoding)：将一个格式的音视频文件转换为另一个格式（比如从 MP4 转换成 WebM，或改变比特率、分辨率等）。<br/>
-3、串流 (Streaming)：在网络上传输实时或预录的音视频数据。<br/>
-4、解码和编码 (Decoding & Encoding)：支持几乎所有主流的音视频编解码器。<br/>
+:::tip[$FFmpeg$ 主要应用场景]
+- 录制 (Recording)：捕捉和保存音视频流。
+- 格式转换 (Conversion/Transcoding)：将一个格式的音视频文件转换为另一个格式（比如从 MP4 转换成 WebM，或改变比特率、分辨率等）。
+- 串流 (Streaming)：在网络上传输实时或预录的音视频数据。
+- 解码和编码 (Decoding & Encoding)：支持几乎所有主流的音视频编解码器。
 
 :::
 
-:::tip[FFmpeg 包含的主要命令行工具和函数库]
-`ffmpeg`: 这是主要的命令行工具，用于转换、录制和流式传输媒体文件。<br/>
-`ffplay`: 一个基于 SDL 和 FFmpeg 库的简单媒体播放器。<br/>
-`ffprobe`: 一个命令行工具，用于分析和显示媒体文件的信息（比如时长、分辨率、比特率、使用的编解码器等）。<br/>
-`libavcodec`: 包含了用于多种项目的音视频编解码器函数库。<br/>
-`libavformat`: 包含了音频与视频格式转换函数库（用于处理各种容器格式，如 MP4, MKV, AVI 等）。
+:::tip[$FFmpeg$ 包含的主要命令行工具和函数库]
+ffmpeg：是主要的命令行工具，用于转换、录制和流式传输媒体文件。<br/>
+ffplay：是一个基于 SDL 和 FFmpeg 库的简单媒体播放器。<br/>
+ffprobe：用于分析和显示媒体文件的信息（比如时长、分辨率、比特率、使用的编解码器等）。<br/>
+libavcodec：包含了用于多种项目的音视频编解码器函数库。<br/>
+libavformat：包含了音频与视频格式转换函数库（用于处理各种容器格式，如 MP4, MKV, AVI 等）。
 :::
 
 [FFmpeg](http://ffmpeg.org) 是开源的，对应的仓库地址是：[https://git.ffmpeg.org/ffmpeg.git](https://git.ffmpeg.org/ffmpeg.git)。
@@ -29,13 +29,13 @@ FFmpeg 每 6 个月会发布一个新的主要版本（Major Release），但都
 如果你使用的是类 UNIX 系统，其实不需要单独去下载，可以通过包管理直接安装二进制程序：
 
 ```bash
-## Mac 下使用 HomeBrew 安装
+# Mac 下使用 HomeBrew 安装
 $ brew install -v ffmpeg
 
-## CentOS/RHEL 系统可以使用 YUM 包管理工具安装
+# CentOS/RHEL 系统可以使用 YUM 包管理工具安装
 $ yum install -y ffmpeg
 
-## Debain/Ubuntu 系列使用 APT 包管理工具安装
+# Debain/Ubuntu 系列使用 APT 包管理工具安装
 $ apt-get install -y ffmpeg
 ```
 
