@@ -83,13 +83,13 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '网络管理',
+      label: '网络设置',
       items: [
-        '网络管理/Debian 系列发行版静态IP设置',
-        '网络管理/Debian 系统缺少网络驱动问题',
-        '网络管理/IP 命令的使用',
-        '网络管理/Linux 命令行设置代理',
-        '网络管理/修改默认 DNS',
+        '网络设置/Debian 系列发行版静态 IP 设置',
+        '网络设置/Debian 系统缺少网络驱动问题',
+        '网络设置/IP 命令',
+        '网络设置/Linux 命令行设置代理',
+        '网络设置/修改默认 DNS',
       ],
     },
     {
