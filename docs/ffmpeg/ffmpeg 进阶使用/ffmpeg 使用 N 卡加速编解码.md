@@ -10,12 +10,12 @@ $ ffmpeg -hide_banner -hwaccels
 
 ```bash
 Hardware acceleration methods:
-cuda    // NVIDIA 的通用 GPU 加速平台
-vaapi   // Video Acceleration API（主要用于 Linux 下的 Intel/AMD）
-qsv     // Intel Quick Sync Video（Intel CPU 的硬件加速）
-dxva2   // Windows 下的 DirectX 视频加速
-d3d11va // Windows 下的 DirectX 视频加速
-opencl  // ...
+cuda    # NVIDIA 的通用 GPU 加速平台
+vaapi   # Video Acceleration API（主要用于 Linux 下的 Intel/AMD）
+qsv     # Intel Quick Sync Video（Intel CPU 的硬件加速）
+dxva2   # Windows 下的 DirectX 视频加速
+d3d11va # Windows 下的 DirectX 视频加速
+opencl  # ...
 vulkan
 d3d12va
 ```
