@@ -94,7 +94,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'ffmpeg', // 插件ID
-                path: 'docs/ffmpeg', // 文档所在目录
+                path: 'docs/FFmpeg', // 文档所在目录
                 routeBasePath: 'ffmpeg', // URL路由，例如: 域名/ffmpeg
                 sidebarPath: './sidebars/ffmpeg.ts', // 侧边栏目录解析
                 showLastUpdateTime: true, // 最近更新时间
@@ -107,9 +107,35 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'linux',
-                path: 'docs/linux',
+                path: 'docs/Linux',
                 routeBasePath: 'linux',
                 sidebarPath: './sidebars/linux.ts',
+                showLastUpdateTime: true,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
+        [
+            // Java 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'java',
+                path: 'docs/Java',
+                routeBasePath: 'java',
+                sidebarPath: './sidebars/java.ts',
+                showLastUpdateTime: true,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
+        [
+            // Spring 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'spring',
+                path: 'docs/Spring',
+                routeBasePath: 'spring',
+                sidebarPath: './sidebars/spring.ts',
                 showLastUpdateTime: true,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -139,6 +165,26 @@ const config: Config = {
             sidebar: {
                 groupByYear: true, // 根据年分组
             },
+        },
+        algolia: {
+            appId: 'A0CR00AVKM',
+            apiKey: 'cd59993bf74e7981f6f3e33fb5916c51',
+            indexName: 'Docusaurus Website',
+
+            // Optional: see doc section below
+            contextualSearch: true,
+
+            // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+            // externalUrlRegex: 'external\\.com|domain\\.com',
+
+            // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
+            replaceSearchResultPathname: {
+                from: '/docs/', // or as RegExp: /\/docs\//
+                to: '/',
+            },
+
+            // Optional: whether you want to use the new Ask AI feature (undefined by default)
+            // askAi: 'YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID',
         },
         prism: {
             theme: prismThemes.github,
@@ -181,6 +227,25 @@ const config: Config = {
                     docsPluginId: 'linux',
                     position: 'left',
                     label: 'Linux',
+                },
+                {
+                    type: 'dropdown',
+                    label: 'JVM',
+                    position: 'left',
+                    items: [
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'java',
+                            docsPluginId: 'java',
+                            label: 'Java 知识笔记',
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'spring',
+                            docsPluginId: 'spring',
+                            label: 'Spring 系列',
+                        },
+                    ],
                 },
                 {
                     to: '/blog',
