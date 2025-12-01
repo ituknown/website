@@ -55,12 +55,36 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: '文件系统',
+      items: [
+        '文件系统/ln 创建软连接',
+        '文件系统/dd 命令及制作 Live USB',
+        '文件系统/df 磁盘分区使用分析',
+        '文件系统/du 文件大小分析',
+        '文件系统/mount 文件挂载',
+        '文件系统/U盘格式化',
+        '文件系统/磁盘分区管理',
+      ],
+    },
+    {
+      type: 'category',
       label: '系统管理',
       items: [
         '系统管理/TimeZone 时区设置',
         '系统管理/Linux 系统运行模式（Runlevels）',
         '系统管理/Linux 开启关闭 GUI 界面',
         '系统管理/gnome 桌面 File 隐藏 Recent',
+      ],
+    },
+    {
+      type: 'category',
+      label: '网络管理',
+      items: [
+        '网络管理/Debian 系列发行版静态IP设置',
+        '网络管理/Debian 系统缺少网络驱动问题',
+        '网络管理/IP 命令的使用',
+        '网络管理/Linux 命令行设置代理',
+        '网络管理/修改默认 DNS',
       ],
     },
     {
@@ -96,17 +120,7 @@ const sidebars: SidebarsConfig = {
         '常用命令和系统工具/多行输入 EOF',
       ],
     },
-    {
-      type: 'category',
-      label: '网络管理',
-      items: [
-        '网络管理/Debian 系列发行版静态IP设置',
-        '网络管理/Debian 系统缺少网络驱动问题',
-        '网络管理/IP 命令的使用',
-        '网络管理/Linux 命令行设置代理',
-        '网络管理/修改默认 DNS',
-      ],
-    },
+
     {
       type: 'category',
       label: '常用软件',
@@ -123,19 +137,7 @@ const sidebars: SidebarsConfig = {
         '文件压缩与解压/tar 打包与 gzip 压缩',
       ],
     },
-    {
-      type: 'category',
-      label: '文件系统',
-      items: [
-        '文件系统/ln 创建软连接',
-        '文件系统/dd 命令及制作 Live USB',
-        '文件系统/df 磁盘分区使用分析',
-        '文件系统/du 文件大小分析',
-        '文件系统/mount 文件挂载',
-        '文件系统/U盘格式化',
-        '文件系统/磁盘分区管理',
-      ],
-    },
+
     {
       type: 'category',
       label: '知识笔记',

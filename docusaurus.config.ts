@@ -148,6 +148,7 @@ const config: Config = {
                 'c',
                 'cpp',
                 'dart',
+                'docker',
                 'go',
                 'git',
                 'java',
