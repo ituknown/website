@@ -4,7 +4,7 @@
 
 要使用 FFmpeg 合并多个视频文件文件，主要使用 `concat` 参数。
 
-1. 首先，创建一个文本文件，其中包含要合并的 mp4 文件的列表。每行应包含一个文件的路径，*文件书写的顺序就是合并的顺序*。如下所示：
+$1.$ 首先，创建一个文本文件，其中包含要合并的 mp4 文件的列表。每行应包含一个文件的路径，*文件书写的顺序就是合并的顺序*。如下所示：
 
 ```
 file /path/01.ts
@@ -16,14 +16,13 @@ file ./../ 3.ts
 
 保存这个文本文件（例如，命名为`filelist.txt`）。
 
-2. 打开终端或命令提示符，并使用以下命令合并 mp4 文件：
+$2.$ 打开终端或命令提示符，并使用以下命令合并 mp4 文件：
 
 ```bash
-ffmpeg -f concat -safe 0 -i filelist.txt -c copy output.mp4
-
-## 是下面命令的简写形式
-
 $ ffmpeg -f concat -safe 0 -i file.txt -acodec copy -vcodec copy -f mp4 file.mp4
+
+# 简写形式:
+$ ffmpeg -f concat -safe 0 -i filelist.txt -c copy output.mp4
 ```
 
 这个命令的各个部分解释如下：
