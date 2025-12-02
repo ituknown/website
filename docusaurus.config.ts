@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 
 const config: Config = {
     title: '文件夹',
-    tagline: 'This\'s a Knowledge Base',
+    // tagline: 'This\'s a Knowledge Base',
     favicon: 'img/favicon.ico',
 
     headTags: [
@@ -181,19 +181,7 @@ const config: Config = {
             appId: 'S2Q2TJV9SH',
             apiKey: 'fc9d428f8815ca5b5b860b70f05d31de',
             indexName: 'ituknown_org', // algolia 爬虫名称
-            contextualSearch: false,
-
-            // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-            // externalUrlRegex: 'external\\.com|domain\\.com',
-
-            // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
-            // replaceSearchResultPathname: {
-            //     from: '/docs/', // or as RegExp: /\/docs\//
-            //     to: '/',
-            // },
-
-            // Optional: whether you want to use the new Ask AI feature (undefined by default)
-            // askAi: 'YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID',
+            contextualSearch: true,
         },
         prism: {
             theme: prismThemes.github,
