@@ -11,6 +11,16 @@ const config: Config = {
     tagline: 'This\'s a Knowledge Base',
     favicon: 'img/favicon.ico',
 
+    headTags: [
+        {
+            tagName: 'meta',
+            attributes: {
+                name: 'algolia-site-verification',
+                content: '67A9C1C52E1A5045',
+            },
+        },
+    ],
+
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: {
         v4: true, // Improve compatibility with the upcoming Docusaurus v4
@@ -21,7 +31,7 @@ const config: Config = {
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: '/',
-    trailingSlash: true,
+    trailingSlash: true, // 这里要配置尾斜杠, 否则 algolia 爬虫会失败
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
@@ -171,8 +181,6 @@ const config: Config = {
             appId: 'A0CR00AVKM',
             apiKey: 'cd59993bf74e7981f6f3e33fb5916c51',
             indexName: 'ituknown', // algolia 爬虫名称
-
-            searchPagePath: 'search',
 
             // Optional: see doc section below
             // contextualSearch: true,
