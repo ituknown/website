@@ -178,9 +178,9 @@ const config: Config = {
             },
         },
         algolia: {
-            appId: 'P6HULOB9HL',
-            apiKey: 'e4d868f87600bd628c82c479373820f6',
-            indexName: 'ituknown', // algolia 爬虫名称
+            appId: 'S2Q2TJV9SH',
+            apiKey: 'b209d35523d79c1953ca6900e676ad37',
+            indexName: 'ituknown_org_s2q2tjv9sh_pages', // algolia 爬虫名称
             contextualSearch: true,
 
             // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
