@@ -178,8 +178,8 @@ const config: Config = {
             },
         },
         algolia: {
-            appId: 'A0CR00AVKM',
-            apiKey: 'cd59993bf74e7981f6f3e33fb5916c51',
+            appId: 'P6HULOB9HL',
+            apiKey: 'e4d868f87600bd628c82c479373820f6',
             indexName: 'ituknown', // algolia 爬虫名称
 
             // Optional: see doc section below
