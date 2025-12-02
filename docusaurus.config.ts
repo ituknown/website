@@ -17,10 +17,11 @@ const config: Config = {
     },
 
     // Set the production url of your site here
-    url: 'https://ituknown.org/',
+    url: 'https://ituknown.org',
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: '/',
+    trailingSlash: true,
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
@@ -261,7 +262,7 @@ const config: Config = {
                     position: 'right',
                 },
                 {
-                    href: 'https://github.com/ituknown/',
+                    href: 'https://github.com/ituknown',
                     label: 'GitHub',
                     position: 'right',
                 },
