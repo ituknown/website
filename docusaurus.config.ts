@@ -169,7 +169,7 @@ const config: Config = {
         algolia: {
             appId: 'A0CR00AVKM',
             apiKey: 'cd59993bf74e7981f6f3e33fb5916c51',
-            indexName: 'Docusaurus Website', // algolia 爬虫名称
+            indexName: 'ituknown', // algolia 爬虫名称
 
             searchPagePath: 'search',
 
