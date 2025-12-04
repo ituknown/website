@@ -102,12 +102,30 @@ $s:$ 表示字幕流
 <u>这个元数据非必须，但是如果你修改的是 flac 音频文件，那该元数据就是必须的，且值也必须指定为 `Cover (front)`。所以在实际使用时，还是建议保留该元数据。</u>
 </details>
 
-
 <details open>
 <summary>**`-disposition:v:1 attached_pic`**</summary>
 
 将第二个视频流标记为封面（封面图片），<u>这个必须要设置</u>。因为很多主流的播放器都是以 attached_pic 来判断是否设置了封面。
 </details>
+
+:::tip[一个给 flac 添加封面的示例]
+
+```bash
+ffmpeg \
+-i input.flac \
+-i cover.jpg \
+-map 0:a \
+-map 1:v \
+-c copy \
+-metadata:s:v title="Album Cover" \
+-metadata:s:v comment="Cover (front)" \
+-disposition:v attached_pic \
+output.flac
+```
+
+因为只有一个视频流，所以在设置视频流元数据（`-metadata:s:v`）时，可以直接忽略视频流的索引。
+
+:::
 
 ## -disposition 参数说明
 
