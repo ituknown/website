@@ -9,7 +9,7 @@ import rehypeKatex from 'rehype-katex';
 const config: Config = {
     title: '笔记本',
     // tagline: 'This\'s a Knowledge Base',
-    favicon: 'img/favicon.ico',
+    favicon: 'img/favicon.png',
 
     headTags: [
         {
@@ -208,7 +208,7 @@ const config: Config = {
             hideOnScroll: true, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
-                src: 'img/logo.svg',
+                src: 'img/favicon.png',
             },
             items: [
                 {
