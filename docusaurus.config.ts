@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-    title: '文件夹',
+    title: '笔记本',
     // tagline: 'This\'s a Knowledge Base',
     favicon: 'img/favicon.ico',
 
@@ -204,7 +204,7 @@ const config: Config = {
             ],
         },
         navbar: {
-            title: '文件夹',
+            title: 'NOTE',
             hideOnScroll: true, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
