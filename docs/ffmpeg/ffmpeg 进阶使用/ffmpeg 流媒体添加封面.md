@@ -7,7 +7,9 @@ ffmpeg \
 -map 0:v \
 -map 0:a \
 -map 1:v \
--c copy \
+-c:v:0 copy \
+-c:a:0 copy \
+-c:v:1 mjpeg \
 -metadata:s:v:1 title="Album Cover" \
 -metadata:s:v:1 comment="Cover (front)" \
 -disposition:v:1 attached_pic \
@@ -75,9 +77,38 @@ output.mp4
 </details>
 
 <details open>
-<summary>**`-c copy`**</summary>
+<summary>**`-c copy`**<br/>**`-c:v:0 copy -c:a:0 copy -c:v:1 mjpeg`**</summary>
 
-对提取（`map`）的流只做复制操作，不重新编码。就是说保留原视频流、音频流的编码格式，不做任何操作（最主要的是对流重新编码特别浪费时间）。
+该参数用于控制对提取（`map`）的流做指定编码操作，如果你不想重新编码，直接使用 `copy` 即可。
+
+命令中，针对第一个视频流和第一个音频流我什么操作也不需要做，所以直接 copy：
+
+```bash
+-c:v:0 copy \
+-c:a:0 copy \
+```
+
+但是封面有点不一样，<u>大多数播放器要求封面必须采用 MJPEG 编码</u>。所以针对封面视频流，不能直接使用 copy，而是要重新编码：
+
+```bash
+-c:v:1 mjpeg \
+```
+
+:::tip
+如果你的封面图片本身就是 MJPEG 编码（cover.mjpeg），那就不需要重新编码了，可以直接将：
+
+```bash
+-c:v:0 copy \
+-c:a:0 copy \
+-c:v:1 mjpeg \
+```
+
+简化成：
+
+```bash
+-c copy \
+```
+:::
 </details>
 
 <details open>
@@ -118,14 +149,15 @@ ffmpeg \
 -i cover.jpg \
 -map 0:a \
 -map 1:v \
--c copy \
+-c:a copy \
+-c:v mjpeg \
 -metadata:s:v title="Album Cover" \
 -metadata:s:v comment="Cover (front)" \
 -disposition:v attached_pic \
 output.flac
 ```
 
-因为只有一个视频流，所以在设置视频流元数据（`-metadata:s:v`）时，可以直接忽略视频流的索引。
+因为同一个类型的流只有一个（一个音频流，一个视频流），所以在处理流数据（`-c:a copy -c:v mjpeg`）和设置视频流元数据（`-metadata:s:v`）时，没有指定流索引。
 
 :::
 
