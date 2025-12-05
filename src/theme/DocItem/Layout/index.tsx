@@ -62,6 +62,7 @@ export default function DocItemLayout({ children }: Props): ReactNode {
           <DocItemPaginator />
         </div>
         <br />
+        <br />
         <Giscus
           id="comments"
           repo="ituknown/website"
