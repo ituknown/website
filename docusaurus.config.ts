@@ -204,7 +204,7 @@ const config: Config = {
             ],
         },
         navbar: {
-            title: 'NOTE',
+            // title: 'NoteBook',
             hideOnScroll: true, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
