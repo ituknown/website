@@ -152,6 +152,19 @@ const config: Config = {
                 rehypePlugins: [rehypeKatex],
             },
         ],
+        [
+            // Kafka 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'kafka',
+                path: 'docs/kafka',
+                routeBasePath: 'kafka',
+                sidebarPath: './sidebars/kafka.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
     ],
 
     themeConfig: {
@@ -227,20 +240,26 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: 'JVM',
+                    label: 'JVM 生态',
                     position: 'left',
                     items: [
                         {
                             type: 'docSidebar',
                             sidebarId: 'java',
                             docsPluginId: 'java',
-                            label: 'Java 知识笔记',
+                            label: 'Java 笔记',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'spring',
                             docsPluginId: 'spring',
-                            label: 'Spring 系列',
+                            label: 'Spring',
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'kafka',
+                            docsPluginId: 'kafka',
+                            label: 'Kafka',
                         },
                     ],
                 },
