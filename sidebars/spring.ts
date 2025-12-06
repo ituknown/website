@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
         'Spring 强制使用 cglib 的好处',
         '单例 Bean 中注入原型 Bean',
         'Aware 容器感知化技术',
+        'BeanFactory 与 FactoryBean 区别',
         {
             type: 'category',
             label: 'SpringBoot',
