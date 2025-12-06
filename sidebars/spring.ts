@@ -8,6 +8,7 @@ const sidebars: SidebarsConfig = {
         '依赖注入',
         '依赖注入与注入模式',
         'Spring 如何判断事务是否生效',
+        'Spring 强制使用 cglib 的好处',
         {
             type: 'category',
             label: 'SpringBoot',
