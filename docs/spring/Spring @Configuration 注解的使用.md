@@ -212,13 +212,13 @@ public class Application {
 输出结果如下：
 
 ```
-com.mingrn.spring.configuration.Config$$EnhancerBySpringCGLIB$$28924ffb@4f9a3314
+com.ituknown.spring.configuration.Config$$EnhancerBySpringCGLIB$$28924ffb@4f9a3314
 ```
 
 现在再将 @Configuration 注解移除，再次执行。输出结果如下：
 
 ```plain
-com.mingrn.spring.configuration.Config@4eb7f003
+com.ituknown.spring.configuration.Config@4eb7f003
 ```
 
 从两次输出，我们很明显的看到其不同。没加 @Configuration 注解打印的结果显示还是我们原来的类，但是增加 @Configuration 注解后输出结果显示该类不是原来的类的，它被 cglib 代理了！

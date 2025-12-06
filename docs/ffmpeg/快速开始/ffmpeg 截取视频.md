@@ -36,7 +36,7 @@ ffmpeg -ss 00:00:00 -t 15 -i 源文件名 -vcodec copy -acodec copy 目标文件
 ```bash
 $ ls -lh
 total 236360
--rw-r--r--@ 1 mingrn97  staff   115M Nov  8 11:33 文件系统.flv
+-rw-r--r--@ 1 ituknown  staff   115M Nov  8 11:33 文件系统.flv
 ```
 
 视频总时长为 27 分钟，现在以十分钟进行一个切割，共切割成三个视频，之后看下三个视频的大小加起来是否与原视频大小一致：
@@ -52,10 +52,10 @@ $ ffmpeg -ss 00:20:00 -i 文件系统.flv -vcodec copy -acodec copy 文件系统
 ```bash
 $ ls -lh
 total 472920
--rw-r--r--@ 1 mingrn97  staff   115M Nov  8 11:33 文件系统.flv
--rw-r--r--  1 mingrn97  staff    43M Mar 24 17:31 文件系统1.flv
--rw-r--r--  1 mingrn97  staff    42M Mar 24 17:33 文件系统2.flv
--rw-r--r--  1 mingrn97  staff    31M Mar 24 17:33 文件系统3.flv
+-rw-r--r--@ 1 ituknown  staff   115M Nov  8 11:33 文件系统.flv
+-rw-r--r--  1 ituknown  staff    43M Mar 24 17:31 文件系统1.flv
+-rw-r--r--  1 ituknown  staff    42M Mar 24 17:33 文件系统2.flv
+-rw-r--r--  1 ituknown  staff    31M Mar 24 17:33 文件系统3.flv
 ```
 
 :::info[Note]

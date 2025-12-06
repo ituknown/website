@@ -161,7 +161,7 @@ public class Application {
 最后，输出结果如下：
 
 ```properties
-Project{name='Spring Aware 容器化感知技术', author='MinGRn'}
+Project{name='Spring Aware 容器化感知技术', author='ituknown'}
 ```
 
 所以，在某些情况下 `EnvironmentAware` 是很重要的！
@@ -180,7 +180,7 @@ Project{name='Spring Aware 容器化感知技术', author='MinGRn'}
 
 ```properties
 project.name = Spring Aware Container perception technology
-project.author = MinGRn
+project.author = ituknown
 ```
 
 :::info
@@ -246,7 +246,7 @@ public class Application {
 
 #### 加载磁盘和网络资源文件
 
-同样的，如果想要加载磁盘资源文件只需要使用 `file://` 协议即可。比如这里将 `application.properties` 文件放置在 `/Users/mingrn/Download` 目录下，跟之前的代码一样，修改下位置即可：
+同样的，如果想要加载磁盘资源文件只需要使用 `file://` 协议即可。比如这里将 `application.properties` 文件放置在 `/Users/ituknown/Download` 目录下，跟之前的代码一样，修改下位置即可：
 
 ```java
 public class MyResourceLoader implements ResourceLoaderAware {
@@ -254,7 +254,7 @@ public class MyResourceLoader implements ResourceLoaderAware {
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
 
-        Resource resource = resourceLoader.getResource("file:///Users/mingrn/Download/application.properties");
+        Resource resource = resourceLoader.getResource("file:///Users/ituknown/Download/application.properties");
     }
 }
 ```

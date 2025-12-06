@@ -16,17 +16,17 @@
 $ lsof | more -5
 
 COMMAND     PID     USER   FD      TYPE             DEVICE  SIZE/OFF                NODE NAME
-loginwind   138 mingrn97  cwd       DIR                1,4       640                   2 /
-loginwind   138 mingrn97  txt       REG                1,4   2672336 1152921500312203572 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow
-loginwind   138 mingrn97  txt       REG                1,4     36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
-loginwind   138 mingrn97  txt       REG                1,4     64950            24528495 /private/var/db/analyticsd/events.whitelist
-loginwind   138 mingrn97  txt       REG                1,4      7496            24530800 /Library/Application Support/CrashReporter/SubmitDiagInfo.domains
-loginwind   138 mingrn97  txt       REG                1,4    306080 1152921500312376508 /System/Library/LoginPlugins/DisplayServices.loginPlugin/Contents/MacOS/DisplayServices
-loginwind   138 mingrn97  txt       REG                1,4    196672 1152921500312376559 /System/Library/LoginPlugins/FSDisconnect.loginPlugin/Contents/MacOS/FSDisconnect
-loginwind   138 mingrn97  txt       REG                1,4    240512            19663561 /private/var/db/timezone/tz/2021a.1.0/icutz/icutz44l.dat
-loginwind   138 mingrn97  txt       REG                1,4    136152 1152921500312198778 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car
-loginwind   138 mingrn97  txt       REG                1,4    268144 1152921500312778108 /usr/lib/libobjc-trampolines.dylib
-loginwind   138 mingrn97  txt       REG                1,4    228968 1152921500312198772 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/FunctionRowAppearance.car
+loginwind   138 ituknown  cwd       DIR                1,4       640                   2 /
+loginwind   138 ituknown  txt       REG                1,4   2672336 1152921500312203572 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow
+loginwind   138 ituknown  txt       REG                1,4     36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
+loginwind   138 ituknown  txt       REG                1,4     64950            24528495 /private/var/db/analyticsd/events.whitelist
+loginwind   138 ituknown  txt       REG                1,4      7496            24530800 /Library/Application Support/CrashReporter/SubmitDiagInfo.domains
+loginwind   138 ituknown  txt       REG                1,4    306080 1152921500312376508 /System/Library/LoginPlugins/DisplayServices.loginPlugin/Contents/MacOS/DisplayServices
+loginwind   138 ituknown  txt       REG                1,4    196672 1152921500312376559 /System/Library/LoginPlugins/FSDisconnect.loginPlugin/Contents/MacOS/FSDisconnect
+loginwind   138 ituknown  txt       REG                1,4    240512            19663561 /private/var/db/timezone/tz/2021a.1.0/icutz/icutz44l.dat
+loginwind   138 ituknown  txt       REG                1,4    136152 1152921500312198778 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car
+loginwind   138 ituknown  txt       REG                1,4    268144 1152921500312778108 /usr/lib/libobjc-trampolines.dylib
+loginwind   138 ituknown  txt       REG                1,4    228968 1152921500312198772 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/FunctionRowAppearance.car
 ```
 
 **说明：** 由于直接使用 `lsof` 打开的文件过多，所以通过 `more` 命令进行分页查看。这里每行显示一个打开的文件，若不指定条件默认将显示所有进程打开的所有文件。
@@ -58,15 +58,15 @@ loginwind   138 mingrn97  txt       REG                1,4    228968 11529215003
 $ lsof -nP
 
 COMMAND     PID     USER   FD      TYPE             DEVICE  SIZE/OFF                NODE NAME
-loginwind   138 mingrn97  cwd       DIR                1,4       640                   2 /
-loginwind   138 mingrn97  txt       REG                1,4   2672336 1152921500312203572 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow
-loginwind   138 mingrn97  txt       REG                1,4     36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
-loginwind   138 mingrn97  txt       REG                1,4     64950            24528495 /private/var/db/analyticsd/events.whitelist
-loginwind   138 mingrn97  txt       REG                1,4      7496            24530800 /Library/Application Support/CrashReporter/SubmitDiagInfo.domains
-loginwind   138 mingrn97  txt       REG                1,4    306080 1152921500312376508 /System/Library/LoginPlugins/DisplayServices.loginPlugin/Contents/MacOS/DisplayServices
-loginwind   138 mingrn97  txt       REG                1,4    196672 1152921500312376559 /System/Library/LoginPlugins/FSDisconnect.loginPlugin/Contents/MacOS/FSDisconnect
-loginwind   138 mingrn97  txt       REG                1,4    240512            19663561 /private/var/db/timezone/tz/2021a.1.0/icutz/icutz44l.dat
-loginwind   138 mingrn97  txt       REG                1,4    136152 1152921500312198778 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car
+loginwind   138 ituknown  cwd       DIR                1,4       640                   2 /
+loginwind   138 ituknown  txt       REG                1,4   2672336 1152921500312203572 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow
+loginwind   138 ituknown  txt       REG                1,4     36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
+loginwind   138 ituknown  txt       REG                1,4     64950            24528495 /private/var/db/analyticsd/events.whitelist
+loginwind   138 ituknown  txt       REG                1,4      7496            24530800 /Library/Application Support/CrashReporter/SubmitDiagInfo.domains
+loginwind   138 ituknown  txt       REG                1,4    306080 1152921500312376508 /System/Library/LoginPlugins/DisplayServices.loginPlugin/Contents/MacOS/DisplayServices
+loginwind   138 ituknown  txt       REG                1,4    196672 1152921500312376559 /System/Library/LoginPlugins/FSDisconnect.loginPlugin/Contents/MacOS/FSDisconnect
+loginwind   138 ituknown  txt       REG                1,4    240512            19663561 /private/var/db/timezone/tz/2021a.1.0/icutz/icutz44l.dat
+loginwind   138 ituknown  txt       REG                1,4    136152 1152921500312198778 /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car
 ```
 
 另外，还有一个参数 `-l`，该参数含义是列出用户的 `UID`。看上面的输出示例中 `USER` 栏信息，默认展示的是用户名，如果加上 `-l` 参数输出的就会是用户的 `UID`：
@@ -117,15 +117,15 @@ $ jps -l
 $ lsof -nP -p 31043
 
 COMMAND   PID     USER   FD     TYPE             DEVICE SIZE/OFF                NODE NAME
-java    31043 mingrn97  cwd      DIR                1,4      256            18515583 /Users/mingrn97/JetBrains/Docker/docker-web
-java    31043 mingrn97  txt      REG                1,4   113360              531910 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/bin/java
-java    31043 mingrn97  txt      REG                1,4    49480              532093 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libverify.dylib
-java    31043 mingrn97  txt      REG                1,4   217140              532059 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libjava.dylib
-java    31043 mingrn97  txt      REG                1,4   142140              532054 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libinstrument.dylib
-java    31043 mingrn97  txt      REG                1,4    32768            24570955 /private/var/folders/mq/y1gb7qh53rl32lr089tbdrlm0000gn/T/hsperfdata_mingrn97/31043
-java    31043 mingrn97  txt      REG                1,4    36680              532094 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libzip.dylib
-java    31043 mingrn97  txt      REG                1,4    36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
-java    31043 mingrn97  txt      REG                1,4  3135615              531978 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/charsets.jar
+java    31043 ituknown  cwd      DIR                1,4      256            18515583 /Users/ituknown/JetBrains/Docker/docker-web
+java    31043 ituknown  txt      REG                1,4   113360              531910 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/bin/java
+java    31043 ituknown  txt      REG                1,4    49480              532093 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libverify.dylib
+java    31043 ituknown  txt      REG                1,4   217140              532059 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libjava.dylib
+java    31043 ituknown  txt      REG                1,4   142140              532054 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libinstrument.dylib
+java    31043 ituknown  txt      REG                1,4    32768            24570955 /private/var/folders/mq/y1gb7qh53rl32lr089tbdrlm0000gn/T/hsperfdata_ituknown/31043
+java    31043 ituknown  txt      REG                1,4    36680              532094 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/libzip.dylib
+java    31043 ituknown  txt      REG                1,4    36508            24528289 /Library/Preferences/Logging/.plist-cache.meviJjSd
+java    31043 ituknown  txt      REG                1,4  3135615              531978 /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/charsets.jar
 ```
 
 另外，还可以继续借助 `grep` 查看所有的 `LISTEN` 连接：
@@ -133,8 +133,8 @@ java    31043 mingrn97  txt      REG                1,4  3135615              53
 ```bash
 $ lsof -nP -p 31043 | grep LISTEN
 
-java    31043 mingrn97   83u    IPv6 0x3986139a36e6cbf9      0t0                 TCP *:49370 (LISTEN)
-java    31043 mingrn97   90u    IPv6 0x3986139a36e63bf9      0t0                 TCP *:8080 (LISTEN)
+java    31043 ituknown   83u    IPv6 0x3986139a36e6cbf9      0t0                 TCP *:49370 (LISTEN)
+java    31043 ituknown   90u    IPv6 0x3986139a36e63bf9      0t0                 TCP *:8080 (LISTEN)
 ```
 
 **这样我们就实现了通过进程查询对应的网络端口信息了~**
@@ -147,10 +147,10 @@ java    31043 mingrn97   90u    IPv6 0x3986139a36e63bf9      0t0                
 $ lsof -nP -i :8080
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-  x81     1869 mingrn97    27u  IPv4 0x3986139a3657d6d1      0t0  TCP 192.168.1.109:64919->121.51.139.161:8080 (ESTABLISHED)
-  x81     1869 mingrn97    40u  IPv4 0x3986139a3657e0f9      0t0  TCP 192.168.1.109:64920->121.51.139.161:8080 (ESTABLISHED)
-  x81     1869 mingrn97    50u  IPv4 0x3986139a304e3281      0t0  TCP 192.168.1.109:65023->121.51.139.161:8080 (ESTABLISHED)
-java      31043 mingrn97   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
+  x81     1869 ituknown    27u  IPv4 0x3986139a3657d6d1      0t0  TCP 192.168.1.109:64919->121.51.139.161:8080 (ESTABLISHED)
+  x81     1869 ituknown    40u  IPv4 0x3986139a3657e0f9      0t0  TCP 192.168.1.109:64920->121.51.139.161:8080 (ESTABLISHED)
+  x81     1869 ituknown    50u  IPv4 0x3986139a304e3281      0t0  TCP 192.168.1.109:65023->121.51.139.161:8080 (ESTABLISHED)
+java      31043 ituknown   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
 ```
 
 当然还可以继续借助 `grep` 命令进行过滤 LISTEN 连接的文件信息：
@@ -158,7 +158,7 @@ java      31043 mingrn97   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LI
 ```bash
 $ lsof -nP -i :8080 | grep LISTEN
 
-java      31043 mingrn97   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
+java      31043 ituknown   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
 ```
 
 ## 列出所有进程 PID
@@ -215,11 +215,11 @@ $ lsof -i [4|6][protocol][@hostname|hostaddr][:service|port]
 $ lsof -nP -i4
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-loginwind   138 mingrn97    8u  IPv4 0x3986139a262bd659      0t0  UDP *:*
-ControlCe   379 mingrn97    3u  IPv4 0x3986139a280d33b9      0t0  UDP *:*
-rapportd    388 mingrn97    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
-rapportd    388 mingrn97    7u  IPv4 0x3986139a29f2cd89      0t0  UDP *:*
-rapportd    388 mingrn97    8u  IPv4 0x3986139a28055a99      0t0  UDP *:*
+loginwind   138 ituknown    8u  IPv4 0x3986139a262bd659      0t0  UDP *:*
+ControlCe   379 ituknown    3u  IPv4 0x3986139a280d33b9      0t0  UDP *:*
+rapportd    388 ituknown    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
+rapportd    388 ituknown    7u  IPv4 0x3986139a29f2cd89      0t0  UDP *:*
+rapportd    388 ituknown    8u  IPv4 0x3986139a28055a99      0t0  UDP *:*
 ```
 
 同理，也可以仅仅列出 IPv6 文件信息：
@@ -228,12 +228,12 @@ rapportd    388 mingrn97    8u  IPv4 0x3986139a28055a99      0t0  UDP *:*
 $ lsof -nP -i6
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-rapportd    388 mingrn97    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
-corespeec   436 mingrn97    4u  IPv6 0x3986139a2d850579      0t0  TCP [fe80:8::aede:48ff:fe00:1122]:64917->[fe80:8::aede:48ff:fe33:4455]:49369 (ESTABLISHED)
-idea        738 mingrn97    9u  IPv6 0x3986139a25aaa579      0t0  TCP 127.0.0.1:49273->127.0.0.1:51954 (ESTABLISHED)
-idea        738 mingrn97   32u  IPv6 0x3986139a25ca2f19      0t0  TCP 127.0.0.1:49273->127.0.0.1:51953 (ESTABLISHED)
-idea        738 mingrn97   52u  IPv6 0x3986139a36e64f19      0t0  TCP 127.0.0.1:49340 (LISTEN)
-idea        738 mingrn97   62u  IPv6 0x3986139a29fa0f19      0t0  TCP 127.0.0.1:6942 (LISTEN)
+rapportd    388 ituknown    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
+corespeec   436 ituknown    4u  IPv6 0x3986139a2d850579      0t0  TCP [fe80:8::aede:48ff:fe00:1122]:64917->[fe80:8::aede:48ff:fe33:4455]:49369 (ESTABLISHED)
+idea        738 ituknown    9u  IPv6 0x3986139a25aaa579      0t0  TCP 127.0.0.1:49273->127.0.0.1:51954 (ESTABLISHED)
+idea        738 ituknown   32u  IPv6 0x3986139a25ca2f19      0t0  TCP 127.0.0.1:49273->127.0.0.1:51953 (ESTABLISHED)
+idea        738 ituknown   52u  IPv6 0x3986139a36e64f19      0t0  TCP 127.0.0.1:49340 (LISTEN)
+idea        738 ituknown   62u  IPv6 0x3986139a29fa0f19      0t0  TCP 127.0.0.1:6942 (LISTEN)
 ```
 
 ### 指定传输层协议
@@ -246,12 +246,12 @@ idea        738 mingrn97   62u  IPv6 0x3986139a29fa0f19      0t0  TCP 127.0.0.1:
 $ lsof -nP -iTCP
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-rapportd    388 mingrn97    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
-rapportd    388 mingrn97    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
-rapportd    388 mingrn97   13u  IPv4 0x3986139a3cbadfb9      0t0  TCP 192.168.1.109:64906->192.168.1.114:64579 (ESTABLISHED)
-cloudd      420 mingrn97  139u  IPv4 0x3986139a3ba60b21      0t0  TCP 192.168.1.109:51896->222.73.192.248:443 (ESTABLISHED)
-corespeec   436 mingrn97    4u  IPv6 0x3986139a2d850579      0t0  TCP [fe80:8::aede:48ff:fe00:1122]:64917->[fe80:8::aede:48ff:fe33:4455]:49369 (ESTABLISHED)
-SogouServ   496 mingrn97    8u  IPv4 0x3986139a304e1e31      0t0  TCP 192.168.1.109:51985->39.156.167.33:80 (ESTABLISHED)
+rapportd    388 ituknown    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
+rapportd    388 ituknown    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
+rapportd    388 ituknown   13u  IPv4 0x3986139a3cbadfb9      0t0  TCP 192.168.1.109:64906->192.168.1.114:64579 (ESTABLISHED)
+cloudd      420 ituknown  139u  IPv4 0x3986139a3ba60b21      0t0  TCP 192.168.1.109:51896->222.73.192.248:443 (ESTABLISHED)
+corespeec   436 ituknown    4u  IPv6 0x3986139a2d850579      0t0  TCP [fe80:8::aede:48ff:fe00:1122]:64917->[fe80:8::aede:48ff:fe33:4455]:49369 (ESTABLISHED)
+SogouServ   496 ituknown    8u  IPv4 0x3986139a304e1e31      0t0  TCP 192.168.1.109:51985->39.156.167.33:80 (ESTABLISHED)
 ```
 
 同理，也可以仅仅列出 UDP 协议文件信息：
@@ -260,12 +260,12 @@ SogouServ   496 mingrn97    8u  IPv4 0x3986139a304e1e31      0t0  TCP 192.168.1.
 $ lsof -nP -iUDP
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-loginwind   138 mingrn97    8u  IPv4 0x3986139a262bd659      0t0  UDP *:*
-ControlCe   379 mingrn97    3u  IPv4 0x3986139a280d33b9      0t0  UDP *:*
-rapportd    388 mingrn97    7u  IPv4 0x3986139a29f2cd89      0t0  UDP *:*
-rapportd    388 mingrn97    8u  IPv4 0x3986139a28055a99      0t0  UDP *:*
-rapportd    388 mingrn97   12u  IPv4 0x3986139a2807eae9      0t0  UDP *:*
-rapportd    388 mingrn97   14u  IPv4 0x3986139a262bfc89      0t0  UDP *:3722
+loginwind   138 ituknown    8u  IPv4 0x3986139a262bd659      0t0  UDP *:*
+ControlCe   379 ituknown    3u  IPv4 0x3986139a280d33b9      0t0  UDP *:*
+rapportd    388 ituknown    7u  IPv4 0x3986139a29f2cd89      0t0  UDP *:*
+rapportd    388 ituknown    8u  IPv4 0x3986139a28055a99      0t0  UDP *:*
+rapportd    388 ituknown   12u  IPv4 0x3986139a2807eae9      0t0  UDP *:*
+rapportd    388 ituknown   14u  IPv4 0x3986139a262bfc89      0t0  UDP *:3722
 ```
 
 #### 指定传输层连接状态
@@ -276,13 +276,13 @@ rapportd    388 mingrn97   14u  IPv4 0x3986139a262bfc89      0t0  UDP *:3722
 $ lsof -nP -iTCP -sTCP:LISTEN
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-rapportd    388 mingrn97    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
-rapportd    388 mingrn97    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
-idea        738 mingrn97   52u  IPv6 0x3986139a36e64f19      0t0  TCP 127.0.0.1:49340 (LISTEN)
-idea        738 mingrn97   62u  IPv6 0x3986139a29fa0f19      0t0  TCP 127.0.0.1:6942 (LISTEN)
-idea        738 mingrn97   98u  IPv6 0x3986139a36b9ef19      0t0  TCP 127.0.0.1:61382 (LISTEN)
-idea        738 mingrn97  101u  IPv6 0x3986139a25ca1bf9      0t0  TCP 127.0.0.1:61290 (LISTEN)
-idea        738 mingrn97  482u  IPv6 0x3986139a29fa08b9      0t0  TCP 127.0.0.1:49366 (LISTEN)
+rapportd    388 ituknown    5u  IPv4 0x3986139a304e46d1      0t0  TCP *:64906 (LISTEN)
+rapportd    388 ituknown    6u  IPv6 0x3986139a41e65579      0t0  TCP *:64906 (LISTEN)
+idea        738 ituknown   52u  IPv6 0x3986139a36e64f19      0t0  TCP 127.0.0.1:49340 (LISTEN)
+idea        738 ituknown   62u  IPv6 0x3986139a29fa0f19      0t0  TCP 127.0.0.1:6942 (LISTEN)
+idea        738 ituknown   98u  IPv6 0x3986139a36b9ef19      0t0  TCP 127.0.0.1:61382 (LISTEN)
+idea        738 ituknown  101u  IPv6 0x3986139a25ca1bf9      0t0  TCP 127.0.0.1:61290 (LISTEN)
+idea        738 ituknown  482u  IPv6 0x3986139a29fa08b9      0t0  TCP 127.0.0.1:49366 (LISTEN)
 ```
 
 或者仅仅列出闲置(`Idle`) 的 UDP 文件信息：
@@ -305,10 +305,10 @@ $ lsof -nP -iUDP -sUDP:Idle
 $ lsof -nP -i :8080
 
 COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-  x81     1869 mingrn97    27u  IPv4 0x3986139a3657d6d1      0t0  TCP 192.168.1.109:64919->121.51.139.161:8080 (ESTABLISHED)
-  x81     1869 mingrn97    40u  IPv4 0x3986139a3657e0f9      0t0  TCP 192.168.1.109:64920->121.51.139.161:8080 (ESTABLISHED)
-  x81     1869 mingrn97    50u  IPv4 0x3986139a304e3281      0t0  TCP 192.168.1.109:65023->121.51.139.161:8080 (ESTABLISHED)
-java      31043 mingrn97   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
+  x81     1869 ituknown    27u  IPv4 0x3986139a3657d6d1      0t0  TCP 192.168.1.109:64919->121.51.139.161:8080 (ESTABLISHED)
+  x81     1869 ituknown    40u  IPv4 0x3986139a3657e0f9      0t0  TCP 192.168.1.109:64920->121.51.139.161:8080 (ESTABLISHED)
+  x81     1869 ituknown    50u  IPv4 0x3986139a304e3281      0t0  TCP 192.168.1.109:65023->121.51.139.161:8080 (ESTABLISHED)
+java      31043 ituknown   90u  IPv6 0x3986139a36e63bf9      0t0  TCP *:8080 (LISTEN)
 ```
 
 ### 指定主机

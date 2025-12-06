@@ -85,7 +85,7 @@ public interface BeanFactory {
 @Component("user")
 public class User {
 
-    private String name = "mingrn";
+    private String name = "ituknown";
 
     private String sex = "boy";
 
@@ -121,10 +121,10 @@ public class Application {
 
 ```plaintext
 -------------ByType----------
-User{name='mingrn', sex='boy'}
+User{name='ituknown', sex='boy'}
 
 -------------ByName----------
-User{name='mingrn', sex='boy'}
+User{name='ituknown', sex='boy'}
 ```
 
 其实，有关 `BeanFactory` 我们最常使用的方式就是 `BeanFactoryAware` 接口，以如下方式：
@@ -250,7 +250,7 @@ boolean isSingleton();
 // @Component("user") <== 注释该注解
 public class User {
 
-    private String name = "mingrn";
+    private String name = "ituknown";
 
     private String sex = "boy";
 
@@ -301,7 +301,7 @@ public class Application {
 
 ```
 CustomFactoryBean.class
-User{name='mingrn', sex='boy'}
+User{name='ituknown', sex='boy'}
 ```
 
 从结果上说明了一个问题： `CustomFactoryBean` 类产生了两个 Bean！这也是 FactoryBean 的最大特性，现在应该理解了该接口的作用了吧？
@@ -316,8 +316,8 @@ bean.print();
 这行代码会输出什么？结果令人不可思议的是启动报错：
 
 ```
-Exception in thread "main" java.lang.ClassCastException: com.mingrn.User cannot be cast to com.mingrn.CustomFactoryBean
-	at com.mingrn.Application.main(Application.java:10)
+Exception in thread "main" java.lang.ClassCastException: com.ituknown.User cannot be cast to com.ituknown.CustomFactoryBean
+	at com.ituknown.Application.main(Application.java:10)
 ```
 
 输出信息提示： `User.class` 类型不能被转换成 `CustomFactoryBean.class` 类型！是不是很不可思议？
@@ -332,7 +332,7 @@ System.out.println(userBean.toString());
 不可思议的是输出了如下信息：
 
 ```plain
-User{name='mingrn', sex='boy'}
+User{name='ituknown', sex='boy'}
 ```
 
 <details open>
@@ -464,7 +464,7 @@ public class SqlSessionFactoryBean
 // 实体类
 public class User {
 
-    private String name = "mingrn";
+    private String name = "ituknown";
 
     private String sex = "boy";
 

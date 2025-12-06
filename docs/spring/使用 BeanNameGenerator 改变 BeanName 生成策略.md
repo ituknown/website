@@ -21,11 +21,11 @@ public class UserService{
 那基于 XML 配置的你知道吗？
 
 ```xml
-<bean id="user" class="com.mingrn.spring.beanname.bean.User" />
-<bean class="com.mingrn.spring.beanname.bean.Admin" />
+<bean id="user" class="com.ituknown.spring.beanname.bean.User" />
+<bean class="com.ituknown.spring.beanname.bean.Admin" />
 ```
 
-告诉我， `Admin.class` 在 Spring 容器中的名称是什么？你知道吗？别告诉我是 `admin` ，如果你这么以为只能说你同样图深破。如果你回答是该类的全限定名即 `com.mingrn.spring.beanname.Admin` ，那你可以自豪的说你略懂一二。那么，接下来我再问你还有其他名字吗？如果你回答我的是类的全限定名加上 `#` 符号再加上数字编号那你厉害了。
+告诉我， `Admin.class` 在 Spring 容器中的名称是什么？你知道吗？别告诉我是 `admin` ，如果你这么以为只能说你同样图深破。如果你回答是该类的全限定名即 `com.ituknown.spring.beanname.Admin` ，那你可以自豪的说你略懂一二。那么，接下来我再问你还有其他名字吗？如果你回答我的是类的全限定名加上 `#` 符号再加上数字编号那你厉害了。
 
 你不信？那现在咱们来测试一下，就利用上面的 XML，命名为 `spring.xml` 文件编写测试类：
 
@@ -42,7 +42,7 @@ public class Admin {
 public class Application {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        Admin admin = (Admin) context.getBean("com.mingrn.spring.beanname.bean.Admin");
+        Admin admin = (Admin) context.getBean("com.ituknown.spring.beanname.bean.Admin");
         admin.print();
     }
 }
@@ -54,7 +54,7 @@ public class Application {
 public class Application {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        Admin admin = (Admin) context.getBean("com.mingrn.spring.beanname.bean.Admin#0");
+        Admin admin = (Admin) context.getBean("com.ituknown.spring.beanname.bean.Admin#0");
         admin.print();
     }
 }
@@ -83,7 +83,7 @@ Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitio
 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297)
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1108)
-	at com.mingrn.spring.beanname.Application.main(Application.java:15)
+	at com.ituknown.spring.beanname.Application.main(Application.java:15)
 ```
 
 异常提示你找不到名称为 `admin` 的 Bean！是不是很奇怪？加下来我们来具体说下 `BeanNameGenerator` 生成策略~
@@ -174,7 +174,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 }
 ```
 
-在上面的源码中都做了解释说明，其中真正的重点方式就是最后一个方法： `buildDefaultBeanName(BeanDefinition definition)` ，在这个方法中传递了一个参数 `BeanDefinition` 。很好理解，它就是 Bean 的描述类。在方法中直接获取 Bean 的全限定名： `beanClassName` ，比如 `com.mingrn.spring.beanname.bean.Admin` 。接下来就是直接获取省略包名直接获取类名： `Admin` 。这里使用的是 `ClassUtils` 工具类，其实很简单。无非就是截取最后一个 `.` 进行字符串操作而已：
+在上面的源码中都做了解释说明，其中真正的重点方式就是最后一个方法： `buildDefaultBeanName(BeanDefinition definition)` ，在这个方法中传递了一个参数 `BeanDefinition` 。很好理解，它就是 Bean 的描述类。在方法中直接获取 Bean 的全限定名： `beanClassName` ，比如 `com.ituknown.spring.beanname.bean.Admin` 。接下来就是直接获取省略包名直接获取类名： `Admin` 。这里使用的是 `ClassUtils` 工具类，其实很简单。无非就是截取最后一个 `.` 进行字符串操作而已：
 
 ```java
 public abstract class ClassUtils {
@@ -332,7 +332,7 @@ public abstract class BeanDefinitionReaderUtils {
                                           BeanDefinitionRegistry registry,
                                           boolean isInnerBean){
 
-        // 获取 Bean 的全限定名, 比如 com.mingrn.spring.beanname.bean.Admin
+        // 获取 Bean 的全限定名, 比如 com.ituknown.spring.beanname.bean.Admin
 		String generatedBeanName = definition.getBeanClassName();
 
 		if (generatedBeanName == null) {
@@ -382,7 +382,7 @@ public abstract class BeanDefinitionReaderUtils {
 
 现在我们只需要看最后一个方法 `uniqueBeanName` 。其实在上面一步就基本上生成了 BeanName，那为什么还再进行调用该方法呢？就是为了确保唯一 BeanName！
 
-很简单的一个循环：判断当前 BeanName 在容器中是否存在，即使不存在初始也要进行循环一次。这就代表了如果你的类的全限定名为 `com.mingrn.spring.beanname.bean.Admin` 那么在容器中将会在后面增加序号： `#0` ，结果就是 `com.mingrn.spring.beanname.bean.Admin#0` 。如果之后还是有重复的 BeanName 将继续自增1操作。
+很简单的一个循环：判断当前 BeanName 在容器中是否存在，即使不存在初始也要进行循环一次。这就代表了如果你的类的全限定名为 `com.ituknown.spring.beanname.bean.Admin` 那么在容器中将会在后面增加序号： `#0` ，结果就是 `com.ituknown.spring.beanname.bean.Admin#0` 。如果之后还是有重复的 BeanName 将继续自增1操作。
 
 所以现在你明白为什么基于 XML 配置的 BeanName 默认是全限定名或全限定名加限定符 `#` 后增加序号了吗？
 
@@ -418,7 +418,7 @@ public class CustomeBeanNameGenerator implements BeanNameGenerator {
 ```java
 @Configuration
 @ComponentScan(
-    value = "com.mingrn.spring.beanname",
+    value = "com.ituknown.spring.beanname",
     nameGenerator = CustomeBeanNameGenerator.class  // <== 指定 BeanNameGenerator 类
 )
 public class Config {
@@ -437,8 +437,8 @@ public class Config {
 最后，我们启动测试类看下输出信息：
 
 ```plain
-Bean:[com.mingrn.spring.beanname.bean.Admin] Id Is: _admin
-Bean:[com.mingrn.spring.beanname.bean.User] Id Is: _user
+Bean:[com.ituknown.spring.beanname.bean.Admin] Id Is: _admin
+Bean:[com.ituknown.spring.beanname.bean.User] Id Is: _user
 ```
 
 如果你不信输出的信息，你可以再执行如下方法看是否成功获取 Admin 类型的 Bean，并成功打印输出信息：
