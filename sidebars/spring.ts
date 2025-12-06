@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
         'Spring 如何判断事务是否生效',
         'Spring 强制使用 cglib 的好处',
         '单例 Bean 中注入原型 Bean',
+        'Aware 容器感知化技术',
         {
             type: 'category',
             label: 'SpringBoot',
