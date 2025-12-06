@@ -7,6 +7,7 @@ const sidebars: SidebarsConfig = {
         '容器初始化流程源码解析',
         '依赖注入',
         '依赖注入与注入模式',
+        'Spring 如何判断事务是否生效',
         {
             type: 'category',
             label: 'SpringBoot',
