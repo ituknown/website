@@ -6,6 +6,7 @@ const sidebars: SidebarsConfig = {
         'Spring 事件与异步监听器',
         '容器初始化流程源码解析',
         '依赖注入',
+        '依赖注入与注入模式',
         {
             type: 'category',
             label: 'SpringBoot',
