@@ -30,12 +30,12 @@
 }
 
 
-.navbar__brand{
-  margin-right: -0.8rem!important;
-  transition: all 0.3s ease-in-out;
+.navbar__brand {
+  margin-right: 0rem;
+  transition: all 0.1s ease-in-out;
 }
 
-.navbar__brand:hover{
+.navbar__brand:hover {
   scale: 1.2;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
