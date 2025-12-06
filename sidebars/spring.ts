@@ -14,6 +14,7 @@ const sidebars: SidebarsConfig = {
         'Spring @Configuration 注解的使用',
         'ConfigurationClassPostProcess 源码解析',
         'Spring Bean 循环依赖源码解析',
+        'Spring 的几种扩展方式',
         {
             type: 'category',
             label: 'SpringBoot',
