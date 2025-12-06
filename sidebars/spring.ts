@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
             label: 'SpringBoot',
             items: [
                 'SpringBoot/自定义 Configuration Properties',
+                'SpringBoot/自动装配的四种模式',
             ],
         },
     ],
