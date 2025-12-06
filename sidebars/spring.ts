@@ -12,6 +12,8 @@ const sidebars: SidebarsConfig = {
         'Aware 容器感知化技术',
         'BeanFactory 与 FactoryBean 区别',
         'Spring @Configuration 注解的使用',
+        'ConfigurationClassPostProcess 源码解析',
+        'Spring Bean 循环依赖源码解析',
         {
             type: 'category',
             label: 'SpringBoot',
