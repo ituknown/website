@@ -16,6 +16,7 @@ const sidebars: SidebarsConfig = {
         'Spring Bean 循环依赖源码解析',
         'Spring 的几种扩展方式',
         '使用 BeanNameGenerator 改变 BeanName 生成策略',
+        'ImportSelector 与自动装配的实现',
         {
             type: 'category',
             label: 'SpringBoot',
