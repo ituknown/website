@@ -108,7 +108,7 @@ const config: Config = {
                 path: 'docs/ffmpeg', // 文档所在目录
                 routeBasePath: 'ffmpeg', // URL路由，例如: 域名/ffmpeg
                 sidebarPath: './sidebars/ffmpeg.ts', // 侧边栏目录解析
-                showLastUpdateTime: true, // 最近更新时间
+                showLastUpdateTime: false, // 最近更新时间
                 remarkPlugins: [remarkMath], // 启用 katex
                 rehypePlugins: [rehypeKatex], // 启用 katex
             },
