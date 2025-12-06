@@ -29,3 +29,7 @@ YAML:
 磁盘:
   label: 磁盘
   permalink: /磁盘
+
+算法:
+  label: 算法
+  permalink: /算法
