@@ -2,7 +2,7 @@
 slug: Rsa 密匙对生成
 title: Rsa 密匙对生成
 date: 2023-01-23T16:27
-tags: [算法]
+tags: [加密]
 ---
 
 ## 前言

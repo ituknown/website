@@ -2,7 +2,7 @@
 slug: yt-dlp-工具常用方式
 title: yt-dlp 工具常用方式
 date: 2022-02-17T21:20
-tags: [下载工具]
+tags: [软硬件]
 ---
 
 ## 前言

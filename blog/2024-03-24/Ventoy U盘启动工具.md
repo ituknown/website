@@ -2,7 +2,7 @@
 slug: Ventoy-U盘启动工具
 title: Ventoy U盘启动工具
 date: 2024-03-24T15:27
-tags: [Ventoy, U盘]
+tags: [Ventoy, 软硬件]
 ---
 
 ## 前言

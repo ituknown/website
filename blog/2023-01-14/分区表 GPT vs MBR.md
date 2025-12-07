@@ -2,7 +2,7 @@
 slug: 分区表-GPT-vs-MBR
 title: 分区表 GPT vs MBR
 date: 2023-01-14T21:57
-tags: [磁盘]
+tags: [软硬件]
 ---
 
 ## 关于 GPT 和 MBR

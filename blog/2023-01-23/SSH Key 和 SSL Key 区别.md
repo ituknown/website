@@ -2,7 +2,7 @@
 slug: SSH Key 和 SSL Key 区别
 title: SSH Key 和 SSL Key 区别
 date: 2023-01-23T15:01
-tags: [算法]
+tags: [加密]
 ---
 
 SSH key 和通过 OpenSSL 生成的 SSL key 尽管都基于公钥加密技术，但是是两种不同用途的密钥。以下是它们的主要区别和用途：

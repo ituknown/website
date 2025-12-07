@@ -10,26 +10,14 @@ Ventoy:
   label: Ventoy
   permalink: /Ventoy
 
-U盘:
-  label: U盘
-  permalink: /U盘
-
-下载工具:
-  label: 下载工具
-  permalink: /下载工具
-
-性能压测:
-  label: 性能压测
-  permalink: /性能压测
-
 YAML:
   label: YAML
   permalink: /YAML
 
-磁盘:
-  label: 磁盘
-  permalink: /磁盘
+加密:
+  label: 加密
+  permalink: /加密
 
-算法:
-  label: 算法
-  permalink: /算法
+软硬件:
+  label: 软硬件
+  permalink: /软硬件
