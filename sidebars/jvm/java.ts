@@ -9,6 +9,7 @@ const sidebars: SidebarsConfig = {
         'HTTP 客户端 OkHttp',
         'Maven 激活指定配置',
         'MyBatis 自定义 TypeHandler',
+        'Tomcat 源码构建',
         {
             type: 'category',
             label: 'Java8 日期',
