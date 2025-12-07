@@ -5,7 +5,7 @@ date: 2023-01-23T15:01
 tags: [算法]
 ---
 
-`SSH key` 和通过 `OpenSSL` 生成的 `SSL key` 尽管都基于公钥加密技术，但是是两种不同用途的密钥。以下是它们的主要区别和用途：
+SSH key 和通过 OpenSSL 生成的 SSL key 尽管都基于公钥加密技术，但是是两种不同用途的密钥。以下是它们的主要区别和用途：
 
 <!-- truncate -->
 
@@ -13,35 +13,57 @@ tags: [算法]
 
 **用途：**
 
-用于通过 `SSH（Secure Shell）` 协议进行身份验证和安全通信。
+典型的应用是 SSH 客户端远程连接（登录）服务器、SCP（安全复制）和 SFTP（安全文件传输）
 
-**协议：**
-
-基于 `SSH` 协议。
+**协议：** 基于 SSH 协议
 
 **典型场景：**
 
-1. 登录远程服务器时用于身份验证（无密码登录）。
-2. Git 代码托管平台（如 GitHub、GitLab）上的身份验证。
+1. 登录远程服务器时用于身份验证（无密码登录）
+2. Git 代码托管平台（如 GitHub、GitLab）上的身份验证
 
-**格式：**
+### OpenSSH 格式（推荐）
 
-1. 常见的 SSH 密钥格式是 `PEM`，使用工具如 `ssh-keygen` 生成。
-2. 公钥通常保存在 `~/.ssh/id_rsa.pub` 文件中，私钥保存在 `~/.ssh/id_rsa` 文件中。
+这是现代 OpenSSH 客户端（如 ssh-keygen）的默认格式，尤其对于较新的算法如 Ed25519。
 
-**加密算法：**
+**公钥文件 (Public Key)：**
 
-常用算法包括 `RSA`、`ECDSA`、`Ed25519` 等。
+1. 通常以 .pub 结尾（例如：id_rsa.pub）。
+2. 是一个单行文本，包含算法类型、Base64 编码的公钥数据以及一个可选的注释（Comment）。
+
+**私钥文件 (Private Key)：**
+
+1. 通常没有文件扩展名（例如：id_rsa）或使用 .key。
+2. 从 <u>OpenSSH 7.8</u> 版本开始，默认使用一种新的、更安全的 OpenSSH 私钥格式，该格式比旧的 PEM 格式更安全。
+3. 新格式是一种带报头的 ASCII 文本块，格式本身是专用于 SSH 协议的。
+
+:::tip[NOTE]
+使用 ssh-keygen 生成的公私钥默认保存在 `~/.ssh` 目录，公钥默认文件命名通常为 `id_rsa.pub` ，私钥默认文件名通常为 `id_rsa`。
+:::
+
+### PEM 格式（传统/兼容性）
+
+PEM（Privacy-Enhanced Mail）格式是一种通用容器格式，最初是为电子邮件安全设计的，但现在广泛用于存储加密密钥和证书。
+
+**特点：** 以 Base64 编码的文本形式存储，并由明确的文本报头和报尾包围，便于在系统之间复制和传输。
+
+**旧的私钥格式：** 旧版本的 ssh-keygen（在 <u>OpenSSH 7.8</u> 之前）默认生成的是 PEM 格式私钥。
+
+:::danger[注意]
+为了兼容性和安全性，现代 SSH 客户端推荐使用 OpenSSH 格式，并可以通过如下命令将旧的 PEM 私钥升级为新格式：
+
+```bash
+ssh-keygen -p -f id_rsa
+```
+:::
 
 ## SSL Key
 
 **用途：**
 
-用于支持 `TLS/SSL（Transport Layer Security / Secure Sockets Layer）` 协议，保护网络通信的安全性。
+主要用于建立客户端（如网页浏览器）和服务器之间的安全通道，以加密传输中的数据，防止窃听和篡改。典型的应用是 HTTPS，也用于 SMTPS (安全邮件) 和 FTPS (安全文件传输)。
 
-**协议：**
-
-基于 `TLS/SSL` 协议。
+**协议：** 基于 TLS/SSL 协议
 
 **典型场景：**
 
@@ -49,26 +71,21 @@ tags: [算法]
 2. 在 Web 服务器（如 Apache、Nginx）中用于加密通信。
 3. 生成服务器证书或客户端证书。
 
-**格式：**
+### 格式
 
-1. 生成的密钥文件通常以 `.key` 或 `.pem` 结尾。
-2. 生成后，SSL 密钥常配合证书（如 `.crt` 或 `.pem` 文件）使用。
+所有 SSL/TLS 证书（包括公钥）都必须符合 X.509 标准，这是一个定义了公钥证书格式的 ITU-T 标准。
 
-**加密算法：**
+证书包含信息：X.509 证书不只包含公钥，它还包括：版本号、序列号、签名算法、公钥、主题（Subject，如域名）、颁发者（Issuer，如 CA 名称）、有效期、CA 的数字签名等。
 
-1. 支持 `RSA`、`ECDSA`、`Ed25519` 等。
-2. 使用工具如 `OpenSSL` 生成私钥：
+虽然证书结构是 X.509，但却可以以不同的编码方式和容器格式存储。
 
-```bash
-openssl genrsa -out server.key 2048
-```
 
-3. 配合生成证书签名请求（CSR）和证书文件：
-
-```bash
-openssl req -new -key server.key -out server.csr
-openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-```
+|格式名称|编码方式|常见扩展名|主要用途和特点|
+|:-------|:-------|:----------|:--------------|
+|PEM（常用格式）|Base64 编码（ASCII 文本）|.pem、.crt、.cer、.key|以 `-----BEGIN XXXXX-----` 开头，以 `-----END XXXXX-----` 结尾。<br/><br/>其中 XXXXX 可以是 CERTIFICATE（证书）、RSA PRIVATE KEY（私钥）等。<br/><br/>适用于 Linux/Unix 服务器和许多 Web 服务器|
+|DER|二进制编码|.der、.cer|通常用于 Java 平台和某些网络设备。不包含可读的文本报头|
+|PKCS#12<br/>(PFX/P12)|二进制容器|.pfx、.p12|一个受密码保护的容器，用于将私钥与其对应的证书（和可选的证书链）打包在一个文件中。<br/><br/>主要用于 Windows/IIS 服务器导入和导出密钥和证书。|
+|PKCS#7<br/>(P7B)|Base64 编码容器|.p7b、.p7c|仅包含证书和证书链（不包含私钥）。<br/><br/>常用于在 Microsoft Windows 和 Java Tomcat 之间传输证书链。|
 
 ## 核心区别
 
@@ -77,10 +94,10 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 | **主要用途**  | 身份验证、远程登录                      | 安全通信、数据加密      |
 | **协议**    | SSH                            | TLS/SSL        |
 | **生成工具**  | ssh-keygen                     | OpenSSL        |
-| **文件扩展名** | `.pub` (公钥), 无扩展名或 `.pem` (私钥) | `.key`, `.pem` |
+| **文件扩展名** | `.pub`（公钥），无扩展名或 `.pem`（私钥） | `.key`，`.pem` |
 | **加密目标**  | 用户身份、访问权限验证                    | 加密传输数据、保护通信    |
 
 ## 总结
 
-1. 如果你要通过 SSH 远程连接服务器，请使用 `SSH Key`。
-2. 如果你要为网站配置 HTTPS，请使用 `SSL Key`。
+1. 如果你要通过 SSH 远程连接服务器，请使用 SSH key。
+2. 如果你要为网站配置 HTTPS，请使用 SSL key。
