@@ -402,7 +402,7 @@ System.out.println(json);
 }
 ```
 
-你会发现 `date` 字段输出的日期感觉有点反人类是不？这是 Jackson 对 Java8 日期序列化的问题，解决方式见 [Java8 日期格式问题](Java8%20日期格式问题.md)。
+你会发现 `date` 字段输出的日期感觉有点反人类是不？这是 Jackson 对 Java8 日期序列化的问题，解决方式见 [java.time 日期格式问题](java.time%20日期格式问题.md)。
 
 ## 使用 ObjectNode
 

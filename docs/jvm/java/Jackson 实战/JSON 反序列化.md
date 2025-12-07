@@ -220,4 +220,4 @@ Jackson在反序列化处理Java8日期存在一些问题：
 
 ![deserializationJava8DateFail1708509575.png](https://media.ituknown.org/java-media/jackson/deserializationJava8DateFail1708509575.png)
 
-归根结底，这是 Jackson 对 Java8 日期格式化得问题，解决方式见 [Java8 日期格式问题](Java8%20日期格式问题.md)。
+归根结底，这是 Jackson 对 Java8 日期格式化得问题，解决方式见 [java.time 日期格式问题](./java.time%20日期格式问题.md)。

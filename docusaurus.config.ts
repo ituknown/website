@@ -120,9 +120,22 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'linux',
-                path: 'docs/linux',
-                routeBasePath: 'linux',
-                sidebarPath: './sidebars/linux.ts',
+                path: 'docs/system/linux',
+                routeBasePath: 'system/linux',
+                sidebarPath: './sidebars/system/linux.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
+        [
+            // Windows 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'windows',
+                path: 'docs/system/windows',
+                routeBasePath: 'system/windows',
+                sidebarPath: './sidebars/system/windows.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -133,9 +146,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'java',
-                path: 'docs/java',
-                routeBasePath: 'java',
-                sidebarPath: './sidebars/java.ts',
+                path: 'docs/jvm/java',
+                routeBasePath: 'jvm/java',
+                sidebarPath: './sidebars/jvm/java.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -146,9 +159,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'spring',
-                path: 'docs/spring',
-                routeBasePath: 'spring',
-                sidebarPath: './sidebars/spring.ts',
+                path: 'docs/jvm/spring',
+                routeBasePath: 'jvm/spring',
+                sidebarPath: './sidebars/jvm/spring.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -159,9 +172,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'kafka',
-                path: 'docs/kafka',
-                routeBasePath: 'kafka',
-                sidebarPath: './sidebars/kafka.ts',
+                path: 'docs/jvm/kafka',
+                routeBasePath: 'jvm/kafka',
+                sidebarPath: './sidebars/jvm/kafka.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -220,7 +233,7 @@ const config: Config = {
         },
         navbar: {
             // title: 'NoteBook',
-            hideOnScroll: true, // 滚动时隐藏 Top 导航
+            hideOnScroll: false, // 滚动时隐藏 Top 导航
             logo: {
                 alt: 'Logo',
                 src: 'img/favicon.png',
@@ -234,12 +247,24 @@ const config: Config = {
                     label: 'FFmpeg 命令行',
                 },
                 {
-                    type: 'docSidebar',
-                    sidebarId: 'linux',
-                    docsPluginId: 'linux',
+                    type: 'dropdown',
+                    label: '操作系统',
                     position: 'left',
-                    label: 'Linux',
+                    items: [
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'linux',
+                            docsPluginId: 'linux',
+                            label: 'Linux',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'windows',
+                            docsPluginId: 'windows',
+                            label: 'Windows',
+                        },
+                    ],
                 },
+
                 {
                     type: 'dropdown',
                     label: 'JVM 生态',
