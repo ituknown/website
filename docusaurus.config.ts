@@ -68,9 +68,10 @@ const config: Config = {
             {
                 docs: false, // 禁用默认文档插件(默认文档插件id=default)
                 blog: {
-                    blogSidebarCount: 'ALL',
-                    showReadingTime: true,
-                    onInlineTags: 'throw', // 内联不存在的TAG 直接抛出异常
+                    blogSidebarTitle: 'Recent posts', // 侧边栏标题
+                    blogSidebarCount: 'ALL', // 侧边栏显示 Blog 数量
+                    showReadingTime: true, // 显示阅读时间
+                    onInlineTags: 'throw', // 内联不存在的 TAG 直接抛出异常
                     onInlineAuthors: 'throw', // 内联不存在的作者 直接抛出异常
                     onUntruncatedBlogPosts: 'throw', // 如果文档没设置 <!-- truncate --> 直接抛出异常
                 },
