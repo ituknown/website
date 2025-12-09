@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
         'Bean Validation',
         'Caffeine 高性能本地缓存',
         'HTTP 客户端 OkHttp',
-        'Maven 激活指定配置',
+        'Maven 配置',
         'MyBatis 自定义 TypeHandler',
         'Tomcat 源码构建',
         {
