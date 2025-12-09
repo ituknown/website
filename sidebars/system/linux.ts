@@ -143,7 +143,7 @@ const sidebars: SidebarsConfig = {
         '笔记/Linux 的 stdIO 以及重定向输出',
         '笔记/zsh 配置',
         '笔记/zsh 自定义 PROMPT 或 PS1 提示',
-        '笔记/解析行数据',
+        '笔记/Shell 解析文本行',
         '笔记/配置文件正确使用姿势',
       ],
     },
