@@ -170,3 +170,7 @@ alias mvn-clean-aliyun='mvnd -s ~/.m2/settings.xml clean -P "aliyun,!office"'
 alias mvn-deploy-aliyun='mvnd -s ~/.m2/settings.xml deploy -P "aliyun,!office"'
 alias mvn-compile-aliyun='mvnd -s ~/.m2/settings.xml compile -P "aliyun,!office"'
 ```
+
+## 参考资料
+
+[https://developer.aliyun.com/article/330572](https://developer.aliyun.com/article/330572)
