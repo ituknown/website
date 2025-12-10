@@ -250,7 +250,7 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: '操作系统',
+                    label: '🖥️ 操作系统',
                     position: 'left',
                     items: [
                         {
@@ -294,7 +294,7 @@ const config: Config = {
                 },
                 {
                     to: '/blog',
-                    label: 'Blog',
+                    label: '📝 博客',
                     position: 'left'
                 },
 
