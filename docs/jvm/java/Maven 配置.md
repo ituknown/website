@@ -67,42 +67,6 @@ mvn -s /HomePath/.m2/settings.xml [deploy]
 
 比如在构建项目时需要区分开发环境和发布环境（如不同环境使用不同依赖或插件），就可以在 pom.xml 中使用 profiles 配置：
 
-```xml
-<project>
-    ...
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <env>development</env>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.example</groupId>
-                    <artifactId>dev-dependency</artifactId>
-                    <version>1.0.0</version>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>prod</id>
-            <properties>
-                <env>production</env>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.example</groupId>
-                    <artifactId>prod-dependency</artifactId>
-                    <version>1.0.0</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-    ...
-</project>
-```
-
 在使用时可以使用 `-P` 来指定要激活的环境：
 
 ```bash
@@ -113,7 +77,7 @@ $ mvn [deploy] -P dev
 $ mvn [deploy] -P prod
 ```
 
-`-P` 不仅仅作用 pom.xml，还同时作用于 settings.xml。当执行 `mvn -P dev` 命令时，在 pom.xml 中的查找 profile id 为 dev 的同时，还会查找 settings.xml 中同名配置（等价于 `<activeProfiles>dev</activeProfiles>` 元素）。。
+`-P` 不仅仅作用 pom.xml，还同时作用于 settings.xml。当执行 `mvn -P dev` 命令时，在 pom.xml 中的查找 profile id 为 dev 的同时，还会查找 settings.xml 中同名配置（等价于 `<activeProfiles>dev</activeProfiles>`）。
 
 下面是 settings.xml 示例：
 
@@ -160,8 +124,6 @@ mvn [deploy] -P !dev,!prod,other_profile
 ```bash
 mvn -s /path/settings.xml [deploy] -P [profile_id...]
 ```
-
-## mvnd 最佳实战
 
 尤其是配合新一代 mvd 使用，可以直接替代原 maven 使用，示例如下，简直不要太爽~
 
