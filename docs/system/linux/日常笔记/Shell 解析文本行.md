@@ -41,6 +41,39 @@ cat order.csv | while IFS=, read -r orderId userId; do
 done | xargs -I {} -P 5 bash -c "{}"
 ```
 
+:::info[小提示]
+
+curl -d 命令的通常写法都是：
+
+```bash
+curl -d '{}'
+```
+
+那下面这个
+
+```bash
+-d "{\"command\":\"ALL\",\"orderId\":$order_id,\"userId\":$user_id}"
+```
+
+为什么不能写成这种形式呢：
+
+```bash
+-d '{"command":"ALL","orderId":$order_id,"userId":$user_id}' \
+```
+
+主要是因为单引号会阻止 shell 对其内部的所有内容进行变量替换（展开）。导致的结果是 curl 接收到的数据体将是字面量字符串：
+
+```json
+{"command":"ALL","orderId":$order_id,"userId":$user_id}
+```
+
+而不是我们期望的：
+
+```json
+{"command":"ALL","orderId":0,"userId":0}
+```
+:::
+
 <details open>
 <summary>**题外话**</summary>
 
