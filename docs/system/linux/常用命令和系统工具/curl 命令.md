@@ -15,7 +15,7 @@ $ man curl
 cURL 最基本的用法就是用于网页测试，示例：
 
 ```bash
-$ curl baidu.com
+curl baidu.com
 ```
 
 如果网络正常会将网页输出到控制台上，输出示例：
@@ -30,7 +30,7 @@ $ curl baidu.com
 另外，我们可以利用 Linux 重定向或者管道语法对网页做处理。如利用重定向（`>` 或 `>>`）将网页保存到本地文件中：
 
 ```bash
-$ curl baidu.com > baidu.html
+curl baidu.com > baidu.html
 ```
 
 ## 文件下载及重命名
@@ -56,7 +56,7 @@ $ curl [--output-dir $dir] -O $remote_url
 如果使用 `-O, --remote-name` 参数的话下载到本地的文件名是 ubuntu-22.04.2-desktop-amd64.iso：
 
 ```bash
-$ curl --remote-name https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
+curl --remote-name https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
 
 $ ls
 ubuntu-22.04.2-desktop-amd64.iso
@@ -74,7 +74,7 @@ ubuntu.iso
 不过，有时候我们可能想测试一个文件（如网络是否ok），不需要真正的去下载。这个我们可以将文件标准输出重定向到 /dev/null 设备：
 
 ```bash
-$ curl -o /dev/null https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
+curl -o /dev/null https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
 ```
 
 ## 文件重定向跟踪
@@ -99,7 +99,7 @@ total 0
 
 
 ```bash
-$ curl --remote-name -L https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
+curl --remote-name -L https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
 ```
 
 :::info[NOTE]
@@ -124,7 +124,7 @@ $ curl -L -O https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-gl
 命令示例：
 
 ```bash
-$ curl -# -L -O https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
+curl -# -L -O https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
 ```
 
 输出示例：
@@ -156,7 +156,7 @@ total 115108
 其中 117870592 就是已经下载的大小（注意单位 bit，所以上面使用的命令是 `ls -l`）。如果我们想要继续下载的话，只需要将该数值添加到 -C 参数之后即可，如下：
 
 ```bash
-$ curl -L -O -C 117870592 $remote_url
+curl -L -O -C 117870592 $remote_url
 ```
 
 但是如果你不想输入具体偏移量，可以直接使用 - 代替，即 `-C -`。cURL 会自己分析该从什么位置开始续传，所以在断点续传时，使用 `-C -` 更加方便。
@@ -164,19 +164,19 @@ $ curl -L -O -C 117870592 $remote_url
 示例：
 
 ```bash
-$ curl -# -L -O https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
+curl -# -L -O https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
 ```
 
 等下载到 10% 时手动终止任务（ctrl + c），并使用 -C 参数，后面接着一个偏移量继续下载：
 
 ```bash
-$ curl -# -L -O -C 117870592 https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
+curl -# -L -O -C 117870592 https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
 ```
 
 等下载到 20% 时再次手动终止任务（ctrl + c），并使用 -C 参数，后面使用 - 代替具体偏移量继续下载：
 
 ```bash
-$ curl -# -L -O -C - https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
+curl -# -L -O -C - https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.27-linux-glibc2.12-i686.tar.xz
 ```
 
 :::tip
@@ -198,7 +198,7 @@ jdk-9.tar.gz
 中间的数值是递增的，这用在 curl 中就可以使用类似循环的方式进行下载，示例如下：
 
 ```bash
-$ curl -O http://ip:port/software/jdk-[7-9].tar.gz
+curl -O http://ip:port/software/jdk-[7-9].tar.gz
 ```
 
 ## 连接超时
@@ -277,7 +277,7 @@ curl 这个工具在大多时候可能都是用于文件下载，最典型的就
 如果直接使用 cURL 下载的话可能会很慢，不过 cURL 提供了一个 `-x, --proxy` 参数用于设置代理服务器：
 
 ```bash
-$ curl -x $proxy_server $remote_url
+curl -x $proxy_server $remote_url
 ```
 
 这样，通过走代理的模式就能够光速下载了~
@@ -285,7 +285,7 @@ $ curl -x $proxy_server $remote_url
 比如我的代理服务器地址是：192.168.1.8:7890，使用该代理下载 Clash 软件包示例命令如下：
 
 ```bash
-$ curl -O -L -x 192.168.1.8:7890 https://github.com/xx/xx/releases/download/v1.7.1/file-v1.7.1.gz
+curl -O -L -x 192.168.1.8:7890 https://github.com/xx/xx/releases/download/v1.7.1/file-v1.7.1.gz
 ```
 
 **注意使用 -L 参数，用于跟踪重定向**
@@ -309,7 +309,7 @@ $ curl --referer $your_websit_domain $remote_url
 示例：
 
 ```bash
-$ curl --referfer "www.aliyun.com" http://bucket.aliyun.com/hangzhou_oss/xxx.png
+curl --referfer "www.aliyun.com" http://bucket.aliyun.com/hangzhou_oss/xxx.png
 ```
 
 ##  用户认证
@@ -327,7 +327,7 @@ $ curl --user $username:$password $remote_url
 示例下载 ftp 服务器文件：
 
 ```bash
-$ curl -O -u webuser:admin123 ftp://172.17.5.2:9000/software/os/debian-10.iso
+curl -O -u webuser:admin123 ftp://172.17.5.2:9000/software/os/debian-10.iso
 ```
 
 ## 文件上传
@@ -337,7 +337,7 @@ cURL 还可以用于文件上传，使用 -T 参数即可，后面跟具体的�
 比如将 /opt/software 目录下的 ubunti-18.iso 文件上传到 FTP 服务器：
 
 ```bash
-$ curl -T /opt/software/ubunti-18.iso -u webuser:admin123 ftp://172.17.5.2:9000/software/os/
+curl -T /opt/software/ubunti-18.iso -u webuser:admin123 ftp://172.17.5.2:9000/software/os/
 ```
 
 ## HTTP 请求
@@ -366,7 +366,7 @@ $ curl -T /opt/software/ubunti-18.iso -u webuser:admin123 ftp://172.17.5.2:9000/
 ### GET 请求
 
 ```bash
-$ curl -X GET https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
+curl -X GET https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso
 ```
 
 ### HEAD 请求（输出响应头）
@@ -395,10 +395,10 @@ Content-Type: application/x-iso9660-image
 
 ### POST 请求
 
-#### multipart/form-data 单文件上传
+#### multipart/form-data
 
 ```BASH
-$ curl -X POST \
+curl -X POST \
 -H "Content-Type: multipart/form-data" \
 -F "zipfile=@/Users/appleboy/test.zip" \
 "http://localhost:8080/upload"
@@ -410,22 +410,30 @@ $ curl -X POST \
 <input type="file" name="zipfile" value="/Users/appleboy/test.zip" />
 ```
 
-#### multipart/form-data 多文件上传
+<details open>
+<summary>**多文件上传**</summary>
 
 ```bash
-$ curl -X POST \
+curl -X POST \
 -H "Content-Type: multipart/form-data" \
 -F "zipfile[]=@/Users/appleboy/test1.zip" \
 -F "zipfile[]=@/Users/appleboy/test2.zip" \
 "http://localhost:8080/upload"
 ```
 
-#### application/json 请求
+等同于 input 增加 multiple 属性：
+
+```html
+<input type="file" name="zipfile" multiple />
+```
+</details>
+
+#### application/json
 
 最简单的 JSON 请求就是直接拼接字符串：
 
 ```bash
-$ curl -X POST \
+curl -X POST \
 -H 'Content-Type: application' \
 -d '{"username":"LiLei","age":18}' \
 "localhost:8080/account"
@@ -463,7 +471,7 @@ $ cat _file/account.json
 我们可以使用 `--data-binary` 参数从文件中读取二进制流来发起请求，任何数据在网络中其实都是以二进制流的形式传输的。我们只需要指定 `Content-Type` 就可以达到与方式一等效的请求（实际上方式一也是二进制流）：
 
 ```bash
-$ curl -X POST \
+curl -X POST \
 -H "Content-Type: application/json" \
 --data-binary "@_file/accounts.json" \
 "url"
