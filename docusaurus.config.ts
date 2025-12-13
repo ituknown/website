@@ -182,6 +182,19 @@ const config: Config = {
                 rehypePlugins: [rehypeKatex],
             },
         ],
+        [
+            // Git 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'git',
+                path: 'docs/sundry/git_',
+                routeBasePath: 'sundry/git',
+                sidebarPath: './sidebars/sundry/git.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
     ],
 
     themeConfig: {
@@ -250,7 +263,7 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: '🖥️ 操作系统',
+                    label: '🖥️操作系统',
                     position: 'left',
                     items: [
                         {
@@ -292,9 +305,24 @@ const config: Config = {
                         },
                     ],
                 },
+
+                {
+                    type: 'dropdown',
+                    label: '🛠杂项',
+                    position: 'left',
+                    items: [
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'git',
+                            docsPluginId: 'git',
+                            label: 'Git',
+                        },
+                    ],
+                },
+
                 {
                     to: '/blog',
-                    label: '📝 博客',
+                    label: '📝博客',
                     position: 'left'
                 },
 
