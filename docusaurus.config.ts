@@ -187,7 +187,7 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'git',
-                path: 'docs/sundry/git_',
+                path: 'docs/sundry/git',
                 routeBasePath: 'sundry/git',
                 sidebarPath: './sidebars/sundry/git.ts',
                 showLastUpdateTime: false,
