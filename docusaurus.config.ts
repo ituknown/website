@@ -194,7 +194,8 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ], [
+        ],
+        [
             // MySQL 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -202,6 +203,19 @@ const config: Config = {
                 path: 'docs/sundry/mysql',
                 routeBasePath: 'sundry/mysql',
                 sidebarPath: './sidebars/sundry/mysql.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ],
+        [
+            // Protocol 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'protocol',
+                path: 'docs/sundry/protocol',
+                routeBasePath: 'sundry/protocol',
+                sidebarPath: './sidebars/sundry/protocol.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -328,11 +342,18 @@ const config: Config = {
                             sidebarId: 'git',
                             docsPluginId: 'git',
                             label: 'Git',
-                        }, {
+                        },
+                        {
                             type: 'docSidebar',
                             sidebarId: 'mysql',
                             docsPluginId: 'mysql',
                             label: 'MySQL',
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'protocol',
+                            docsPluginId: 'protocol',
+                            label: 'Protocol',
                         },
                     ],
                 },
