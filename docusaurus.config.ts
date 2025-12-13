@@ -194,6 +194,18 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
+        ], [
+            // MySQL 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'mysql',
+                path: 'docs/sundry/mysql',
+                routeBasePath: 'sundry/mysql',
+                sidebarPath: './sidebars/sundry/mysql.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
         ],
     ],
 
@@ -316,6 +328,11 @@ const config: Config = {
                             sidebarId: 'git',
                             docsPluginId: 'git',
                             label: 'Git',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'mysql',
+                            docsPluginId: 'mysql',
+                            label: 'MySQL',
                         },
                     ],
                 },
