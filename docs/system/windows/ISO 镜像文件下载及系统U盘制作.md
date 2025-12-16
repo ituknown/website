@@ -31,23 +31,23 @@
 
 ![download-media-tool-1644480715h4z6qj](https://media.ituknown.org/windows-media/download_win10_iso/download-media-tool-1644480715h4z6qj.png)
 
-**1：** 下载完成后双击运行，选择 <u>为另一台电脑创建安装介质</u>，然后下一步：
+$1.$ 下载完成后双击运行，选择 <u>为另一台电脑创建安装介质</u>，然后下一步：
 
 ![execute-media-creation-tool-16444809311AumBt](https://media.ituknown.org/windows-media/download_win10_iso/execute-media-creation-tool-16444809311AumBt.png)
 
-**2：** 接下来出现的是系统架构和语言选择界面，注意取消勾选 <u>对这台电脑使用推荐的选项</u> 后才能进行选择架构和语言：
+$2.$ 接下来出现的是系统架构和语言选择界面，注意取消勾选 <u>对这台电脑使用推荐的选项</u> 后才能进行选择架构和语言：
 
 ![select-media-arch-lang-16444810304YlqyE](https://media.ituknown.org/windows-media/download_win10_iso/select-media-arch-lang-16444810304YlqyE.png)
 
-**3：** 下面一步需要注意了，这里提供了两种媒体制作方式：<u>直接制作系统U盘</u> 和 <u>只下载 iso 文件</u>。根据需要选择即可，这里以 <u>下载 iso 文件</u> 为例：
+$3.$ 下面一步需要注意了，这里提供了两种媒体制作方式：<u>直接制作系统U盘</u> 和 <u>只下载 iso 文件</u>。根据需要选择即可，这里以 <u>下载 iso 文件</u> 为例：
 
 ![choice-medium-1644481294GHZXnB](https://media.ituknown.org/windows-media/download_win10_iso/choice-medium-1644481294GHZXnB.png)
 
-**4：** 之后就是漫长的等待过程了
+$4.$ 之后就是漫长的等待过程了
 
 ![downloading-iso-media-1644481326XqU1px](https://media.ituknown.org/windows-media/download_win10_iso/downloading-iso-media-1644481326XqU1px.png)
 
-**5：** iso 文件下载并校验完成后就结束了，点击完成即可。不过如果你想要刻录DVD的话点击 <u>打开刻录机即可</u>：
+$5.$ iso 文件下载并校验完成后就结束了，点击完成即可。不过如果你想要刻录DVD的话点击 <u>打开刻录机即可</u>：
 
 ![burn-or-done-1644481341kcs81U](https://media.ituknown.org/windows-media/download_win10_iso/burn-or-done-1644481341kcs81U.png)
 
