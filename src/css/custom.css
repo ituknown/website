@@ -30,9 +30,11 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-/* .navbar__logo {
-  height: 40px;
-} */
+.navbar__brand,
+.navbar__logo {
+  height: 48px;
+  margin-right: 0rem;
+}
 
 .hero {
   background: radial-gradient(circle, #00b95f 100%, #69CD37 50%, #14824b 100%);
