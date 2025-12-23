@@ -196,13 +196,13 @@ const config: Config = {
             },
         ],
         [
-            // MySQL 文档实例
+            // Database 文档实例
             '@docusaurus/plugin-content-docs',
             {
-                id: 'mysql',
-                path: 'docs/sundry/mysql',
-                routeBasePath: 'sundry/mysql',
-                sidebarPath: './sidebars/sundry/mysql.ts',
+                id: 'database',
+                path: 'docs/sundry/database',
+                routeBasePath: 'sundry/database',
+                sidebarPath: './sidebars/sundry/database.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -345,9 +345,9 @@ const config: Config = {
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'mysql',
-                            docsPluginId: 'mysql',
-                            label: 'MySQL',
+                            sidebarId: 'database',
+                            docsPluginId: 'database',
+                            label: 'Database',
                         },
                         {
                             type: 'docSidebar',

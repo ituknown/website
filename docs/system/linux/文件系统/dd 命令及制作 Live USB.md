@@ -76,13 +76,13 @@ $ sudo blkid | grep sdc
 
 所以先来安装下 `pv` 工具：
 
-- $Debian/Ubuntu：$
+- $Debian/Ubuntu$
 
 ```bash
 $ sudo apt install -y pv
 ```
 
-- $RHEL/CentOS：$
+- $RHEL/CentOS$
 
 ```bash
 $ sudo yum install -y pv
