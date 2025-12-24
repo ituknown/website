@@ -200,9 +200,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'database',
-                path: 'docs/sundry/database',
-                routeBasePath: 'sundry/database',
-                sidebarPath: './sidebars/sundry/database.ts',
+                path: 'docs/database',
+                routeBasePath: 'database',
+                sidebarPath: './sidebars/database.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -331,7 +331,12 @@ const config: Config = {
                         },
                     ],
                 },
-
+                {
+                    type: 'docSidebar',
+                    sidebarId: 'database',
+                    docsPluginId: 'database',
+                    label: '📀数据库',
+                },
                 {
                     type: 'dropdown',
                     label: '🛠杂项',
@@ -342,12 +347,6 @@ const config: Config = {
                             sidebarId: 'git',
                             docsPluginId: 'git',
                             label: 'Git',
-                        },
-                        {
-                            type: 'docSidebar',
-                            sidebarId: 'database',
-                            docsPluginId: 'database',
-                            label: 'Database',
                         },
                         {
                             type: 'docSidebar',
