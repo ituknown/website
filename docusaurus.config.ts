@@ -116,8 +116,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath], // 启用 katex
                 rehypePlugins: [rehypeKatex], // 启用 katex
             },
-        ],
-        [
+        ], [
             // Linux 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -129,8 +128,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
+        ], [
             // Windows 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -142,8 +140,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
+        ], [
             // Java 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -155,8 +152,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
+        ], [
             // Spring 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -168,8 +164,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
+        ], [
             // Kafka 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -181,21 +176,7 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
-            // Git 文档实例
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'git',
-                path: 'docs/sundry/git',
-                routeBasePath: 'sundry/git',
-                sidebarPath: './sidebars/sundry/git.ts',
-                showLastUpdateTime: false,
-                remarkPlugins: [remarkMath],
-                rehypePlugins: [rehypeKatex],
-            },
-        ],
-        [
+        ], [
             // Database 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -207,15 +188,38 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ],
-        [
+        ], [
+            // Git 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'git',
+                path: 'docs/programmer/git',
+                routeBasePath: 'programmer/git',
+                sidebarPath: './sidebars/programmer/git.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ], [
             // Protocol 文档实例
             '@docusaurus/plugin-content-docs',
             {
                 id: 'protocol',
-                path: 'docs/sundry/protocol',
-                routeBasePath: 'sundry/protocol',
-                sidebarPath: './sidebars/sundry/protocol.ts',
+                path: 'docs/programmer/protocol',
+                routeBasePath: 'programmer/protocol',
+                sidebarPath: './sidebars/programmer/protocol.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ], [
+            // Rust 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'rust',
+                path: 'docs/programmer/rust',
+                routeBasePath: 'programmer/rust',
+                sidebarPath: './sidebars/programmer/rust.ts',
                 showLastUpdateTime: false,
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
@@ -286,8 +290,7 @@ const config: Config = {
                     docsPluginId: 'ffmpeg',
                     position: 'left',
                     label: 'FFmpeg 命令行',
-                },
-                {
+                }, {
                     type: 'dropdown',
                     label: '🖥️操作系统',
                     position: 'left',
@@ -304,9 +307,7 @@ const config: Config = {
                             label: 'Windows',
                         },
                     ],
-                },
-
-                {
+                }, {
                     type: 'dropdown',
                     label: 'JVM 生态',
                     position: 'left',
@@ -316,44 +317,44 @@ const config: Config = {
                             sidebarId: 'java',
                             docsPluginId: 'java',
                             label: 'Java 笔记',
-                        },
-                        {
+                        }, {
                             type: 'docSidebar',
                             sidebarId: 'spring',
                             docsPluginId: 'spring',
                             label: 'Spring',
-                        },
-                        {
+                        }, {
                             type: 'docSidebar',
                             sidebarId: 'kafka',
                             docsPluginId: 'kafka',
                             label: 'Kafka',
                         },
                     ],
-                },
-                {
+                }, {
                     type: 'docSidebar',
                     sidebarId: 'database',
                     docsPluginId: 'database',
                     label: '📀数据库',
-                },
-                {
+                }, {
                     type: 'dropdown',
-                    label: '🛠杂项',
+                    label: '🛠编程',
                     position: 'left',
                     items: [
                         {
                             type: 'docSidebar',
                             sidebarId: 'git',
                             docsPluginId: 'git',
-                            label: 'Git',
-                        },
-                        {
+                            label: '💫 Git',
+                        }, {
                             type: 'docSidebar',
                             sidebarId: 'protocol',
                             docsPluginId: 'protocol',
-                            label: 'Protocol',
-                        },
+                            label: '🌍 Protocol',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'rust',
+                            docsPluginId: 'rust',
+                            label: '🦀 Rust',
+                        }
                     ],
                 },
 
@@ -368,11 +369,12 @@ const config: Config = {
                     type: 'localeDropdown',
                     position: 'right',
                 },
-                {
-                    href: 'https://github.com/ituknown',
-                    label: 'GitHub',
-                    position: 'right',
-                },
+
+                // {
+                //     href: 'https://github.com/ituknown',
+                //     label: 'GitHub',
+                //     position: 'right',
+                // },
             ],
         },
     } satisfies Preset.ThemeConfig,
