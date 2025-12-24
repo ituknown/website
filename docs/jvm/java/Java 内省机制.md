@@ -129,7 +129,7 @@ public class User {
 
 ## 关于内省
 
-先看下 [维基百科](#https://wiwiki.kfd.me/wiki/%E5%86%85%E7%9C%81_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6)) 对 “内省” 的解释：
+先看下 [维基百科](https://wiwiki.kfd.me/wiki/%E5%86%85%E7%9C%81_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6)) 对 “内省” 的解释：
 
 在计算机科学中，内省是指计算机程序在运行时（Runtime）检查对象（Object）类型的一种能力，通常也可以称作 “运行时类型检查"。一些编程语言如C++、Java、Ruby、PHP、Objective-C、Perl等等具有这种特性。
 

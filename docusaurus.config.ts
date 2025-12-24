@@ -40,6 +40,8 @@ const config: Config = {
 
     // 引用链接不存在, 直接报错
     onBrokenLinks: 'throw',
+    onBrokenAnchors: 'throw',
+    onDuplicateRoutes: 'throw',
 
     i18n: {
         defaultLocale: 'zh',
