@@ -1,0 +1,147 @@
+下面是一个 git log 示例，基于 main（794d76af444cbadd7b5e553a4d3aadf2512bafd6）创建了一个新分支 squash-multi-commit（当前分支），之后又创建了几个 commit。
+
+```log
+commit e6dc7d21ef2e081313cdd61dbae48183bb71b4a3 (HEAD -> squash-multi-commit, origin/squash-multi-commit)
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:13:11 2025 +0800
+
+    append message
+
+commit 65306e6c19e1ee48c1de38221f3112bda59d0397
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:12:50 2025 +0800
+
+    some txt
+
+commit 04543df0818854bc43dda0ad9d55f5604c75475e
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:12:09 2025 +0800
+
+    README
+
+commit 794d76af444cbadd7b5e553a4d3aadf2512bafd6 (origin/main, main)
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:08:55 2025 +0800
+
+    init
+```
+
+squash-multi-commit 分支的 commit message 写的是一塌糊涂：
+
+```
+append message  # e6dc7d21ef2e081313cdd61dbae48183bb71b4a3
+some txt        # 65306e6c19e1ee48c1de38221f3112bda59d0397
+README          # 04543df0818854bc43dda0ad9d55f5604c75475e
+```
+
+我现在想将这几个 commit 合并，然后重写一下 message，该如何处理？
+
+<details open>
+<summary>**`git rebase` 解君忧**</summary>
+
+**$1.$** 从基准分支开始修改（如基准分支是 main）：
+
+```bash
+git rebase -i main
+```
+
+以前面的 log 为例，新分支的第一个 commit 是 04543df0818854bc43dda0ad9d55f5604c75475e，该操作会从该 commit 开始合并，一直到最新的一次提交（log 中只有 3 次新提交）。
+
+这种方式适合新分支 commit 比较少的情况，如果 commit 特别多...就要选择第二种方式了：
+
+**$2.$** 合并最近 N 个提交（如合并最近的 3 个提交）：
+
+```bash
+git rebase -i HEAD~3
+```
+
+这种方式就比较友好，适合少量 commit 的合并操作。
+</details>
+
+执行 `git rebase -i` 之后会进入一个编辑窗口，
+
+从新到旧：
+
+```
+pick 04543df # README
+pick 65306e6 # some txt
+pick e6dc7d2 # append message
+
+# Rebase 794d76a..e6dc7d2 onto 794d76a (3 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous commit's log message
+...
+```
+
+将第一个提交保留为 pick，将后续所有提交的指令改为 squash（或使用简写 s）：
+
+```
+pick 04543df # README             # <--- 保持第一个为 pick
+squash 65306e6 # some txt         # <--- 改为 squash
+s e6dc7d2 # append message        # <--- 改为 s(squash 简写)
+```
+
+保存并关闭编辑器。Git 会再次弹出一个编辑器，让你为前一步合并的操作创建新的提交信息：
+
+```
+# This is a combination of 3 commits.
+# This is the 1st commit message:
+
+README
+
+# This is the commit message #2:
+
+some txt
+
+# This is the commit message #3:
+
+append message
+
+....
+```
+
+你可以将编辑器中的内容全部删除，重写 commit 信息。示例：
+
+```
+feat 创建 README 并增加一些注释
+```
+
+之后保存即可：
+
+```bash
+$  git rebase -i main
+[detached HEAD 7efab62] feat 创建 README 并增加一些注释 # 保存之后输出的信息
+ Date: Thu Dec 25 18:12:09 2025 +0800
+ 1 file changed, 3 insertions(+)
+ create mode 100644 README.md
+Successfully rebased and updated refs/heads/squash-multi-commit.
+```
+
+再看一下 log：
+
+```
+commit 7efab6272f7303f23cb0591d5666bcb79f5528cb (HEAD -> squash-multi-commit)
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:12:09 2025 +0800
+
+    feat 创建 README 并增加一些注释
+
+commit 794d76af444cbadd7b5e553a4d3aadf2512bafd6 (origin/main, main)
+Author: example_name <example@gmail.com>
+Date:   Thu Dec 25 18:08:55 2025 +0800
+
+    init
+```
+
+之后需要强制推送到远程：
+
+```bash
+git push origin squash-multi-commit --force-with-lease
+# 或(不推荐)
+git push origin squash-multi-commit --force
+```
