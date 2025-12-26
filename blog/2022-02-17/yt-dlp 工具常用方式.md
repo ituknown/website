@@ -420,7 +420,7 @@ $ yt-dlp --cookies cookies.txt -f https://www.bilibili.com/video/BV1AG4y1k7jX
 
 `yt-dlp` 默认下载的文件名冗余信息特别多（如多余的番号ID信息），下载完成之后可能还需要多额外的重命名操作，总觉得特别麻烦。
 
-不过 yt-dlp 它内置了一些模板变量便于你来重新组织下载的文件名（是不是特别懂你~）。下面是一些常用的模板变量：
+不过 yt-dlp 它内置了一些模板变量便于你来重新组织下载的文件名（是不是特别懂你~）。下面是基本的模板变量：
 
 |**模板变量**|**说明**|
 |:----------|:------|
@@ -442,11 +442,11 @@ yt-dlp -o "%(title)s_%(uploader)s.%(ext)s" 视频链接
 以《宇宙 第三季》为例，我重组的文件名格式为：“索引 文件名. 扩展名”。另外，我额外的在索引前面加了一个字母 “P”。同时指定索引为两位数，如果不够两位数就使用 “0” 进行填充。命令如下：
 
 ```bash
-$ yt-dlp --print "P%(playlist_index)02d %(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
+$ yt-dlp --print "P%(playlist_index)02d｜%(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
 
-## 或
+# 或
 
-$ yt-dlp --skip-download --get-filename -o "P%(playlist_index)02d %(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
+$ yt-dlp --skip-download --get-filename -o "P%(playlist_index)02d｜%(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
 ```
 
 输出的信息如下：
@@ -460,10 +460,11 @@ P12 宇宙 第三季【全12集】 p12 宇宙现象.mp4
 看起来已经符合我的要求了，之后就可以下载啦：
 
 ```bash
-$ yt-dlp -o "P%(playlist_index)02d %(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
+$ yt-dlp -o "P%(playlist_index)02d｜%(title)s.%(ext)s" https://www.bilibili.com/video/BV1vx411C7hk
 ```
 
-### 常用的模板变量
+<details>
+<summary>**常用的模板变量**</summary>
 
 下面是一些常用的模板变量，你可以根据需要自由组合这些变量来构建输出文件名的模板。要查看 yt-dlp 的完整模板变量列表和详细信息，你可以查看 yt-dlp 的官方文档（[https://github.com/yt-dlp/yt-dlp#output-template](https://github.com/yt-dlp/yt-dlp#output-template)）。文档通常包含有关每个变量的用法和示例。
 
@@ -491,6 +492,7 @@ $ yt-dlp -o "P%(playlist_index)02d %(title)s.%(ext)s" https://www.bilibili.com/v
 | `{webpage_url}` | 当前视频对应网页链接|
 | `{autonumber}` | 用于递增计数，通常与播放列表结合使用|
 | `{description}` | 视频的描述|
+</details>
 
 ## 其他
 
