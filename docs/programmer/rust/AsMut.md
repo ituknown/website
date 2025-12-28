@@ -107,9 +107,9 @@ let pixels: &mut [u32] = &mut pixels[..];
 Trait 有两个作用：
 
 - 第一个是 impl，给类型提供方法。
-- 第二个则是类型约束，也就是多态（Polymorphism）。
+- 第二个则是类型（参数）约束。
 
-## AsMut 约束（多态）
+## AsMut 约束
 
 假设有如下业务方法，泛型 T 接受一个 u32 slice，内部逻辑是将元素归零处理：
 
@@ -132,13 +132,13 @@ where
 zero_out(&mut img.pixels)；
 ```
 
-当然不是！直接下面这样写即可：
+可以，不过还有更简单的方式：
 
 ```rust
 zero_out(&mut img);
 ```
 
-因为已经为 DigitalImage 实现了 `AsMut<[u32]>`，所以完全不需要明确获取属性。直接将可变借用传入即可，编译器会自动帮我们处理。
+因为已经为 DigitalImage 实现了 `AsMut<[u32]>`，完美符合函数签名，所以可以直接将 DigitalImage 作为参数传入。
 
 现在对 AsMut 是不是有了更清晰的认识了？如果没有继续写一个 struct，并实现 `AsMut<u32>`：
 
@@ -163,8 +163,6 @@ let mut array = Array::<5> {
 
 zero_out(&mut array); // 直接传入 array 即可
 ```
-
-这就是 Rust 中的多态！
 
 :::success[总结]
 AsMut 最重要的作用是做类型约束，当做为类型约束使用时完全就是一个强大的“解耦”利器。它不需要管你的业务，你也不需要管它的数据结构。

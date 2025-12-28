@@ -43,3 +43,9 @@
 .hero__subtitle {
   font-size: 1rem;
 }
+
+
+/* 提示框标题, 取消自动大写 */
+.admonitionHeading_Gvgb {
+  text-transform: none !important;
+}
