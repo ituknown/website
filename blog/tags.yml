@@ -21,3 +21,7 @@ YAML:
 软硬件:
   label: 软硬件
   permalink: /软硬件
+
+性能:
+  label: 性能
+  permalink: /性能
