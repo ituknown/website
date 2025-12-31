@@ -5,7 +5,9 @@ date: 2026-01-01T11:01
 tags: [加密]
 ---
 
-生成随机数时为什么需要设置 Seed
+$$
+{\LARGE f(} {\Large f(} f(x){\Large )} {\LARGE )}
+$$
 
 <!-- truncate -->
 
