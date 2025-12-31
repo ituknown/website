@@ -2,8 +2,10 @@
 slug: 生成随机数时为什么需要设置-Seed
 title: 生成随机数时为什么需要设置 Seed
 date: 2026-01-01T11:01
-tags: [性能]
+tags: [加密]
 ---
+
+生成随机数时为什么需要设置 Seed
 
 <!-- truncate -->
 
