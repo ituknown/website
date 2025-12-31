@@ -2,7 +2,7 @@
 slug: wrk-性能压测
 title: wrk 性能压测
 date: 2023-07-08T13:38
-tags: [软硬件]
+tags: [软硬件, 性能]
 ---
 
 ## 前言
