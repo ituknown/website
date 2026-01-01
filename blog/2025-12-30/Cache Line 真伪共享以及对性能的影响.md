@@ -15,7 +15,7 @@ CPU 从主内存（DRAM）读取数据（到 CPU 缓存）不是按单个字节�
 
 当 CPU 需要从主内存读取数据时，它不会只读取单个字节或单个字（word），而是一次性读取 Cache Line 大小到 CPU 缓存中。这表示即使你只需要一个 4 字节的整数（int32），CPU 也会把其相邻的 60 字节一并加载到缓存中。
 
-:::danger[Note]
+:::info[Note]
 决定 Cache Line 大小的是 CPU 架构，不是操作系统（OS）位数，这两者没有任何关联关系。Cache Line 大小是硬件（CPU 缓存）固定的，OS 位数只影响地址空间和指针大小。
 
 在 Linux 上可以使用下面的命令查看 Cache Line 大小：
@@ -128,7 +128,7 @@ struct TureSharing {
 ![CacheLineSharing.png](https://media.ituknown.org/blog-media/CpuCacheLine/CacheLineSharing.png)
 
 <details>
-<summary>**一个不专业的 Rust 测试例子**</summary>
+<summary>一个不专业的 Rust 测试例子</summary>
 
 硬件信息：
 
