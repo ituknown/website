@@ -378,3 +378,40 @@ private static void configureObjectMapper4Jsr310(ObjectMapper objectMapper) {
 ```
 
 反序列化就不做测试了~
+
+## Jackson 2.8+ 推荐使用方式
+
+```java
+public static void configureObjectMapper4Jsr310(ObjectMapper objectMapper) {
+    objectMapper.registerModule(new JavaTimeModule());
+
+    // 禁用 JSR310 将日期时间写为时间戳的特性 默认行为，必须禁用才能使用后面的字符串格式
+    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+    {
+        // LocalTime 序列化和反序列化配置
+        JsonFormat.Value format = JsonFormat.Value.forShape(JsonFormat.Shape.STRING).withPattern("HH:mm:ss");
+        objectMapper.configOverride(LocalTime.class).setFormat(format);
+    }
+    {
+        // LocalDate 序列化和反序列化配置
+        JsonFormat.Value format = JsonFormat.Value.forShape(JsonFormat.Shape.STRING).withPattern("yyyy-MM-dd");
+        objectMapper.configOverride(LocalDate.class).setFormat(format);
+    }
+    {
+        // LocalDateTime 序列化和反序列化配置
+        JsonFormat.Value format = JsonFormat.Value.forShape(JsonFormat.Shape.STRING).withPattern("yyyy-MM-dd HH:mm:ss");
+        objectMapper.configOverride(LocalDateTime.class).setFormat(format);
+    }
+    {
+        // OffsetDateTime 序列化和反序列化配置
+        JsonFormat.Value format = JsonFormat.Value.forShape(JsonFormat.Shape.STRING).withPattern("yyyy-MM-dd HH:mm:ss OOOO");
+        objectMapper.configOverride(OffsetDateTime.class).setFormat(format);
+    }
+    {
+        // OffsetTime 序列化和反序列化配置
+        JsonFormat.Value format = JsonFormat.Value.forShape(JsonFormat.Shape.STRING).withPattern("HH:mm:ss OOOO");
+        objectMapper.configOverride(OffsetTime.class).setFormat(format);
+    }
+}
+```
