@@ -148,7 +148,7 @@ yt-dlp -f 137+140 https://www.youtube.com/watch?v=lHvamusTCK0
 
 `-f` 参数除了直接指定 ID 外还可以使用下面这种语法（也是 yt-dlp 默认下载形式）：
 
-```log
+```bash
 -f bestvideo+bestaudio
 ```
 
@@ -161,13 +161,13 @@ yt-dlp -f 137+140 https://www.youtube.com/watch?v=lHvamusTCK0
 
 bestvideo 形式默认会自动选择 webm 格式，因此我们可以使用下面的语法指定如果没有 mp4 格式的视频文件的话再选择 webm 视频文件：
 
-```log
+```bash
 -f bestvide[ext=mp4]/bestvideo[ext=webm]+bestaudio
 ```
 
 对于音频文件也是一样的，可以指定优选选择 m4a 还是 webm 的音频文件（默认选择 webm）：
 
-```log
+```bash
 -f bestvideo[ext=mp4]/bestvideo[ext=webm]+bestaudio[ext=m4a]/bestaudio[ext=webm]
 ```
 
@@ -181,7 +181,7 @@ yt-dlp -f bestvide+bestaudio https://www.youtube.com/video?v=PLpljE1hzFbZxxx
 
 得到两个音视频文件：
 
-```bash
+```log
 bestvide.mp4
 bestaudio.m4a
 ```
@@ -353,7 +353,7 @@ $ yt-dlp --write-auto-sub --convert-subs=ass --sub-lang "zh-Hans,en" --embed-sub
 
 既然下载 Youtube 上的视频怎们能少的了代理呢？
 
-```log
+```bash
 --proxy URL
 ```
 
@@ -367,7 +367,7 @@ yt-dlp --proxy sockss://127.0.0.1:8889 -f 137+140 https://www.youtube.com/watch?
 
 另外还可以设置连接超时时间：
 
-```log
+```bash
 --socket-timeout SECONDS
 ```
 
@@ -375,11 +375,37 @@ yt-dlp --proxy sockss://127.0.0.1:8889 -f 137+140 https://www.youtube.com/watch?
 
 如果在上班时偷偷使用 yt-dlp 下载 Youtube 上的视频，每秒几十兆几十兆的下载很容易被网管监控到。所以聪明的做法应该限制一下 yt-dlp 的最大下载速度：
 
-```log
+```bash
 -r, --limit-rate      MAX_RATE
 ```
 
 参数 `MAX_RATE` 就是你指定的每秒下载速度上限，如 50K、4.2M、1024G。
+
+### 设置请求时间间隔
+
+在油管上，如果批量下载视频（如播放列表）容易触发请求限制，导致无法访问：
+
+```log
+This content isn't available, try again later
+```
+
+可以设置如下参数，在每个视频下载完成后增加 5 ~ 20 秒的延迟，再下载下一个视频：
+
+```bash
+-t sleep
+```
+
+:::info[NOTE]
+`-t sleep` 是 yt-dlp 提供的内置别名预设，他是完整命令是：
+
+```log
+--sleep-subtitles 5 --sleep-requests 0.75
+--sleep-interval 10 --max-sleep-interval 20
+```
+
+如果不想直接会用预设，也可以基于完整命令做适当修改。
+:::
+
 
 ## 用户认证
 
