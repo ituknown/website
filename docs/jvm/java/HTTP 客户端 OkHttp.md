@@ -3,25 +3,35 @@
 ```xml
 <dependency>
     <groupId>com.squareup.okhttp3</groupId>
-    <artifactId>okhttp</artifactId>
+    <artifactId>okhttp-jvm</artifactId>
     <version>${okhttp.version}</version>
 </dependency>
 ```
 
-需要知道一点的是：okhttp 自 4.0.0 开始，使用 kotlin 进行了重写。
+:::tip
+okhttp 自 4.0.0 开始，使用 kotlin 进行了重写，从 5.0 开始分为 jvm 版和 Android 版。如果你使用 5.0 之前的版本，需要使用下面的方式引入依赖：
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>${okhttp.version}</version>
+</dependency>
+```
+:::
 
 ## 组件及请求流程
 
 | **组件** | **描述** |
 | :--- | :--- |
-| `OkHttpClient` | 一个线程安全的客户端实例。在实际在应用中应该全局共用一个实例（单例模式） |
-| `Request` | 表示一次 HTTP 请求。可以设置请求方式、URL、Header及消息体。通常使用工厂 `new Request.Builder()...build()` 进行构建 |
-| `Call` | 用于发送 HTTP 请求并处理响应。 `Call` 定义了一个 `execute()` 方法和一个 `enqueue()` 方法，分别用于同步执行和异步执行 HTTP 请求 |
-| `Response` | 请求响应结果 |
+| OkHttpClient | 一个线程安全的客户端实例。在实际在应用中应该全局共用一个实例（单例模式） |
+| Request | 表示一次 HTTP 请求。可以设置请求方式、URL、Header及消息体。通常使用工厂 `new Request.Builder()...build()` 进行构建 |
+| Call | 用于发送 HTTP 请求并处理响应。 `Call` 定义了一个 `execute()` 方法和一个 `enqueue()` 方法，分别用于同步执行和异步执行 HTTP 请求 |
+| Response | 请求响应结果 |
 
 基本的请求流程为：
 
-1、创建OkHttpClient客户端
+$1.$ 创建 OkHttpClient 客户端
 
 ```java
 // 应该设计为单例模式，全局共用一个 CLIENT 实例
@@ -44,55 +54,37 @@ private static final OkHttpClient CLIENT = new OkHttpClient().newBuilder()
     .build();
 ```
 
-2、创建请求对象（设置URL、Header信息、请求参数信息）
+:::tip
+拦截器和 Dns 只能针对 client 设置，没法针对单个请求设置。如果需要针对单个请求设置拦截器或 Dns，需要基于全局 CLIENT 做一份“拷贝”，如下：
 
-* GET 请求：
+```java
+OkHttpClient client = CLIENT.newBuilder() // 做一次拷贝
+    .connectTimeout(3, TimeUnit.SECONDS) // 设置超时时间
+    .addInterceptor(...) // 添加拦截器
+    .dns(...)  // 设置DNS
+    .build();
+```
+:::
+
+$2.$ 构造请求对象
+
+设置 URL、Header 信息、请求参数信息等
 
 ```java
 Request request = new Request.Builder()
 	.url("...")
 	.addHeader("...", "...")
-	.get()
+	.method() // get、post、delete、put
 	.build();
 ```
 
-* POST 请求：
-
-```java
-Request request = new Request.Builder()
-	.url("...")
-	.addHeader("...", "...")
-	.post(RequestBody)
-	.build();
-```
-
-* DELETE 请求：
-
-```java
-Request request = new Request.Builder()
-	.url("...")
-	.addHeader("...", "...")
-	.delete(RequestBody) // RequestBody 是可选参数
-	.build();
-```
-
-* PUT 请求：
-
-```java
-Request request = new Request.Builder()
-	.url("...")
-	.addHeader("...", "...")
-	.put(RequestBody)
-	.build();
-```
-
-3、执行请求
+$3.$ 执行请求
 
 ```java
 Call call = CLIENT.newCall(request);
 ```
 
-4、获取到 Response 对象
+$4.$ 获取到 Response 对象
 
 这一步才是真正的执行请求，okhttp 提供了同步和异步两种执行方式。
 
@@ -138,7 +130,7 @@ call.enqueue(new Callback() {
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         if (response.isSuccessful()) {
-            // 与同步请求一样，继续处理 response        } else {
+            // 与同步请求一样，继续处理 response
             // 请求失败处理
         }
     }
@@ -147,9 +139,7 @@ call.enqueue(new Callback() {
 
 也就是说，同步请求用 `call.execute()` 方法，异步请求用 `call.enqueue(new Callback()` 方法。
 
-5、最后释放资源
-
-## GET 请求示例
+## GET 请求
 
 GET 请求比较简单，只需要创建一个 Request 对象即可，实例：
 
@@ -193,7 +183,7 @@ public static RequestBody create(final File file, final MediaType contentType);
 其中 okhttp3. MediaType 对象是用于设置请求体类型，比如我想要请求的是 JSON 格式请求体就可以使用如下形式：
 
 ```java
-MediaType type = MediaType.parse("application/json;charset=utf-8");
+MediaType type = MediaType.parse("application/json");
 ```
 
 之后设置到 okhttp3. Request 对象即可：
@@ -210,7 +200,7 @@ Request request = new Request.Builder()
 
 ![RequestBody.png](https://media.ituknown.org/java-media/okhttp/RequestBody.png)
 
-### JSON 请求
+### application/json
 
 ```java
 User user = new User();
@@ -221,7 +211,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 String content = objectMapper.writeValueAsString(user);
 
 // 创建 JSON 请求体数据
-MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
+MediaType mediaType = MediaType.parse("application/json");
 RequestBody requestBody = RequestBody.create(content, mediaType);
 
 // 请求
@@ -234,7 +224,7 @@ Request request = new Request.Builder()
 Call call = CLIENT.newCall(request);
 ```
 
-### 表单请求
+### application/x-www-form-urlencoded
 
 Form 表单请求使用的 Media 类型是 `application/x-www-form-urlencoded` 。okhttp 提供了一个对应的 Form 表单请求体类： `FormBody` 。我们可以直接使用该对象构造 Form 表单数据即可：
 
@@ -262,7 +252,7 @@ private static final MediaType CONTENT_TYPE = MediaType.get("application/x-www-f
 
 所以我们在发送请求是无需手动设置 MediaType。
 
-### 文件上传
+### multipart/form-data
 
 okhttp 同样提供了一个用于构造文件上传的请求体类： `MultipartBody` 。我们可以直接借助该类构造文件上传对象，示例如下：
 
