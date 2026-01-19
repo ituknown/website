@@ -12,11 +12,66 @@
 |mirrorOf 值|含义（替代的目标）|应用场景|
 |:------------|:------------------|:-------|
 |central（推荐）|仅替代 Maven 默认的中央仓库|只希望替换中央仓库，保留其他自定义仓库（如 maven 私服）时使用|
-|*（强烈不建议使用）|<u>替代所有仓库</u>（包括 central 和你在 pom.xml 中定义的其他仓库）|如果你配置了私服，千万不要使用。因为会忽略私服中的依赖，强制所有的依赖都去镜像站下载，最终会导致你私服中的依赖下载不下来。|
-|external:*|替代所有非本地仓库|与 * 类似，但更明确地排除了本地文件系统的仓库定义（一般用不到这个）。|
-|repo1|仅替代 ID 为 repo1 的原始仓库|仅替代项目 pom.xml 或 Profile 中 ID 为 repo1 的仓库。|
-|repo1,repo2|仅替代 ID 为 repo1 和 repo2 的仓库|替代多个指定的仓库|
-|*,!repo3|替代除了 repo3 以外的所有仓库|比如替代除了私服之外的所有仓库|
+|*|<u>替代所有仓库</u>，包括 central 和你在 settings.xml、pom.xml 中使用 `<repositories>` 定义的仓库|如果你配置了私服，千万不要使用。因为会忽略私服中的依赖，强制所有的依赖都去镜像站下载，最终会导致你私服中的依赖下载不下来|
+|external:*|替代所有非本地仓库|与 * 类似，但更明确地排除了本地文件系统的仓库定义（一般用不到这个）|
+|repo1[,repo2]|仅替代 id 为 repo1 的仓库|替代指定仓库（可以指定多个）|
+|*,!repo2（推荐）|替代除了 id 为 repo2 以外的所有仓库|比如替代除了私服之外的所有仓库（可以指定多个）|
+
+<details open>
+<summary>**什么是仓库 id？**</summary>
+
+```xml title="settings.xml" {7,12}
+<settings>
+    <profiles>
+        <profile>
+            <id>office</id>
+            <repositories>
+                <repository>
+                    <id>nexus</id>
+                    <!-- ... -->
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>nexus</id>
+                    <!-- ... -->
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+</settings>
+```
+
+其中 nexus 就是仓库 id。如果想替换所有仓库，但是唯独该私服不需要镜像，写法如下：
+
+```xml {4}
+<mirror>
+    <id>Aliyun Maven Mirror</id>
+    <!-- 替换除 nexus 之外的所有仓库 -->
+    <mirrorOf>*,!nexus</mirrorOf>
+    <name>阿里云公共仓库</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+</mirror>
+```
+
+:::danger[NOTE]
+`<repositories>` 并非只能设置在 `settings.xml` 文件中，也可以在项目的 `pom.xml` 文件中设置：
+
+```xml title="pom.xml" {7}
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <!-- 项目配置 -->
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <!-- ... -->
+        </repository>
+    </repositories>
+</project>
+```
+:::
+</details>
 
 <details open>
 <summary>**其他镜像站推荐**</summary>
