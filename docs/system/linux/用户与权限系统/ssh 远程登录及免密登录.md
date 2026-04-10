@@ -122,7 +122,7 @@ scp [file] [username@]host[:port]:[path]
 
 ### 文件上传
 
-在我的 tmp 目录下有个 baidu.png 文件，以 [ssh 登录示例](#ssh-登录示例) 中的机器为例，将该文件上传到 kali 用户下的 Downloads 目录中（Downloads 必须已存在）：
+在我的 tmp 目录下有个 baidu.png 文件，以 [ssh 登录示例](#SSH-登录示例) 中的机器为例，将该文件上传到 kali 用户下的 Downloads 目录中（Downloads 必须已存在）：
 
 ```bash
 $ scp ./tmp/baidu.png kali@172.16.110.128:Downloads
@@ -260,7 +260,7 @@ ssh-copy-id [-i identity_file] [-p port] [user@]hostname
 -p: 登录目标服务器指定端口，默认是 22
 ```
 
-以 [ssh 登录示例](#ssh-登录示例) 中的机器为例，将公钥文件 `id_rsa.pub` 发送到机器 `172.16.110.128`：
+以 [ssh 登录示例](#SSH-登录示例) 中的机器为例，将公钥文件 `id_rsa.pub` 发送到机器 `172.16.110.128`：
 
 ```bash
 $ ssh-copy-id -i ~/.ssh/id_rsa.pub kali@172.16.110.128
@@ -305,7 +305,7 @@ Host alias
 - `IdentityFile` 是你使用 `ssh-keygen` 命令生成的私钥文件路径，必须与你发送的公钥是一对的。
 - `PreferredAuthentications` 指定你登录远程主机认证方法，我们使用的是公钥，指定为 `publickey` ，当然也可以使用密码。
 
-以 [ssh 登录示例](#ssh-登录示例) 中的机器为例，配置如下：
+以 [ssh 登录示例](#SSH-登录示例) 中的机器为例，配置如下：
 
 ```
 Host order_srv
@@ -340,7 +340,7 @@ $ scp order_srv:Downloads/baidu.png ./
 这里介绍的解决方案只适用于 Mac 和 Linux，如果你使用的是 Windows 系统的话就只能去谷歌度娘了。
 :::
 
-前面 [SSH Key 实现免密登录](#ssh-key-实现免密登录) 的示例中生成的密匙并没有设置私钥密码保护。但是如果你生成密匙时指定了私钥密码保护的话可能会遇到一个问题：使用 `ssh` 登录虽然不要账号的密码，但是却要秘钥文件的加密密码。
+前面 [SSH Key 实现免密登录](#SSH-Key-实现免密登录) 的示例中生成的密匙并没有设置私钥密码保护。但是如果你生成密匙时指定了私钥密码保护的话可能会遇到一个问题：使用 `ssh` 登录虽然不要账号的密码，但是却要秘钥文件的加密密码。
 
 比如我使用下面的命令生成密匙，指定的私钥密码是 `1234`，私钥文件是 `id_pwd`：
 

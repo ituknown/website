@@ -33,7 +33,17 @@ yt-dlp 的 Github 仓库地址是：[https://github.com/yt-dlp/yt-dlp](https://g
 
 在仓库的 README 说明中有介绍各种操作系统（Unix/Mac/Windows）的安装方式。另外，也可以直接到 [releases](https://github.com/yt-dlp/yt-dlp/releases) 页面下载二进制安装包进行安装。
 
-下面是类Unix（MacOS、Linux、BSD）操作系统使用 `curl` 、 `wget` 及 `aria2c` 三种下载工具的安装方式：
+不过，推荐使用 pip 包管理安装：
+
+```bash
+pip3 install -U "yt-dlp[default]"
+```
+
+后续如果想升级，再执行一次该命令即可。
+
+:::info[不想使用 pip 包管理？]
+
+如果你不想使用 pip，在 Unix（MacOS、Linux、BSD）上也可以使用 `curl`、`wget` 及 `aria2c` 等工具下载，之后直接设置执行权限即可：
 
 curl：
 
@@ -56,24 +66,16 @@ sudo aria2c https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp --d
 sudo chmod a+rx /usr/local/bin/yt-dlp
 ```
 
-如果你在 MacOS 上使用 HomeBrew 作为包管理工具的话可以直接使用 brew 命令进行安装：
+另外，MacOS 如果使用了 HomeBrew 包管理工具的话，也可以直接使用 brew 命令进行安装：
 
 ```bash
 brew install yt-dlp
 ```
 
-如果你使用 Pip 可以使用下面命令进行安装：
+对于 Windows 系统，也可以直接到 [releases](https://github.com/yt-dlp/yt-dlp/releases) 页面下载二进制程序包，之后配置下环境变量也行。
+:::
 
-```bash
-pip3 install -U yt-dlp
-
-# 可选依赖安装
-pip3 install --no-deps -U yt-dlp
-```
-
-对于 Windows 系统，推荐直接到 [releases](https://github.com/yt-dlp/yt-dlp/releases) 页面下载二进制程序包吧。
-
-:::info[注意]
+:::danger[注意]
 yt-dlp 在视频合成时基于 ffmpeg，虽然在程序包中有内置 ffmpeg。但还是推荐在操作系统上单独安装一次，防止视频下载后在进行合并音视频的出现未知错误。
 :::
 
@@ -520,9 +522,7 @@ $ yt-dlp -o "P%(playlist_index)02d｜%(title)s.%(ext)s" https://www.bilibili.com
 | `{description}` | 视频的描述|
 </details>
 
-## 其他
-
-### 查看支持的网站列表
+## 查看支持的网站列表
 
 如果想要知道 yt-dlp 工具支不支持你想下载的网站的视频可以使用下面参数看下。该参数会列出所有支持的网站列表：
 
@@ -556,18 +556,6 @@ ID EXT RESOLUTION │  FILESIZE  TBR PROTO │ VCODEC            VBR ACODEC     
 ```
 
 那现在我下载课程还不轻而易举？
-
-### 升级 yt-dlp
-
-```bash
-yt-dlp -U
-```
-
-如果使用的pip安装，可以直接使用下面命令升级：
-
-```
-pip3 install -U yt-dlp
-```
 
 ## 什么是 WebM 格式
 
@@ -604,3 +592,49 @@ yt-dlp --print "P%(playlist_index)02d｜%(title)s.%(ext)s" 视频链接
 ```bash
 yt-dlp --cookies cookies_svip.txt -c --embed-thumbnail -f bestvideo+bestaudio -o "P%(playlist_index)02d｜%(title)s.%(ext)s" 视频链接
 ```
+
+## Q&A
+
+### JavaScript 运行时错误？
+
+在下载 YouTube 视频时大概率会遇到下面错误提示或警告：
+
+```
+WARNING: [youtube] No supported JavaScript runtime could be found. Only deno is enabled by default; to use another runtime add  --js-runtimes RUNTIME[:PATH]  to your command/config. YouTube extraction without a JS runtime has been deprecated, and some formats may be missing. See  https://github.com/yt-dlp/yt-dlp/wiki/EJS  for details on installing one
+```
+
+这个警告是 yt-dlp 提示你需要外部 JavaScript 运行时（runtime）来解决 YouTube 的反爬机制。解决方式也很简单，安装一个 JavaScript 运行环境即可（选一个你最熟悉的即可）：
+
+- Deno (推荐)：轻量且是 yt-dlp 的默认首选。
+- Node.js
+- Bun
+
+之后使用只需要加上 `--js-runtimes` 参数即可：
+
+```bash
+yt-dlp --js-runtimes deno
+yt-dlp --js-runtimes node
+yt-dlp --js-runtimes bun
+```
+
+另外，将配置写入文件，这样以后每次使用 yt-dlp 都会自动应用，无需再手动输入参数。根据你的操作系统选择对应的命令：
+
+Linux/macOS 用户：
+
+```bash
+mkdir -p ~/.config/yt-dlp
+echo "--js-runtimes node" >> ~/.config/yt-dlp/config
+echo "--remote-components ejs:github" >> ~/.config/yt-dlp/config
+```
+
+Windows 用户：
+
+```powershell
+echo --js-runtimes node > %APPDATA%\yt-dlp\config.txt
+echo --remote-components ejs:github >> %APPDATA%\yt-dlp\config.txt
+```
+
+简单解释一下这两个参数的作用：
+
+- `--js-runtimes node`：指定使用 Node.js 作为 JavaScript 运行时（也可以修改为 deno）。
+- `--remote-components ejs:github`：允许 yt-dlp 在需要时，自动从 GitHub 下载最新的方案解决脚本异常

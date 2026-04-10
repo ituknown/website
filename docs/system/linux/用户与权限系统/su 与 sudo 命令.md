@@ -33,7 +33,7 @@ $ sudo cat /etc/passwd | grep ituknown
 ituknown:x:1000:1002:ituknown:/home/ituknown:/bin/bash
 ```
 
-当然了，默认 SHELL 是可以修改的，可以参考下 [用户管理#登录 Shell](./用户管理.md#登录-shell)
+当然了，默认 SHELL 是可以修改的，可以参考下 [用户管理#登录 Shell](./用户管理.md#登录-Shell)
 
 之说以这里会说下默认 SHELL 是因为当我们使用 `su` 命令切换用户身份时其实会重新加载要切换用户的 SHELL 环境。这个其实很好理解，正常来说，我登录系统的用户是 `ituknown` ，那么我的 HOME 环境变量就是 `/home/ituknown` 。结果当我切换到 root 用户后环境变量就变了：
 

@@ -560,7 +560,7 @@ default via 172.17.21.254 dev ens33 proto dhcp metric 100
 $ ip -c route list default
 ```
 
-**Note：** 新版Ubuntu(22.04) 已废弃 gateway 属性，取而代之的是通过配置默认路由表 [routes](#routes-配置) 来实现。
+**Note：** 新版Ubuntu(22.04) 已废弃 gateway 属性，取而代之的是通过配置默认路由表 [routes](#routes-属性) 来实现。
 
 比如：
 

@@ -50,6 +50,9 @@ const config: Config = {
 
     markdown: {
         format: 'mdx',
+        mdx1Compat: {
+            comments: true,
+        },
         mermaid: true,
         emoji: false,
         anchors: {
