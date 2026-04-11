@@ -534,20 +534,25 @@ yt-dlp --print "P%(playlist_index)02d｜%(title)s.%(ext)s" 视频链接
 执行下载：
 
 ```bash
-yt-dlp --cookies cookies_svip.txt -c --embed-thumbnail -f bestvideo+bestaudio -o "P%(playlist_index)02d｜%(title)s.%(ext)s" 视频链接
+yt-dlp -c \
+-t sleep \
+--embed-thumbnail \
+-f bestvideo+bestaudio \
+-o "P%(playlist_index)02d｜%(title)s.%(ext)s" \
+--cookies cookies_svip.txt \
+[视频链接]
 ```
 
-如果是 youtube 的话，可以考虑内嵌封面、字幕什么的：
-
+如果是 youtube 的话，可以考虑内嵌字幕什么的：
 
 ```bash
 yt-dlp -c \
 -t sleep \
+--embed-thumbnail \
 -f bestvideo+bestaudio \
---write-thumbnail --convert-thumbnail png --embed-thumbnail \
 --write-auto-sub --convert-subs=ass --sub-lang "zh-Hans,en" --embed-sub \
 -o "P%(playlist_index)02d｜%(title)s.%(ext)s" \
-视频链接
+[视频链接]
 ```
 
 </details>
