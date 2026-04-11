@@ -145,9 +145,20 @@ if (Test-Path Alias:ls) {
 <details>
 <summary>**$PROFILE 示例**</summary>
 ```
+# 解决中文乱码，全局设为 UTF-8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding = [System.Text.Encoding]::UTF8
+
+# 顺便设置一下别名，让常用的命令支持长路径/特殊字符（可选）
+$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+
 # 更新 Rust
 function rust_chain_update {
+    Write-Host ">>> 正在更新Rust..." -ForegroundColor Cyan
     rustup update stable
+
+    Write-Host "`n✅ 更新检查完毕。" -ForegroundColor Green
 }
 
 # wsl显示所有可用分发版本
@@ -156,6 +167,11 @@ function wsl_list_online {
         [string]$list = "--online"
     )
     wsl --list --online $args
+}
+
+# 关闭wsl
+function wsl_shutdown {
+    wsl --shutdown
 }
 
 # FFmpeg
@@ -167,18 +183,23 @@ function ffprobe {
     ffprobe.exe -hide_banner $args
 }
 
-# 设置 pm 别名
-Set-Alias -Name pm -Value pnpm
-
 # 将 npm 完全映射给 pnpm
 function npm {
     pnpm $args
 }
 
+# 设置 pm 别名
+Set-Alias -Name pm -Value pnpm
+
 # pnpm 组合更新
 function pm_update {
+    Write-Host ">>> 正在更新全局包..." -ForegroundColor Cyan
     pnpm update -g
+
+    Write-Host "`n>>> 正在检查 pnpm 自身更新..." -ForegroundColor Cyan
     pnpm self-update
+
+    Write-Host "`n✅ 更新检查完毕。" -ForegroundColor Green
 }
 
 # pnpm 全局安装包
@@ -186,9 +207,34 @@ function pm_list_g {
     pnpm list -g
 }
 
-# pnpm 全局安装
+# pnpm 全局安装包
 function pm_add_g {
     pnpm add -g $args
+}
+
+# pnpm 移除全局包
+function pm_remove_g {
+    pnpm remove -g $args
+}
+
+# pnpm 清除缓存
+function pm_clear_cache {
+    # 清理 pnpm 全局存储中未引用的包
+    Write-Host "正在清理 pnpm 全局存储..." -ForegroundColor Cyan
+    pnpm store prune
+
+    # 如果当前目录有 package.json 文件，说明是 node 项目，继续清理 node_modules
+    if (Test-Path "package.json") {
+        Write-Host ">>> 检测到 Node 项目，准备清理本地 node_modules..." -ForegroundColor Yellow
+        if (Test-Path "node_modules") {
+            # 这里的顺序很重要：先强制删除目录
+            Remove-Item -Path "node_modules" -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "✅ node_modules 已成功删除。" -ForegroundColor Green
+        }
+        else {
+            Write-Host "💡 目录下未发现 node_modules。" -ForegroundColor Gray
+        }
+    }
 }
 
 # eza 替代默认 ls
@@ -228,17 +274,18 @@ function yt_dlp {
     yt-dlp.exe --js-runtimes node --remote-components ejs:github
 }
 
+
 # 设置代理
 function proxy_enable {
     $env:HTTP_PROXY = "http://127.0.0.1:7897"
     $env:HTTPS_PROXY = "http://127.0.0.1:7897"
-    Write-Output "Proxy ON"
+    Write-Host "Proxy ON (127.0.0.1:7897)" -ForegroundColor Green
 }
 
 function proxy_disable {
     Remove-Item Env:HTTP_PROXY
     Remove-Item Env:HTTPS_PROXY
-    Write-Output "Proxy OFF"
+    Write-Host "Proxy OFF" -ForegroundColor Red
 }
 ```
 </details>
