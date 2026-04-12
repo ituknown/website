@@ -228,6 +228,18 @@ const config: Config = {
                 rehypePlugins: [rehypeKatex],
             },
         ], [
+            // Python 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'python',
+                path: 'docs/programmer/python',
+                routeBasePath: 'programmer/python',
+                sidebarPath: './sidebars/programmer/python.ts',
+                showLastUpdateTime: false,
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ], [
             // Dollar 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -369,6 +381,11 @@ const config: Config = {
                             sidebarId: 'rust',
                             docsPluginId: 'rust',
                             label: '🦀 Rust',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'python',
+                            docsPluginId: 'python',
+                            label: '🐍 Python',
                         }
                     ],
                 },
