@@ -1,5 +1,3 @@
-## 前言
-
 在 PowerShell 中，`Set-Alias` 命令用于为现有命令设置一个别名。其基本语法如下：
 
 ```PowerShell
@@ -11,12 +9,15 @@ Set-Alias [-Name] <string> [-Value] <string> [-Option <ScopedItemOptions>] [-Des
 - `-Option`：指定别名的选项，可以是 `None`、`ReadOnly`、`Constant` 或 `Private`。
 - `-Description`：为别名提供一个描述（在 PowerShell 7 及更高版本中可用）。
 
-不过这些参数名可以直接忽略，比如为 `rustup update` 设置别名 `RustUpdate`：
+示例：
 
 ```PowerShell
-Set-Alias -Name RustUpdate -Value "rustup update"
+Set-Alias -Name RustUpdate -Value "rustup update" -Description "update rust tools chain"
+```
 
-# 简写
+另外如果只需要设置 Name 和 Value，可以直接使用简写形式：
+
+```powershell
 Set-Alias RustUpdate "rustup update"
 ```
 
@@ -63,8 +64,6 @@ RustUpdateStable : 无法将“rustup.exe update stable”项识别为 cmdlet、
 这种情况下就只能通过自定义 function 解决了
 
 ## 自定义 function
-
-如下：
 
 ```PowerShell
 # 更新 Rust
@@ -202,12 +201,12 @@ function pm_update {
     Write-Host "`n✅ 更新检查完毕。" -ForegroundColor Green
 }
 
-# pnpm 全局安装包
+# pnpm 全局安装的依赖包
 function pm_list_g {
     pnpm list -g
 }
 
-# pnpm 全局安装包
+# pnpm 全局安装
 function pm_add_g {
     pnpm add -g $args
 }
