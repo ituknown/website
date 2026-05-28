@@ -1,3 +1,5 @@
 allowBuilds:
   '@swc/core': false
   core-js: false
+overrides:
+  hast-util-to-estree: 3.1.2

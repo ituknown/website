@@ -40,6 +40,8 @@ const config: Config = {
 
     // 引用链接不存在, 直接报错
     onBrokenLinks: 'throw',
+    onBrokenAnchors: 'throw',
+    onDuplicateRoutes: 'throw',
 
     i18n: {
         defaultLocale: 'zh',
@@ -116,6 +118,7 @@ const config: Config = {
                 routeBasePath: 'ffmpeg', // URL路由，例如: 域名/ffmpeg
                 sidebarPath: './sidebars/ffmpeg.ts', // 侧边栏目录解析
                 showLastUpdateTime: false, // 最近更新时间
+                onInlineTags: 'throw', // 内联不存在的 TAG 直接抛出异常
                 remarkPlugins: [remarkMath], // 启用 katex
                 rehypePlugins: [rehypeKatex], // 启用 katex
             },
@@ -128,6 +131,7 @@ const config: Config = {
                 routeBasePath: 'system/linux',
                 sidebarPath: './sidebars/system/linux.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -140,6 +144,7 @@ const config: Config = {
                 routeBasePath: 'system/windows',
                 sidebarPath: './sidebars/system/windows.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -152,6 +157,7 @@ const config: Config = {
                 routeBasePath: 'jvm/java',
                 sidebarPath: './sidebars/jvm/java.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -164,6 +170,7 @@ const config: Config = {
                 routeBasePath: 'jvm/spring',
                 sidebarPath: './sidebars/jvm/spring.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -176,6 +183,7 @@ const config: Config = {
                 routeBasePath: 'jvm/kafka',
                 sidebarPath: './sidebars/jvm/kafka.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -188,6 +196,7 @@ const config: Config = {
                 routeBasePath: 'database',
                 sidebarPath: './sidebars/database.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -200,6 +209,7 @@ const config: Config = {
                 routeBasePath: 'programmer/git',
                 sidebarPath: './sidebars/programmer/git.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -212,6 +222,7 @@ const config: Config = {
                 routeBasePath: 'programmer/protocol',
                 sidebarPath: './sidebars/programmer/protocol.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -224,6 +235,7 @@ const config: Config = {
                 routeBasePath: 'programmer/rust',
                 sidebarPath: './sidebars/programmer/rust.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -236,6 +248,7 @@ const config: Config = {
                 routeBasePath: 'programmer/python',
                 sidebarPath: './sidebars/programmer/python.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
@@ -248,6 +261,7 @@ const config: Config = {
                 routeBasePath: 'dollar',
                 sidebarPath: './sidebars/dollar.ts',
                 showLastUpdateTime: false,
+                onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
