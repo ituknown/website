@@ -2,7 +2,7 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
     java: [
-        '快速切换JDK版本',
+        '命令行临时切换 JDK 版本',
         'Java 内省机制',
         'i18n 国际化实现',
         'Bean Validation',
