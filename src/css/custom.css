@@ -49,3 +49,10 @@
 .admonitionHeading_Gvgb {
   text-transform: none !important;
 }
+
+/* Mermaid 图表文字加粗 (作用于节点 / 连线标签) */
+.docusaurus-mermaid-container .nodeLabel,
+.docusaurus-mermaid-container .edgeLabel,
+.docusaurus-mermaid-container text {
+  font-weight: 700;
+}

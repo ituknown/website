@@ -105,6 +105,11 @@ const config: Config = {
             integrity: 'sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi',
             crossorigin: 'anonymous',
         },
+        {
+            // Mermaid 手绘风格字体 (Patrick Hand / Caveat)
+            href: 'https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap',
+            type: 'text/css',
+        },
     ],
 
     // 自定义文档插件实例
@@ -275,6 +280,37 @@ const config: Config = {
             defaultMode: 'light', // 默认主题 light/dark
             respectPrefersColorScheme: false, // 优先使用系统主题(会覆盖 defaultMode)
             disableSwitch: false, // 是否禁用切换按钮
+        },
+        // Mermaid 图表全局主题: 手绘风格 (handDrawn) + 绚丽配色 + 手写字体
+        // options 中的所有字段会原样传给 mermaid.initialize()
+        mermaid: {
+            theme: {
+                light: 'default',
+                dark: 'dark',
+            },
+            options: {
+                look: 'handDrawn', // 手绘风格
+                handDrawnSeed: 12, // 固定手绘抖动, 避免每次重新渲染时线条乱跳
+                themeVariables: {
+                    fontFamily: '"Patrick Hand", "Caveat", "Segoe UI", sans-serif',
+                    fontSize: '16px',
+                    // 主色 - 蓝紫
+                    primaryColor: '#9DB4FF',
+                    primaryTextColor: '#1B1B3A',
+                    primaryBorderColor: '#4361EE',
+                    // 次色 - 珊瑚粉
+                    secondaryColor: '#FFB5A7',
+                    secondaryTextColor: '#1B1B3A',
+                    secondaryBorderColor: '#F15BB5',
+                    // 第三色 - 薄荷绿
+                    tertiaryColor: '#A0E7A0',
+                    tertiaryTextColor: '#1B1B3A',
+                    tertiaryBorderColor: '#1B998B',
+                    // 连线与正文文字
+                    lineColor: '#5A4FCF',
+                    textColor: '#1B1B3A',
+                },
+            },
         },
         tableOfContents: {
             minHeadingLevel: 2,
