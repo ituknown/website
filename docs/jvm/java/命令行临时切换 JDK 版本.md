@@ -9,7 +9,7 @@
 
 本文介绍的 Shell 函数 `usejdk` 就是用于**命令行临时切换** JDK 版本的方案，主要特性：
 
-- **零依赖**：仅需 Bash/Zsh，不依赖 jenv、SDKMAN 等第三方工具。
+- **零依赖**：仅需 Bash/Zsh 或 PowerShell，不依赖 jenv、SDKMAN 等第三方工具。
 - **临时生效**：仅作用于当前 Shell 会话，关闭终端或新开窗口自动恢复默认版本，多个终端窗口可同时使用不同 JDK 版本，互不影响。
 - **路径干净**：自动清理 `PATH` 中旧的 JDK 路径，不会随着切换次数无限叠加。
 - **即切即验**：切换完成后自动打印版本信息，一眼确认是否切换成功。
@@ -19,6 +19,15 @@
 :::
 
 ## 配置
+
+本文提供两套实现，按平台选用其一：
+
+- **Linux / macOS**：使用 Bash/Zsh 的 `usejdk` 函数
+- **Windows**：使用 PowerShell 的 `Use-Jdk` 函数
+
+两者逻辑完全一致，仅环境变量语法、PATH 分隔符等平台细节不同。
+
+### Linux / macOS（Bash/Zsh）
 
 将下面的函数添加到你的 Shell 配置文件中：
 
@@ -83,6 +92,76 @@ $ source ~/.zshrc      # Zsh
 $ source ~/.bashrc     # Bash
 ```
 
+### Windows（PowerShell）
+
+将下面的函数添加到你的 PowerShell 配置文件中：
+
+- **PowerShell 7**：`~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
+- **Windows PowerShell 5**：`~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
+
+可用 `notepad $PROFILE` 直接打开配置文件进行编辑（文件不存在时 Notepad 会提示新建）；用 `echo $PROFILE` 可查看其完整路径。
+
+```powershell
+# 命令行临时切换 JDK 版本（仅对当前 PowerShell 会话生效）
+# 用法: Use-Jdk <版本号>
+# 示例: Use-Jdk 17
+function Use-Jdk {
+    param(
+        [Parameter(Position = 0)]
+        [string]$Version
+    )
+
+    # 参数校验：未传入版本号时给出提示并退出
+    if ([string]::IsNullOrWhiteSpace($Version)) {
+        Write-Host "用法: Use-Jdk <版本号>"
+        Write-Host "示例: Use-Jdk 17"
+        return
+    }
+
+    # 目标 JDK 的 JAVA_HOME 路径
+    # 请根据自己机器上的实际安装目录调整
+    $targetHome = "D:\Java\jdk$Version"
+
+    # 检查目标路径是否存在，避免设置一个不存在的 JAVA_HOME
+    if (-not (Test-Path $targetHome)) {
+        Write-Host "❌ 错误: 未找到 JDK $Version，路径不存在:"
+        Write-Host "   $targetHome"
+        Write-Host ""
+        Write-Host "💡 提示: 请确认对应版本已安装，或修改 Use-Jdk 中的 targetHome 路径"
+        return
+    }
+
+    # 清理 PATH 中可能残留的旧 JDK bin 路径，防止多次切换后路径无限叠加
+    # 思路：按分号拆开 PATH，过滤掉指向「任意 jdk<数字>\bin」的目录
+    $paths = $env:PATH -split ';' | Where-Object {
+        $_ -and $_ -notmatch '\\Java\\jdk\d+\\bin$'
+    }
+    $env:PATH = ($paths -join ';')
+
+    # 设置新的 JAVA_HOME
+    $env:JAVA_HOME = $targetHome
+
+    # 将新版本的 bin 目录前置到 PATH，确保优先级最高
+    $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
+
+    # 切换完成后打印提示，并输出当前 JDK 详细版本信息
+    Write-Host "✅ 已切换到 JDK $Version"
+    Write-Host "   JAVA_HOME = $env:JAVA_HOME"
+    Write-Host ""
+    java -XshowSettings:vm -version
+}
+```
+
+配置完成后，让修改生效：
+
+```powershell
+$ . $PROFILE       # 重新加载配置文件
+```
+
+:::tip[与 Bash/Zsh 版的差异]
+PowerShell 版与 Bash/Zsh 版逻辑完全一致，仅有平台相关的差异：环境变量用 `$env:VAR`（同样仅作用于当前会话）、PATH 以分号 `;` 分隔、路径分隔符为反斜杠 `\`、清理旧路径用 `-split ';'` 配合 `Where-Object` 过滤替代 `sed`。
+:::
+
 ## 使用示例
 
 在任意终端窗口中执行 `usejdk <版本号>`，即可临时切换到该版本（仅对当前终端会话生效）：
@@ -119,7 +198,12 @@ OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode)
 
 ## JDK 安装路径参考
 
-`target_home` 需要根据你机器上 JDK 的实际安装位置来调整。本文示例中所有版本都统一放在 `/usr/local/openjdk/` 目录下，按 `jdk<版本号>` 的命名约定进行管理，例如：
+`target_home` 需要根据你机器上 JDK 的实际安装位置来调整。本文示例将所有版本统一放在一个目录下，按 `jdk<版本号>` 的命名约定进行管理：
+
+- **macOS**（Bash/Zsh 版）：`/usr/local/openjdk/`
+- **Windows**（PowerShell 版）：`D:\Java\`
+
+例如 macOS 下的目录结构：
 
 ```text
 /usr/local/openjdk/
@@ -127,6 +211,16 @@ OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode)
 ├── jdk11/Contents/Home/
 ├── jdk17/Contents/Home/
 └── jdk21/Contents/Home/
+```
+
+Windows 下对应的目录结构（没有 `Contents/Home` 这一层）：
+
+```text
+D:\Java\
+├── jdk8\
+├── jdk11\
+├── jdk17\
+└── jdk21\
 ```
 
 :::info[为什么是 `Contents/Home`？]
@@ -184,6 +278,8 @@ macOS 上的 JDK 都遵循 Apple 的标准 bundle 布局，根目录下会有一
 | Oracle 官方安装包 | `/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home` |
 | SDKMAN | `~/.sdkman/candidates/java/17.0.13-tem` |
 | Linux 手动解压 | `/usr/local/openjdk/jdk17/`（注意：没有 `Contents/Home`） |
+| Windows 手动解压 | `D:\Java\jdk17`（注意：没有 `Contents/Home`） |
+| Temurin 安装器 (Windows) | `C:\Program Files\Eclipse Adoptium\jdk-17.0.13+7-hotspot` |
 
 注意：使用 Homebrew 或 SDKMAN 等管理工具时，路径中通常带有具体小版本号（如 `17.0.13-tem`），版本升级后路径会变，需要同步更新。手动解压的方式通过将目录命名为 `jdk17`、`jdk21` 这样的固定名，**让 usejdk 完全感知不到小版本变化**，这也是这种部署方式的一个小优点。
 
