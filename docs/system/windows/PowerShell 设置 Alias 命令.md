@@ -1,71 +1,116 @@
-在 PowerShell 中，`Set-Alias` 命令用于为现有命令设置一个别名。其基本语法如下：
+## 前言
 
-```PowerShell
+在 PowerShell 中，想给某个命令起一个更短的名字、或者把一段固定写法封装成一个命令来调用，主要有两套手段：
+
+- **`Set-Alias`（别名）**：纯粹是给一个**已有的命令**换一个名字，仅此而已。它**不能带任何参数**。
+- **`function`（函数）**：一段可以带参数、带逻辑的脚本块，能力远强于别名。
+
+一句话区分：**只换名、不带参数，用 `Set-Alias`；只要带参数或逻辑，就必须用 `function`。** 本文按这个递进顺序展开。
+
+## 一、Set-Alias：为单一命令设置别名
+
+`Set-Alias` 用于为现有命令设置一个别名，基本语法如下：
+
+```powershell
 Set-Alias [-Name] <string> [-Value] <string> [-Option <ScopedItemOptions>] [-Description <string>]
 ```
 
-- `-Name`：指定你要创建的别名名称。
-- `-Value`：指定你要给这个别名指向的实际命令。
-- `-Option`：指定别名的选项，可以是 `None`、`ReadOnly`、`Constant` 或 `Private`。
-- `-Description`：为别名提供一个描述（在 PowerShell 7 及更高版本中可用）。
+- `-Name`：你要创建的别名名称。
+- `-Value`：该别名**指向的命令**（注意：是一个命令的**名字**，不是一整条命令行）。
+- `-Option`：别名的选项，常用取值为 `None`、`ReadOnly`（防止误改）、`Constant`、`Private`。
+- `-Description`：为别名添加一段说明文字（Windows PowerShell 与 PowerShell 7 均支持）。
 
-示例：
-
-```PowerShell
-Set-Alias -Name RustUpdate -Value "rustup update" -Description "update rust tools chain"
-```
-
-另外如果只需要设置 Name 和 Value，可以直接使用简写形式：
+以「给 `pnpm` 起一个短名 `pm`」为例：
 
 ```powershell
-Set-Alias RustUpdate "rustup update"
+Set-Alias -Name pm -Value pnpm -Description "pnpm 的短别名"
 ```
 
-设置完成之后可以通过 `Get-Alias RustUpdate` 确认。
+如果只设置 `Name` 和 `Value`，可以省略参数名，直接用简写形式：
 
-## 使用配置文件持久化
+```powershell
+Set-Alias pm pnpm
+```
 
-直接在 PowerShell 中执行 `Set-Alias` 只会在当前窗口中生效，关闭之后就可能使用了。如果想要后续还可以继续使用该命令，可以写到 PowerShell  配置文件中。可以使用下面命令打开配置文件：
+设置完成后，用 `Get-Alias` 即可查看确认：
 
-```PowerShell
+```powershell
+Get-Alias pm
+
+CommandType     Name             Version    Source
+-----------     ----             -------    ------
+Alias           pm -> pnpm
+```
+
+:::tip[关键限制]
+`-Value` 只能填**一个命令的名字**（cmdlet、函数、脚本或可执行程序名），**不能填「命令 + 参数」**。这是别名与函数最本质的区别，下文会详细说明。
+:::
+
+## 二、把别名写进配置文件持久化
+
+直接在 PowerShell 窗口里执行 `Set-Alias` 只在**当前窗口**生效，关闭窗口就失效了。想要以后每次打开都能用，需要把命令写进 PowerShell 的**配置文件**（`$PROFILE`）。
+
+用下面命令打开配置文件：
+
+```powershell
 notepad $PROFILE
 ```
 
-如果执行该命令提示 “找不到指定路径”，是因为 PowerShell 配置文件还没有创建。可以通过在 PowerShell 中执行下面命令解决：
+若提示「找不到指定路径」，说明配置文件还没被创建过。可以先执行下面这段创建它：
 
-```PowerShell
+```powershell
 if (!(Test-Path -Path $PROFILE)) {
     New-Item -Type File -Path $PROFILE -Force
 }
 ```
 
-该命令用于检查 PowerShell 配置文件是否存在。如果不存在，则创建。
+它先检查 `$PROFILE` 是否存在，不存在则创建。创建好之后，把 `Set-Alias`（或后文的 `function`）写进去保存即可。修改完用 `. $PROFILE`（dot-source）重新加载，无需重启窗口：
 
-之后将 Alias 命令写到配置文件中保存即可！
-
-需要注意的一点是，`Set-Alias` 命令不支持参数输入，比如下面的命令就无法正确设置：
-
-```PowerShell
-Set-Alias -Name RustUpdateStable -Value "rustup update stable"
+```powershell
+. $PROFILE
 ```
 
-因为 stable 是参数，无法正确处理。当你在 PowerShell 中执行 `RustUpdateStable` 命令通常会遇到如下错误信息：
+:::info[`$PROFILE` 的具体路径]
+`$PROFILE` 是个自动变量，指向「当前主机 + 当前用户」的配置文件。不同版本位置不同：
 
+- **Windows PowerShell 5.x**：`~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
+- **PowerShell 7+**：`~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
+
+不确定自己用的是哪个时，执行 `echo $PROFILE` 即可看到完整路径。
+:::
+
+## 三、别名的局限：不能带任何参数
+
+这是初学最容易踩的坑。前面强调过：**`-Value` 只接受一个命令名，不能带参数。** 因此下面这条命令是**无法正确设置**的：
+
+```powershell
+# ❌ 错误：rustup update 是「命令 + 子命令」，不是一个单一命令
+Set-Alias -Name RustUpdate -Value "rustup update"
 ```
-RustUpdateStable : 无法将“rustup.exe update stable”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的
-拼写，如果包括路径，请确保路径正确，然后再试一次。
-所在位置 行:1 字符: 1
-+ RustUpdateStable
-+ ~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (rustup.exe update stable:String) [], CommandNotFoundException
+
+因为 PowerShell 会去寻找一个名叫 `rustup update` 的命令（含中间那个空格），自然找不到。执行 `RustUpdate` 时就会报：
+
+```text
+RustUpdate : 无法将"rustup update"项识别为 cmdlet、函数、脚本文件或可运行程序的名称。
+请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+    + CategoryInfo          : ObjectNotFound: (rustup update:String) [], CommandNotFoundException
     + FullyQualifiedErrorId : CommandNotFoundException
 ```
 
-这种情况下就只能通过自定义 function 解决了
+再比如带更明确的参数 `stable`：
 
-## 自定义 function
+```powershell
+# ❌ 同样错误：stable 是参数，别名无法处理
+Set-Alias -Name RustUpdateStable -Value "rustup update stable"
+```
 
-```PowerShell
+只要命令里**带参数、带子命令**，别名就无能为力——这种情况只能用 `function` 解决。
+
+## 四、用 function 封装带参数的命令
+
+函数可以接受参数、执行逻辑，是别名的「超集」。把上面的 Rust 更新改写成函数：
+
+```powershell
 # 更新 Rust
 function rust_update {
     param (
@@ -75,113 +120,49 @@ function rust_update {
 }
 ```
 
-- `function rust_update {}`：定义了一个名为 `rust_update` 的函数。
-- `param ([string]$version = "stable")`：定义了一个参数 `$version`，默认为 `"stable"`。
-- `rustup update $version`：函数体，执行 `rustup update` 命令并将 `$version` 作为参数传递。
+- `function rust_update {}`：定义一个名为 `rust_update` 的函数。
+- `param ([string]$version = "stable")`：声明参数 `$version`，默认值为 `"stable"`。
+- `rustup update $version`：函数体，执行 `rustup update` 并把参数传进去。
 
-通过这种方式，你就可以创建一个功能类似于别名的命令，并允许传递参数。
+这样就能像别名一样调用，还支持传参：
 
 ```powershell
-# 更新到 nightly 版本
-rust_update nightly
-
-# 默认选择 stable 版本
-rust_update
+rust_update nightly   # 更新到 nightly 版本
+rust_update           # 不传参，默认用 stable
 ```
 
-自定义函数的功能不仅仅如此，还能使用 `$args` 完全接受外部参数。
+## 五、用 `$args` 透传任意参数
 
-## 借助 `$args` 实现别名映射
+还有一种常见场景：**把一个命令完整地替换成另一个命令**。比如想让你输入的 `npm` 在底层统一转发给 `pnpm` 执行。这时用 `$args`（自动变量，代表传入的全部参数）即可：
 
-有这么一种场景，想将一个命令完整的替换为另一个命令。以 npm 和 pnpm 为例，我想将输入的 npm 命令在底层执行时统一拦截替换为 pnpm 命令该怎么实现？
-
-这个时候就用上 `$args` 了，简直手拿把掐：
-
-```PowerShell
+```powershell
 # 将 npm 完全映射给 pnpm
 function npm {
     pnpm $args
 }
 ```
 
-输出示例：
-
-```PowerShell
+```powershell
 > npm --help
 Version 10.32.1
 Usage: pnpm [command] [flags]
        pnpm [ -h | --help | -v | --version ]
-
-These are common pnpm commands used in various situations, use 'pnpm help -a' to list all commands
+...
 ```
 
-如果日常使用 pnpm 命令时，觉得命令太长可以考虑简化为 pm：
+如果觉得 `pnpm` 这五个字母还是太长，可以用第一节的方式再给它一个短别名：
 
 ```powershell
-# 设置 pm 别名
+# 设置 pm 别名（无参数，用 Set-Alias 即可）
 Set-Alias -Name pm -Value pnpm
 ```
 
-还有另外一种情况，系统中已存在某个命令，我想使用另外一个命令替换，比如使用 eza 替换 ls（[https://github.com/eza-community/eza](https://github.com/eza-community/eza)）。如果单纯使用 function 你会发现实际并不生效：
-
-```powershell
-function ls {
-    eza --icons $args
-}
-```
-
-这是因为系统自带 ls 命令，它的优先级比 $PROFILE 文件要高。因此，如果想让自定义 function 生效，首先需要先移除系统自带的 ls 命令：
-
-```powershell
-# 先移除系统自带的 ls 别名，否则函数不会被触发
-if (Test-Path Alias:ls) {
-    Remove-Item Alias:ls -Force
-}
-```
-
-之后自定义的 function 就生效了~
+在此基础上，还能封装出一系列带逻辑的「组合命令」。下面是一个相对完整的 pnpm 工具集示例（放在配置文件里即可）：
 
 <details>
-<summary>**$PROFILE 示例**</summary>
-```
-# 解决中文乱码，全局设为 UTF-8
-$OutputEncoding = [System.Text.Encoding]::UTF8
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-[Console]::InputEncoding = [System.Text.Encoding]::UTF8
+<summary><b>pm 系列组合命令示例</b></summary>
 
-# 顺便设置一下别名，让常用的命令支持长路径/特殊字符（可选）
-$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
-
-# 更新 Rust
-function rust_chain_update {
-    Write-Host ">>> 正在更新Rust..." -ForegroundColor Cyan
-    rustup update stable
-
-    Write-Host "`n✅ 更新检查完毕。" -ForegroundColor Green
-}
-
-# wsl显示所有可用分发版本
-function wsl_list_online {
-    param (
-        [string]$list = "--online"
-    )
-    wsl --list --online $args
-}
-
-# 关闭wsl
-function wsl_shutdown {
-    wsl --shutdown
-}
-
-# FFmpeg
-function ffmpeg {
-    ffmpeg.exe -hide_banner $args
-}
-
-function ffprobe {
-    ffprobe.exe -hide_banner $args
-}
-
+```powershell
 # 将 npm 完全映射给 pnpm
 function npm {
     pnpm $args
@@ -226,7 +207,6 @@ function pm_clear_cache {
     if (Test-Path "package.json") {
         Write-Host ">>> 检测到 Node 项目，准备清理本地 node_modules..." -ForegroundColor Yellow
         if (Test-Path "node_modules") {
-            # 这里的顺序很重要：先强制删除目录
             Remove-Item -Path "node_modules" -Recurse -Force -ErrorAction SilentlyContinue
             Write-Host "✅ node_modules 已成功删除。" -ForegroundColor Green
         }
@@ -235,10 +215,24 @@ function pm_clear_cache {
         }
     }
 }
+```
 
-# eza 替代默认 ls
-# https://github.com/eza-community/eza
+</details>
 
+## 六、覆盖系统内置命令
+
+还有一类情况：系统中**已经存在**某个命令，你想用自己的实现替换它。比如用 [eza](https://github.com/eza-community/eza) 替换默认的 `ls`。如果你直接定义同名函数，会发现它**并不生效**：
+
+```powershell
+# 这样单独定义不会生效
+function ls {
+    eza --icons $args
+}
+```
+
+原因在于：PowerShell 内置了 `ls` 这个别名（指向 `Get-ChildItem`），它的优先级**高于**你后来定义的函数。所以要让自定义函数生效，必须先移除内置别名：
+
+```powershell
 # 先移除系统自带的 ls 别名，否则函数不会被触发
 if (Test-Path Alias:ls) {
     Remove-Item Alias:ls -Force
@@ -255,8 +249,11 @@ function ll {
 function la {
     eza --icons -a $args
 }
+```
 
-# 先移除系统自带的 tree 别名，否则函数不会被触发
+`tree` 同理，也需要先移除内置别名：
+
+```powershell
 if (Test-Path Alias:tree) {
     Remove-Item Alias:tree -Force
 }
@@ -264,27 +261,19 @@ if (Test-Path Alias:tree) {
 function tree {
     eza -T -L $args
 }
-
-function tree_icons {
-    eza --icons -T -L $args
-}
-
-function yt_dlp {
-    yt-dlp.exe --js-runtimes node --remote-components ejs:github
-}
-
-
-# 设置代理
-function proxy_enable {
-    $env:HTTP_PROXY = "http://127.0.0.1:7897"
-    $env:HTTPS_PROXY = "http://127.0.0.1:7897"
-    Write-Host "Proxy ON (127.0.0.1:7897)" -ForegroundColor Green
-}
-
-function proxy_disable {
-    Remove-Item Env:HTTP_PROXY
-    Remove-Item Env:HTTPS_PROXY
-    Write-Host "Proxy OFF" -ForegroundColor Red
-}
 ```
-</details>
+
+:::tip[命令查找顺序]
+PowerShell 解析一个名字时，大致按以下顺序查找：**别名 → 函数 → cmdlet → 外部命令**。所以别名会「挡住」同名函数，必须先 `Remove-Item Alias:<名字>` 把内置别名清掉，函数才有机会被调用。
+:::
+
+## 小结
+
+| 需求 | 用什么 | 示例 |
+|:-----|:-------|:-----|
+| 给单一命令换个短名（不带参数） | `Set-Alias` | `Set-Alias pm pnpm` |
+| 带参数 / 带逻辑 | `function` | `function rust_update { ... }` |
+| 完整转发到另一个命令 | `function` + `$args` | `function npm { pnpm $args }` |
+| 替换系统内置命令 | 移除内置别名 + `function` | `Remove-Item Alias:ls -Force` |
+
+当别名和函数越写越多，全部塞进一个 `$PROFILE` 会变得很难维护。建议把它们**按工具/领域拆分到不同文件**，再由主配置文件统一加载——具体做法见 [PowerShell 配置文件最佳实践](./PowerShell%20配置文件最佳实践.md)。
