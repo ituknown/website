@@ -23,7 +23,7 @@
 本文提供两套实现，按平台选用其一：
 
 - **Linux / macOS**：使用 Bash/Zsh 的 `usejdk` 函数
-- **Windows**：使用 PowerShell 的 `Use-Jdk` 函数
+- **Windows**：使用 PowerShell 的 `UseJdk` 函数
 
 两者逻辑完全一致，仅环境变量语法、PATH 分隔符等平台细节不同。
 
@@ -103,9 +103,9 @@ $ source ~/.bashrc     # Bash
 
 ```powershell
 # 命令行临时切换 JDK 版本（仅对当前 PowerShell 会话生效）
-# 用法: Use-Jdk <版本号>
-# 示例: Use-Jdk 17
-function Use-Jdk {
+# 用法: UseJdk <版本号>
+# 示例: UseJdk 17
+function UseJdk {
     param(
         [Parameter(Position = 0)]
         [string]$Version
@@ -113,8 +113,8 @@ function Use-Jdk {
 
     # 参数校验：未传入版本号时给出提示并退出
     if ([string]::IsNullOrWhiteSpace($Version)) {
-        Write-Host "用法: Use-Jdk <版本号>"
-        Write-Host "示例: Use-Jdk 17"
+        Write-Host "用法: UseJdk <版本号>"
+        Write-Host "示例: UseJdk 17"
         return
     }
 
@@ -127,7 +127,7 @@ function Use-Jdk {
         Write-Host "❌ 错误: 未找到 JDK $Version，路径不存在:"
         Write-Host "   $targetHome"
         Write-Host ""
-        Write-Host "💡 提示: 请确认对应版本已安装，或修改 Use-Jdk 中的 targetHome 路径"
+        Write-Host "💡 提示: 请确认对应版本已安装，或修改 UseJdk 中的 targetHome 路径"
         return
     }
 
