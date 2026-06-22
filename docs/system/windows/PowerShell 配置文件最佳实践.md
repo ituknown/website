@@ -114,7 +114,7 @@ function proxy_disable {
 }
 ```
 
-**`Java.ps1`** —— JDK 临时切换函数 `UseJdk`（完整实现见 [命令行临时切换 JDK 版本](/jvm/java/命令行临时切换%20JDK%20版本)）：
+**`Java.ps1`** —— JDK 临时切换函数 `UseJdk`（完整实现见 [命令行临时切换 JDK 版本](/java/命令行临时切换%20JDK%20版本)）：
 
 ```powershell
 # 用法: UseJdk <版本号>  示例: UseJdk 17

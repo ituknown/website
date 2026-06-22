@@ -158,9 +158,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'java',
-                path: 'docs/jvm/java',
-                routeBasePath: 'jvm/java',
-                sidebarPath: './sidebars/jvm/java.ts',
+                path: 'docs/java/java',
+                routeBasePath: 'java',
+                sidebarPath: './sidebars/java/java.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -171,9 +171,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'spring',
-                path: 'docs/jvm/spring',
-                routeBasePath: 'jvm/spring',
-                sidebarPath: './sidebars/jvm/spring.ts',
+                path: 'docs/java/spring',
+                routeBasePath: 'java/spring',
+                sidebarPath: './sidebars/java/spring.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -184,9 +184,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'kafka',
-                path: 'docs/jvm/kafka',
-                routeBasePath: 'jvm/kafka',
-                sidebarPath: './sidebars/jvm/kafka.ts',
+                path: 'docs/java/kafka',
+                routeBasePath: 'java/kafka',
+                sidebarPath: './sidebars/java/kafka.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -210,9 +210,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'git',
-                path: 'docs/programmer/git',
-                routeBasePath: 'programmer/git',
-                sidebarPath: './sidebars/programmer/git.ts',
+                path: 'docs/tools/git',
+                routeBasePath: 'tools/git',
+                sidebarPath: './sidebars/tools/git.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -223,9 +223,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'protocol',
-                path: 'docs/programmer/protocol',
-                routeBasePath: 'programmer/protocol',
-                sidebarPath: './sidebars/programmer/protocol.ts',
+                path: 'docs/tools/protocol',
+                routeBasePath: 'tools/protocol',
+                sidebarPath: './sidebars/tools/protocol.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -236,9 +236,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'rust',
-                path: 'docs/programmer/rust',
-                routeBasePath: 'programmer/rust',
-                sidebarPath: './sidebars/programmer/rust.ts',
+                path: 'docs/rust',
+                routeBasePath: 'rust',
+                sidebarPath: './sidebars/rust.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -249,9 +249,9 @@ const config: Config = {
             '@docusaurus/plugin-content-docs',
             {
                 id: 'python',
-                path: 'docs/programmer/python',
-                routeBasePath: 'programmer/python',
-                sidebarPath: './sidebars/programmer/python.ts',
+                path: 'docs/python',
+                routeBasePath: 'python',
+                sidebarPath: './sidebars/python.ts',
                 showLastUpdateTime: false,
                 onInlineTags: 'throw',
                 remarkPlugins: [remarkMath],
@@ -386,7 +386,7 @@ const config: Config = {
                     ],
                 }, {
                     type: 'dropdown',
-                    label: 'JVM 生态',
+                    label: '☕ Java 生态',
                     position: 'left',
                     items: [
                         {
@@ -413,7 +413,24 @@ const config: Config = {
                     label: '📀数据库',
                 }, {
                     type: 'dropdown',
-                    label: '🛠编程',
+                    label: '🔤 编程语言',
+                    position: 'left',
+                    items: [
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'python',
+                            docsPluginId: 'python',
+                            label: '🐍 Python',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'rust',
+                            docsPluginId: 'rust',
+                            label: '🦀 Rust',
+                        },
+                    ],
+                }, {
+                    type: 'dropdown',
+                    label: '🛠 工具',
                     position: 'left',
                     items: [
                         {
@@ -426,17 +443,7 @@ const config: Config = {
                             sidebarId: 'protocol',
                             docsPluginId: 'protocol',
                             label: '🌍 Protocol',
-                        }, {
-                            type: 'docSidebar',
-                            sidebarId: 'rust',
-                            docsPluginId: 'rust',
-                            label: '🦀 Rust',
-                        }, {
-                            type: 'docSidebar',
-                            sidebarId: 'python',
-                            docsPluginId: 'python',
-                            label: '🐍 Python',
-                        }
+                        },
                     ],
                 },
                 {
