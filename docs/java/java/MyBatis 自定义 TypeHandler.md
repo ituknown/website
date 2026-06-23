@@ -1,146 +1,296 @@
-TypeHandler 是 MyBatis 中一个重要的组件，它的作用是将数据库中的数据类型与 Java 中的数据类型进行转换。
+TypeHandler（类型处理器）负责 MyBatis 在 Java 类型与 JDBC 类型之间做转换。绝大多数情况下内置的就够用了，只有遇到敏感字段加密、自定义类型与数据库列互转这类需求，才需要自己写一个。
 
-在开发过程中，当默认的 TypeHandler 无法满足需求或需要将自定义的类与数据库类型做映射时，就需要实现或扩展对应的 TypeHandler（比如敏感数据实现脱敏就）。
+## TypeHandler 是什么，有什么用？
 
-当然，TypeHandler 的作用还不仅仅如此，还可以处理 Null 值问题。比如查询数据，当数据库字段的值为 NULL 时，就可以通过 TypeHandler 会将其转换为 Java 中合适的表示方式。
+JDBC 只认一组固定的 SQL 类型（`VARCHAR`、`INTEGER`、`TIMESTAMP`…），Java 侧的类型要丰富得多，两者之间的转换就由 TypeHandler 完成。它在两个时机介入：
 
-自定义 TypeHandler 可以通过实现 org.apache.ibatis.type.TypeHandler 接口，不过官网文档建议直接继承 org.apache.ibatis.type.BaseTypeHandler。
+- **写入**：往 `PreparedStatement` 设置参数，Java 值 → JDBC 值。
+- **读取**：从 `ResultSet`（或存储过程的 `CallableStatement`）取值，JDBC 值 → Java 值。
 
-MyBatis 已经内置了很多 TypeHandler，这些 TypeHandler 已经可以满足我们日常的开发需求。
+SQL 里每个 `#{param}` 入参、结果集的每一列，背后都经过一个 TypeHandler。
 
-比如处理 java.util.Date 的 org.apache.ibatis.type.DateTypeHandler。
+类型落在 JDBC 能直接表达的范围内（`String` ↔ `VARCHAR`、`Integer` ↔ `INTEGER`…），内置处理器会自动处理；需要自定义的典型场景：
 
-下面是一个执行身份证号码保存和查询时脱敏的示例：
+- **加密存储**：敏感字段入库前加密、读取时解密。
+- **脱敏**：身份证号、手机号出库时打码。
+- **自定义类型映射**：JSON 对象以字符串存进 `VARCHAR`，读取时反序列化；或一组值序列化成 JSON。
+- **枚举**：按名称还是按序号存取。
+- **NULL 处理**：把数据库的 `NULL` 转成 Java 侧更合适的表示。
+
+## 标准库实例
+
+MyBatis 内置了大量 TypeHandler，覆盖几乎所有常用类型，启动时由 `TypeHandlerRegistry` 自动注册。常见的几个（完整列表见文末官方文档）：
+
+| 类型处理器 | Java 类型 | JDBC 类型 |
+| --- | --- | --- |
+| `BooleanTypeHandler` | `Boolean` / `boolean` | `BOOLEAN` |
+| `IntegerTypeHandler` | `Integer` / `int` | `NUMERIC` / `INTEGER` |
+| `LongTypeHandler` | `Long` / `long` | `NUMERIC` / `BIGINT` |
+| `BigDecimalTypeHandler` | `BigDecimal` | `NUMERIC` / `DECIMAL` |
+| `StringTypeHandler` | `String` | `CHAR` / `VARCHAR` |
+| `ClobTypeHandler` | `String` | `CLOB` / `LONGVARCHAR` |
+| `ByteArrayTypeHandler` | `byte[]` | 字节流类型 |
+| `BlobTypeHandler` | `byte[]` | `BLOB` / `LONGVARBINARY` |
+| `DateTypeHandler` | `java.util.Date` | `TIMESTAMP` |
+| `SqlTimestampTypeHandler` | `java.sql.Timestamp` | `TIMESTAMP` |
+| `EnumTypeHandler` | 枚举 | 字符串（存枚举名称） |
+| `EnumOrdinalTypeHandler` | 枚举 | 数值（存枚举序号） |
+
+:::tip[NOTE]
+从 MyBatis 3.4.5 起，`java.time.*`（`LocalDateTime`、`LocalDate`、`Instant` 等）的处理器也内置了，无需再手写转换。
+:::
+
+自定义之前，先确认有没有现成的能直接用。
+
+## 自定义 TypeHandler
+
+两种写法：
+
+1. 实现 `org.apache.ibatis.type.TypeHandler<T>` 接口；
+2. 继承 `org.apache.ibatis.type.BaseTypeHandler<T>`（官方推荐）。
+
+直接实现接口得自己处理 `null`；`BaseTypeHandler` 已经把 `null` 判断包好了，子类只需实现四个「非空」方法，正好对应上面两个转换方向：
+
+| 方法 | 方向 | 作用 |
+| --- | --- | --- |
+| `setNonNullParameter(PreparedStatement, int, T, JdbcType)` | Java → 数据库 | 把非空 Java 值设置到 `PreparedStatement` 上 |
+| `getNullableResult(ResultSet, String)` | 数据库 → Java | 按列名从结果集取值并转换 |
+| `getNullableResult(ResultSet, int)` | 数据库 → Java | 按列下标从结果集取值并转换 |
+| `getNullableResult(CallableStatement, int)` | 数据库 → Java | 从存储过程输出参数取值并转换 |
+
+> 写入时，`BaseTypeHandler` 会先判断参数是否为 `null`：是则调用 `ps.setNull()`，否则才调用你的 `setNonNullParameter`。所以实现里只关心非空逻辑即可。
+
+一个字符串加密处理器：写入用 AES/GCM 加密后存库，读取解密还原。
 
 ```java
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Base64;
 
-public class IdCardDesensitizationTypeHandler extends BaseTypeHandler<String> {
+/**
+ * 对字符串字段做 AES/GCM 对称加密的 TypeHandler。
+ * 写入时加密并以 Base64 字符串存库，读取时解密还原为明文。
+ */
+public class EncryptedStringTypeHandler extends BaseTypeHandler<String> {
+
+    private static final String TRANSFORMATION = "AES/GCM/NoPadding";
+    private static final int GCM_TAG_BITS = 128;
+    private static final int IV_BYTES = 12;
 
     /**
-     * 保存时设置数据库类型
+     * 加密密钥（128 bit）。
+     * 生产环境中务必从配置中心或密钥管理服务（KMS）读取，切勿硬编码。
+     */
+    private static final SecretKeySpec SECRET =
+            new SecretKeySpec("0123456789abcdef".getBytes(StandardCharsets.UTF_8), "AES");
+
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    /**
+     * 写入：加密明文（Java → 数据库）。
      */
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
-        // 验证身份证合法性
-        if (!verify(parameter)) {
-            // 如果不合法...
-        }
-        ps.setString(i, parameter); // 数据库类型
+    public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
+            throws SQLException {
+        ps.setString(i, encrypt(parameter));
     }
 
     /**
-     * 从数据库获取时转换为 Java 对应的数据类型
+     * 读取：解密密文（数据库 → Java）。
      */
     @Override
     public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return desensitization(rs.getString(columnName));
+        return decrypt(rs.getString(columnName));
     }
 
     @Override
     public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return desensitization(rs.getString(columnIndex));
+        return decrypt(rs.getString(columnIndex));
     }
 
     @Override
     public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return desensitization(cs.getString(columnIndex));
+        return decrypt(cs.getString(columnIndex));
     }
 
     /**
-     * 身份证件号码脱敏
+     * AES/GCM 加密：每次生成随机 IV，把 IV 拼在密文前，整体 Base64 编码。
+     * 这样同一明文每次的密文都不同，且密文自带 IV，无需单独存储。
      */
-    private String desensitization(String number) {
-        // 脱敏逻辑
-        return "";
+    private static String encrypt(String plain) {
+        try {
+            byte[] iv = new byte[IV_BYTES];
+            RANDOM.nextBytes(iv);
+
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.ENCRYPT_MODE, SECRET, new GCMParameterSpec(GCM_TAG_BITS, iv));
+            byte[] cipherText = cipher.doFinal(plain.getBytes(StandardCharsets.UTF_8));
+
+            byte[] combined = new byte[iv.length + cipherText.length];
+            System.arraycopy(iv, 0, combined, 0, iv.length);
+            System.arraycopy(cipherText, 0, combined, iv.length, cipherText.length);
+
+            return Base64.getEncoder().encodeToString(combined);
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("加密失败", e);
+        }
     }
 
     /**
-     * 校验身份证合法性
-     * <p>
-     * <a href="https://zh.wikipedia.org/wiki/中华人民共和国公民身份号码">中华人民共和国公民身份号码</a></p>
-     * <p>     * <a href="http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm">http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm</a></p>     */    private static boolean verify(String number) {
-        if (number == null || number.length() != 18) {
-            return false;
+     * AES/GCM 解密：Base64 解码后取出前 12 字节作为 IV，剩余部分为密文。
+     */
+    private static String decrypt(String cipherText) {
+        if (cipherText == null) {
+            return null;
         }
+        try {
+            byte[] combined = Base64.getDecoder().decode(cipherText);
+            byte[] iv = Arrays.copyOfRange(combined, 0, IV_BYTES);
+            byte[] ct = Arrays.copyOfRange(combined, IV_BYTES, combined.length);
 
-        int sum = 0;
-        for (int idx = 0; idx < 17; ++idx) {
-            sum += Math.pow(2, (17 - idx)) % 11 * (number.charAt(idx) - '0');
-        }
-
-        int checkCode = (12 - (sum % 11)) % 11;
-
-        if (checkCode < 10) {
-            return checkCode == number.charAt(17) - '0';
-        } else {
-            return number.charAt(17) == 'X' || number.charAt(17) == 'x';
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.DECRYPT_MODE, SECRET, new GCMParameterSpec(GCM_TAG_BITS, iv));
+            return new String(cipher.doFinal(ct), StandardCharsets.UTF_8);
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("解密失败", e);
         }
     }
 }
 ```
 
-在 Mapper 中想使用自定义的 TypeHandler，可以通过 `@Result` 注解来指定某个字段使用该 TypeHandler，如：
+核心就一句话：写库前的逻辑放 `setNonNullParameter`，读出后的逻辑放 `getNullableResult`。
+
+要让处理器自动关联某个 Java 类型或 JDBC 类型，加注解即可（都可选）：
+
+```java
+@MappedTypes(String.class)        // 声明处理的 Java 类型
+@MappedJdbcTypes(JdbcType.VARCHAR) // 声明处理的 JDBC 类型
+public class EncryptedStringTypeHandler extends BaseTypeHandler<String> {
+    // ...
+}
+```
+
+## 使用方式
+
+按作用范围从小到大，有这么几种。
+
+### 字段级（最常用）
+
+在单个字段上指定处理器。写入用 `#{property, typeHandler=全限定类名}`：
+
+```xml
+<insert id="insert">
+    insert into user (id, id_card_number)
+    values (#{id}, #{idCardNumber, typeHandler=com.example.EncryptedStringTypeHandler})
+</insert>
+```
+
+读取在 `resultMap` 里给字段加 `typeHandler`：
+
+```xml
+<resultMap id="userMap" type="com.example.User">
+    <id column="id" property="id"/>
+    <result column="id_card_number" property="idCardNumber"
+            typeHandler="com.example.EncryptedStringTypeHandler"/>
+</resultMap>
+```
+
+:::danger
+读取走 TypeHandler 时，`select` 必须用 `resultMap` 而非 `resultType`，否则映射不到处理器。
+:::
+
+注解写法等价，用 `@Result` 指定：
 
 ```java
 @Select("select * from user where id = #{id}")
 @Results(id = "userMap", value = {
-	// 其他字段的映射...
-	@Result(
-		property = "idCardNumber",
-		column = "id_card_number",
-		jdbcType = JdbcType.VARCHAR,
-		typeHandler = IdCardDesensitizationTypeHandler.class)
-	})
-UserPo getById(@Param("id") int id);
+        // 其他字段的映射...
+        @Result(
+                property = "idCardNumber",
+                column = "id_card_number",
+                jdbcType = JdbcType.VARCHAR,
+                typeHandler = EncryptedStringTypeHandler.class)
+})
+User getById(@Param("id") int id);
 ```
 
-如果使用的是 XML，可以在 resultMap 中指定：
+### 全局注册
+
+注册为全局后，所有该类型字段都会走它（覆盖同类型内置处理器）：
 
 ```xml
-<resultMap id="ResultMap" type="com...User">
-  <id column="id" property="id"/>
-  <result column="id_card_number" property="idCardNumber" typeHandler="com...IdCardDesensitizationTypeHandler"/>
-</resultMap>
+<typeHandlers>
+    <typeHandler handler="com.example.EncryptedStringTypeHandler"/>
+</typeHandlers>
 ```
 
-虽然不推荐，但是还是可以在全局中使用。具体的方式实在 mybatis 的配置文件中，示例：
+或扫描整个包（此时 JDBC 类型只能用 `@MappedJdbcTypes` 声明）：
 
 ```xml
-<configuration>
-
-  ...
-
-  <typeHandlers>
-    <typeHandler handler="com...IdCardDesensitizationTypeHandler" />
-  </typeHandlers>
-
-  ...
-
-</configuration>
+<typeHandlers>
+    <package name="com.example.typehandler"/>
+</typeHandlers>
 ```
 
+:::warning[NOTE]
+全局注册会接管 `String ↔ VARCHAR` 的**所有**字段——其它不需要加密的 `VARCHAR` 也会被加密。加密这类强语义处理器，更适合按字段指定。
+:::
 
-不过有一点需要注意，MyBatis 配置文件中的 `<configuration>` 元素的子元素的顺序必须按照以下的顺序出现，否则会提示错误：
+两个细节：
 
-$1.$ `<properties>`<br/>
-$2.$ `<settings>`<br/>
-$3.$ `<typeAliases>`<br/>
-$4.$ `<typeHandlers>`<br/>
-$5.$ `<objectFactory>`<br/>
-$6.$ `<objectWrapperFactory>`<br/>
-$7.$ `<reflectorFactory>`<br/>
-$8.$ `<plugins>`<br/>
-$9.$ `<environments>`<br/>
-$10.$ `<databaseIdProvider>`<br/>
-$11.$ `<mappers>`<br/>
+- Java 类型默认由处理器泛型推断（`BaseTypeHandler<String>` → `String`）；可在 `<typeHandler>` 上用 `javaType="String"` 覆盖，或在类上加 `@MappedTypes`。
+- `@MappedJdbcTypes` 会**限制**生效范围；从 3.4.0 起，若某 Java 类型只注册了一个处理器，它在 `ResultMap` 里自动成为默认。
 
-每个元素都是可选的，但是如果存在，它们必须按照上述的顺序出现。
+### Spring Boot
 
-[https://mybatis.org/mybatis-3/configuration.html#typeHandlers](https://mybatis.org/mybatis-3/configuration.html#typeHandlers)
+`application.yml` 配扫描包即可：
+
+```yaml
+mybatis:
+  type-handlers-package: com.example.typehandler
+```
+
+或手动配置 `SqlSessionFactoryBean`：
+
+```java
+@Bean
+public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+    SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
+    factory.setDataSource(dataSource);
+    factory.setTypeHandlersPackage("com.example.typehandler");
+    return factory;
+}
+```
+
+另外，`<configuration>` 的子元素**必须**按固定顺序出现，否则启动报错（顺序如下，每个都可选，但出现就得按这个排）：
+
+1. `properties`
+2. `settings`
+3. `typeAliases`
+4. `typeHandlers`
+5. `objectFactory`
+6. `objectWrapperFactory`
+7. `reflectorFactory`
+8. `plugins`
+9. `environments`
+10. `databaseIdProvider`
+11. `mappers`
+
+---
+
+参考链接：
+
+- [MyBatis 官方文档 - 类型处理器（typeHandlers）](https://mybatis.org/mybatis-3/zh_CN/configuration.html#typeHandlers)
+- [BaseTypeHandler JavaDoc](https://mybatis.org/mybatis-3/apidocs/org/apache/ibatis/type/BaseTypeHandler.html)
