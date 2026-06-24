@@ -154,6 +154,19 @@ const config: Config = {
                 rehypePlugins: [rehypeKatex],
             },
         ], [
+            // MacOS 文档实例
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'macos',
+                path: 'docs/system/macos',
+                routeBasePath: 'system/macos',
+                sidebarPath: './sidebars/system/macos.ts',
+                showLastUpdateTime: false,
+                onInlineTags: 'throw',
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+            },
+        ], [
             // Java 文档实例
             '@docusaurus/plugin-content-docs',
             {
@@ -382,6 +395,11 @@ const config: Config = {
                             sidebarId: 'windows',
                             docsPluginId: 'windows',
                             label: 'Windows',
+                        }, {
+                            type: 'docSidebar',
+                            sidebarId: 'macos',
+                            docsPluginId: 'macos',
+                            label: 'MacOS',
                         },
                     ],
                 }, {
