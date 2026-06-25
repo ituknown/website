@@ -25,3 +25,7 @@ YAML:
 性能:
   label: 性能
   permalink: /性能
+
+代理:
+  label: 代理
+  permalink: /代理
