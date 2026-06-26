@@ -270,19 +270,6 @@ const config: Config = {
                 remarkPlugins: [remarkMath],
                 rehypePlugins: [rehypeKatex],
             },
-        ], [
-            // Dollar 文档实例
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'dollar',
-                path: 'docs/dollar',
-                routeBasePath: 'dollar',
-                sidebarPath: './sidebars/dollar.ts',
-                showLastUpdateTime: false,
-                onInlineTags: 'throw',
-                remarkPlugins: [remarkMath],
-                rehypePlugins: [rehypeKatex],
-            },
         ],
     ],
 
@@ -464,14 +451,6 @@ const config: Config = {
                         },
                     ],
                 },
-                {
-                    type: 'docSidebar',
-                    sidebarId: 'dollar',
-                    docsPluginId: 'dollar',
-                    position: 'left',
-                    label: '💰钱钱',
-                },
-
                 {
                     to: '/blog',
                     label: '📝博客',
