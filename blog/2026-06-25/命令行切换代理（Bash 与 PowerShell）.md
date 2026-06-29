@@ -80,6 +80,62 @@ proxy_enable() {
 - `curl -I -s --connect-timeout 3 -w "%{http_code}" -o /dev/null`：只取响应头、静默、3 秒连接超时、末尾打印 HTTP 状态码、正文丢弃。拿到 `200` 即通。
 - 失败分支先 `proxy_disable` 清理变量，再 `return 2`，用非零返回值标记失败，方便在脚本里判断。
 
+### WSL：宿主机地址不是 127.0.0.1
+
+WSL2 默认走独立的 NAT 网络，`127.0.0.1` 指向 WSL 自身而非 Windows 宿主机，直接连 `127.0.0.1:7897` 连不到宿主机上的代理。宿主机 IP 记在 `/etc/resolv.conf` 的 `nameserver` 一行里：
+
+```bash
+grep nameserver /etc/resolv.conf | awk '{print $2}'
+```
+
+要让上面的 `proxy_enable` 在 WSL 下也直接可用，在解析端口后加一段 host 判断：非 WSL 用 `127.0.0.1`，WSL 用宿主机 IP。`/proc/version` 里带 `microsoft` 字样即可识别 WSL：
+
+```bash
+proxy_enable() {
+    if [ -z "$1" ]; then
+        echo -e "\033[90m💡 提示命令用法: proxy_enable <端口号>\033[0m"
+        echo -e "\033[36m🔄 检测到未指定端口，将使用默认端口: ${GLOBAL_DEFAULT_PROXY_PORT}\033[0m"
+    fi
+
+    local port=${1:-$GLOBAL_DEFAULT_PROXY_PORT}
+
+    # ↓↓↓ 新增：WSL 下用宿主机 IP，否则 127.0.0.1 连不到宿主机代理
+    local host="127.0.0.1"
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+        host=$(grep nameserver /etc/resolv.conf | awk '{print $2}')
+        echo -e "\033[36m🌐 检测到 WSL，使用宿主机 IP: ${host}\033[0m"
+    fi
+    # ↑↑↑
+
+    # 6 个 export 把原来的 127.0.0.1 全部换成 ${host}
+    export http_proxy="http://${host}:${port}"
+    export https_proxy="http://${host}:${port}"
+    export all_proxy="socks5://${host}:${port}"
+    export HTTP_PROXY="http://${host}:${port}"
+    export HTTPS_PROXY="http://${host}:${port}"
+    export ALL_PROXY="socks5://${host}:${port}"
+
+    echo -e "\033[36m🚀 代理变量已设置 (${host}:${port})，正在验证网络...\033[0m"
+
+    # 后续验证、回滚逻辑不变……
+}
+```
+
+改动只有两处：插入一段 `host` 变量判断，再把 6 个 `export` 里的 `127.0.0.1` 换成 `${host}`。`proxy_disable` 不用动。Windows 侧代理软件还需开启「允许局域网连接（Allow LAN）」，否则宿主机会拒绝来自 WSL 网段的请求。
+
+### 换 mirrored 模式：127.0.0.1 直接可用
+
+不想改脚本的话，切到 WSL2 的 mirrored 网络模式更省事——该模式下 WSL 与宿主机共享网卡，`localhost` 互通，`127.0.0.1` 直接连到宿主机代理，上面的 host 判断也就不必加。前提是 **Windows 11 22H2 及以上**（Win10 不支持）。
+
+在 Windows 用户目录（`%USERPROFILE%`）下新建 `.wslconfig`，写入：
+
+```ini
+[wsl2]
+networkingMode=mirrored
+```
+
+保存后执行 `wsl --shutdown` 关掉再重开 WSL 即可生效。
+
 ## PowerShell 实现
 
 ```powershell
